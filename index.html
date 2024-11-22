@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>harpio • Calculadora de Custos de R&S</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5009B0;
+
+
+            --secondary: #475569;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #C5ACFF 0%, #1e40af 100%);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .feature-card {
+            border: none;
+            transition: transform 0.3s ease;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .calculator-section {
+            background: #f8fafc;
+            border-radius: 2rem;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            height: 100%;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin: 1rem 0;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #5009B0 0%, #5009B0 100%);
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .form-control, .btn {
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .tab-content {
+            padding: 2rem;
+            background: white;
+            border-radius: 0 0 1rem 1rem;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            color: var(--secondary);
+            padding: 1rem 2rem;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: var(--primary);
+            color: white;
+            border-radius: 1rem 1rem 0 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold mb-4">Descubra o verdadeiro custo do seu recrutamento</h1>
+                    <p class="lead mb-4">Calcule quanto sua empresa perde com vagas abertas e processos de R&S ineficientes. Use nossas calculadoras exclusivas e tome decisões baseadas em dados.</p>
+                    <a style="background-color: #733AC0; color: aliceblue;" href="#calculadoras" class="btn btn-lg">Calcular Agora</a>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://trackingsystem.tech/Group%2021%201.png" alt="Hero Image" class="img-fluid rounded-4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Por que calcular seus custos de R&S?</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M2 12h20"/>
+                                </svg>
+                            </div>
+                            <h4>Redução de Custos</h4>
+                            <p>Identifique onde estão os maiores gastos e otimize seu processo de recrutamento.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
+                            </div>
+                            <h4>Tempo Otimizado</h4>
+                            <p>Entenda o impacto do tempo de vaga aberta na sua receita.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mx-auto">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                                </svg>
+                            </div>
+                            <h4>Decisões Estratégicas</h4>
+                            <p>Use dados reais para tomar melhores decisões em seus processos de R&S.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section id="calculadoras" class="section bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">Calculadoras de R&S</h2>
+            
+            <ul class="nav nav-tabs" id="calculatorTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#custos" type="button">
+                        Custos de Recrutamento
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#receita" type="button">
+                        Perda de Receita
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="custos">
+                    <form id="calculadoraForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="diasAbertos">Dias com a vaga aberta:</label>
+                                    <input type="number" class="form-control" id="diasAbertos" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="salarioMensal">Salário mensal da posição:</label>
+                                    <input type="number" class="form-control" id="salarioMensal" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="custoRecrutamento">Custo com recrutamento:</label>
+                                    <input type="number" class="form-control" id="custoRecrutamento" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="custoOportunidade">Custo de oportunidade diário:</label>
+                                    <input type="number" class="form-control" id="custoOportunidade" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="candidatosEntrevistados">Candidatos entrevistados:</label>
+                                    <input type="number" class="form-control" id="candidatosEntrevistados">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Sem Consultoria</th>
+                                        <th>Modelo Expert</th>
+                                        <th>Modelo Sprint</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Custo Total</td>
+                                        <td id="custoTotalSemConsultoria">R$ 0</td>
+                                        <td id="custoTotalExpert">R$ 0</td>
+                                        <td id="custoTotalSprint">R$ 0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sua Economia</td>
+                                        <td>-</td>
+                                        <td id="economiaExpert">R$ 0</td>
+                                        <td id="economiaSprint">R$ 0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="receita">
+                    <form id="calculadoraReceitaForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="receitaAnual">Receita anual da empresa:</label>
+                                    <input type="number" class="form-control" id="receitaAnual" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="numFuncionarios">Total de funcionários:</label>
+                                    <input type="number" class="form-control" id="numFuncionarios" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="multiplicadorReceita">Multiplicador de receita (1-3):</label>
+                                    <input type="number" class="form-control" id="multiplicadorReceita" min="1" max="3" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="diasVagaAberta">Dias com a vaga aberta:</label>
+                                    <input type="number" class="form-control" id="diasVagaAberta" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita média por funcionário</h5>
+                                    <h3 id="receitaMediaFuncionario">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita diária média</h5>
+                                    <h3 id="receitaDiariaFuncionario">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita diária ajustada</h5>
+                                    <h3 id="receitaDiariaAjustada">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="background-color: #733AC0;" class="stat-card text-white">
+                                    <h5>Perda total de receita</h5>
+                                    <h3 id="perdaReceitaTotal">R$ 0,00</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="text-center mb-5" data-aos="fade-up">O que nossos clientes dizem</h2>
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-card">
+                        <div class="mb-3">★★★★★</div>
+                        <p>"Incrível! Após usar as calculadoras, conseguimos reduzir nosso tempo médio de contratação em 40%."</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://trackingsystem.tech/a2.png" class="rounded-circle me-3" alt="Avatar">
+                            <div>
+                                <h5 class="mb-0">Ana Silva</h5>
+                                <small>Head de RH, Tech Solutions</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-card">
+                        <div class="mb-3">★★★★★</div>
+                        <p>"As métricas nos ajudaram a justificar investimentos em R&S para a diretoria. Excelente ferramenta!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://trackingsystem.tech/a1.png" class="rounded-circle me-3" alt="Avatar">
+                            <div>
+                                <h5 class="mb-0">Carlos Santos</h5>
+                                <small>Diretor de RH, Inovax</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="testimonial-card">
+                        <div class="mb-3">★★★★★</div>
+                        <p>"Finalmente conseguimos mensurar o real impacto financeiro das nossas vagas abertas. Surpreendente!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://trackingsystem.tech/a4.png" class="rounded-circle me-3" alt="Avatar">
+                            <div>
+                                <h5 class="mb-0">Marina Costa</h5>
+                                <small>CEO, StartupX</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h2 class="display-6 fw-bold mb-4">Pronto para otimizar seu processo de R&S?</h2>
+                    <p class="lead">Junte-se a centenas de empresas que já transformaram sua forma de recrutar.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <a href="#calculadoras" class="btn btn-light btn-lg">Começar Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <img src="https://trackingsystem.tech/Extenso_Branco.png" alt="Hero Image" width="30%" class="img-fluid">
+                    <p>Transformando dados em decisões inteligentes para seu R&S</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Contato</h5>
+                    <p>
+                        Email: contato@harpio.com.br<br>
+                        Tel: (11) 99999-9999
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Redes Sociais</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <small>&copy; 2024 harpio. Todos os direitos reservados.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Inicializa as animações AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Calculadora de Custos de Recrutamento
+        const form = document.getElementById('calculadoraForm');
+        const diasAbertos = document.getElementById('diasAbertos');
+        const salarioMensal = document.getElementById('salarioMensal');
+        const custoRecrutamento = document.getElementById('custoRecrutamento');
+        const custoOportunidade = document.getElementById('custoOportunidade');
+        const candidatosEntrevistados = document.getElementById('candidatosEntrevistados');
+
+        const custoTotalSemConsultoria = document.getElementById('custoTotalSemConsultoria');
+        const custoTotalExpert = document.getElementById('custoTotalExpert');
+        const custoTotalSprint = document.getElementById('custoTotalSprint');
+        const economiaExpert = document.getElementById('economiaExpert');
+        const economiaSprint = document.getElementById('economiaSprint');
+
+        form.addEventListener('input', calcularCustos);
+
+        function calcularCustos() {
+            const dias = parseFloat(diasAbertos.value) || 0;
+            const salario = parseFloat(salarioMensal.value) || 0;
+            const recrutamento = parseFloat(custoRecrutamento.value) || 0;
+            const oportunidade = parseFloat(custoOportunidade.value) || 0;
+            const entrevistados = parseFloat(candidatosEntrevistados.value) || 0;
+
+            const custoSemConsultoria = recrutamento + (oportunidade * dias);
+            custoTotalSemConsultoria.textContent = `R$ ${custoSemConsultoria.toFixed(2)}`;
+
+            const custoExpert = 5000;
+            const economiaExpertCalc = custoSemConsultoria - custoExpert;
+            custoTotalExpert.textContent = `R$ ${custoExpert.toFixed(2)}`;
+            economiaExpert.textContent = `R$ ${economiaExpertCalc > 0 ? economiaExpertCalc.toFixed(2) : '0,00'}`;
+
+            const custoSprint = entrevistados * 1000;
+            const economiaSprintCalc = custoSemConsultoria - custoSprint;
+            custoTotalSprint.textContent = `R$ ${custoSprint.toFixed(2)}`;
+            economiaSprint.textContent = `R$ ${economiaSprintCalc > 0 ? economiaSprintCalc.toFixed(2) : '0,00'}`;
+        }
+
+        // Calculadora de Perda de Receita
+        const formReceita = document.getElementById('calculadoraReceitaForm');
+        const receitaAnual = document.getElementById('receitaAnual');
+        const numFuncionarios = document.getElementById('numFuncionarios');
+        const multiplicadorReceita = document.getElementById('multiplicadorReceita');
+        const diasVagaAberta = document.getElementById('diasVagaAberta');
+
+        const receitaMediaFuncionario = document.getElementById('receitaMediaFuncionario');
+        const receitaDiariaFuncionario = document.getElementById('receitaDiariaFuncionario');
+        const receitaDiariaAjustada = document.getElementById('receitaDiariaAjustada');
+        const perdaReceitaTotal = document.getElementById('perdaReceitaTotal');
+
+        const diasTrabalhadosAno = 261;
+
+        formReceita.addEventListener('input', calcularPerdaReceita);
+
+        function calcularPerdaReceita() {
+            const receita = parseFloat(receitaAnual.value) || 0;
+            const funcionarios = parseFloat(numFuncionarios.value) || 0;
+            const multiplicador = parseFloat(multiplicadorReceita.value) || 0;
+            const diasAbertos = parseFloat(diasVagaAberta.value) || 0;
+
+            const receitaMedia = receita / funcionarios;
+            const receitaDiaria = receitaMedia / diasTrabalhadosAno;
+            const receitaAjustada = receitaDiaria * multiplicador;
+            const perdaTotal = receitaAjustada * diasAbertos;
+
+            receitaMediaFuncionario.textContent = `R$ ${receitaMedia.toFixed(2)}`;
+            receitaDiariaFuncionario.textContent = `R$ ${receitaDiaria.toFixed(2)}`;
+            receitaDiariaAjustada.textContent = `R$ ${receitaAjustada.toFixed(2)}`;
+            perdaReceitaTotal.textContent = `R$ ${perdaTotal.toFixed(2)}`;
+        }
+
+        // Smooth scroll para as âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
