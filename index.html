@@ -6,24 +6,183 @@
     <title>harpio • Calculadora de Custos de R&S</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/40cc819709.js" crossorigin="anonymous"></script>
+    
     <style>
         :root {
             --primary: #5009B0;
-
-
             --secondary: #475569;
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
         .hero {
-            background: linear-gradient(135deg, #C5ACFF 0%, #1e40af 100%);
-            min-height: 80vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             color: white;
+            position: relative;
+            top: 0;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 60px);
+            z-index: 1;
+            clip-path: inset(0 0 60px 0);
+            overflow: hidden;
+        }
+
+        .spline-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 17rem 0;
+        }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.923); 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1100;
+            padding: 12px 0;
+            height: 80px;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .header-logo img {
+            max-height: 55px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+        }
+
+        .header-cta {
+            background-color: #5009B0;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .header-cta:hover {
+            background-color: #3d07a0;
+            color: white !important;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #5009B0 !important; /* Ensure anchor color is applied */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1.1rem; /* Increased font size */
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #9279CC !important; /* Ensure active color is applied */
+        }
+
+        .nav-link:hover {
+            color: #733AC0 !important; /* Ensure hover color is applied */
+            text-decoration: none;
+        }
+
+        .nav-item {
+            margin-right: 2rem; /* Increased spacing between anchors */
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-tabs .nav-link {
+            color: #475569;
+            background-color: #FAFAFA;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #f0f0f0;
+            color: #5009B0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #5009B0;
+            color: white;
+            border: none;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        .nav-tabs .nav-item {
+            margin-right: 4px; /* Add margin between tabs */
+        }
+
+        .nav-tabs .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s ease;
+            background-color: #E1E9FF; /* Corrected light blue background for inactive tabs */
+            color: #3D3A3D; /* Set font color for inactive tabs */
+        }
+
+        .nav-link.active {
+            color: #9279CC; /* Active anchor font color */
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #5009B0 0%, #e5d2ff 100%);
         }
 
         .section {
@@ -56,25 +215,143 @@
 
         .calculator-section {
             background: #f8fafc;
-            border-radius: 2rem;
+            border-radius: 1rem;
             padding: 3rem;
             margin: 2rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .saving-badge {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.2em;
+            color: #5009B0;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .calculator-section input {
+            border-color: #ced4da;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .form-control:focus {
+            border-color: #5009B0;
+        }
+
+        /* Icon and Motion Styles */
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
         }
 
         .stat-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .testimonial-card {
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .why-calculate-premium,
+        #calculators {
+            min-height: 100vh; /* Full screen height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .why-calculate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .why-calculate-item {
             background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            margin: 1rem 0;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .why-calculate-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #5009B0 0%, #7e3af2 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .why-calculate-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border-color: rgba(126, 58, 242, 0.2);
+        }
+
+        .why-calculate-item:hover::before {
+            opacity: 1;
+        }
+
+        .why-calculate-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(80,9,176,0.1) 0%, rgba(126,58,242,0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .why-calculate-item:hover .why-calculate-icon {
+            transform: scale(1.1);
+        }
+
+        .why-calculate-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #5009B0;
+        }
+
+        .why-calculate-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            transition: color 0.4s ease;
+        }
+
+        .why-calculate-item:hover .why-calculate-title {
+            color: #5009B0;
+        }
+
+        .why-calculate-description {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
         .cta-section {
@@ -88,9 +365,32 @@
         }
 
         .btn-primary {
-            background: var(--primary);
+            background-color: #5009B0;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-block;
+            transition: all 0.3s ease;
             border: none;
-            padding: 0.75rem 1.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #3d07a0;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-cta {
+            margin-top: 2rem;
+        }
+
+        .hero-cta .btn-primary {
+            font-size: 1.2rem;
+            padding: 15px 30px;
         }
 
         .tab-content {
@@ -99,99 +399,319 @@
             border-radius: 0 0 1rem 1rem;
         }
 
-        .nav-tabs .nav-link {
-            border: none;
-            color: var(--secondary);
-            padding: 1rem 2rem;
+        @media (max-width: 992px) {
+            .why-calculate-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .nav-tabs .nav-link.active {
-            background: var(--primary);
+        .cta-section h2 {
+            font-size: 2rem; /* Reduced font size */
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-right: 2rem; /* Increased spacing between anchors */
+            display: flex;
+            align-items: center;
+        }
+
+        .header-cta {
+            background-color: #5009B0;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+            margin-bottom: 20px;
+        }
+
+        #calculatorTabs .nav-link {
+            color: #475569;
+            background-color: #FAFAFA !important;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #calculatorTabs .nav-link i {
+            font-size: 1.2rem;
+        }
+
+        #calculatorTabs .nav-link:hover {
+            color: #5009B0;
+        }
+
+        #calculatorTabs .nav-link.active {
+            background-color: #5009B0 !important;
+            color: white !important;
+            border: none;
+        }
+
+        #calculatorTabs .nav-link.active i {
+            color: white !important;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+
+        .calculator-form {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .stat-card .value {
+            color: #5009B0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .revenue-loss-container .form-group {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .revenue-loss-container .form-label {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .revenue-loss-container .form-control {
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 0.75rem 1rem;
+        }
+
+        .revenue-loss-container .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #e2e8f0;
+            color: #475569;
+        }
+
+        .calculator-section {
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .result-card h5 {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-card h3 {
+            color: #5009B0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .saving-badge {
+            background: #5009B0;
             color: white;
-            border-radius: 1rem 1rem 0 0;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Fixed Header -->
+    <header class="fixed-header">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <h1 class="display-4 fw-bold mb-4">Descubra o verdadeiro custo do seu recrutamento</h1>
-                    <p class="lead mb-4">Calcule quanto sua empresa perde com vagas abertas e processos de R&S ineficientes. Use nossas calculadoras exclusivas e tome decisões baseadas em dados.</p>
-                    <a style="background-color: #733AC0; color: aliceblue;" href="#calculadoras" class="btn btn-lg">Calcular Agora</a>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <img src="https://trackingsystem.tech/Group%2021%201.png" alt="Hero Image" class="img-fluid rounded-4">
+            <div class="header-container">
+                <a href="#home" class="header-logo">
+                    <img src="https://d1eni3461m2dqk.cloudfront.net/wp-content/uploads/2024/01/Extenso-1.png" alt="Harpio Logo">
+                </a>
+                <nav class="nav-container">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#why-calculate">Por que Calcular?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#calculators">Calculadoras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link header-cta" href="#cta">Começar Agora</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero position-relative overflow-hidden">
+        <!-- Spline Background -->
+        <div class="spline-container">
+            <iframe src='https://my.spline.design/roomgirlworkingcopy-cf2539a9f4540e6cc63353f28e106cdb/' frameborder='0' width='100%' height='100%'></iframe>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="content-overlay">
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h1 data-aos="fade-up">Calcule os custos de R&S da sua empresa</h1>
+                        <p data-aos="fade-up" data-aos-delay="100">Entenda o real impacto financeiro dos seus processos seletivos.</p>
+                        <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+                            <button onclick="window.location.href='#calculators'" class="btn btn-primary">Calcular Agora</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <!--img src="https://trackingsystem.tech/Group%2021%201.png" alt="Hero Image" class="img-fluid rounded-4"-->
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="section">
+    <section id="why-calculate" class="why-calculate-premium" data-aos="fade-up">
         <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">Por que calcular seus custos de R&S?</h2>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-card card h-100">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mx-auto">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2v20M2 12h20"/>
-                                </svg>
-                            </div>
-                            <h4>Redução de Custos</h4>
-                            <p>Identifique onde estão os maiores gastos e otimize seu processo de recrutamento.</p>
-                        </div>
+            <div class="section-header">
+                <h2>Por que calcular seus custos de R&S?</h2>
+                <p>Entenda como nossas calculadoras podem ajudar sua empresa a tomar decisões mais inteligentes.</p>
+            </div>
+            <div class="why-calculate-grid">
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M2 12h20"/>
+                        </svg>
                     </div>
+                    <h3 class="why-calculate-title">Redução de Custos</h3>
+                    <p class="why-calculate-description">Identifique onde estão os maiores gastos e otimize seu processo de recrutamento.</p>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-card card h-100">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mx-auto">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M12 6v6l4 2"/>
-                                </svg>
-                            </div>
-                            <h4>Tempo Otimizado</h4>
-                            <p>Entenda o impacto do tempo de vaga aberta na sua receita.</p>
-                        </div>
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
                     </div>
+                    <h3 class="why-calculate-title">Tempo Otimizado</h3>
+                    <p class="why-calculate-description">Entenda o impacto do tempo de vaga aberta na sua receita.</p>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-card card h-100">
-                        <div class="card-body text-center">
-                            <div class="feature-icon mx-auto">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                                </svg>
-                            </div>
-                            <h4>Decisões Estratégicas</h4>
-                            <p>Use dados reais para tomar melhores decisões em seus processos de R&S.</p>
-                        </div>
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
                     </div>
+                    <h3 class="why-calculate-title">Decisões Estratégicas</h3>
+                    <p class="why-calculate-description">Use dados reais para tomar melhores decisões em seus processos de R&S.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Calculators Section -->
-    <section id="calculadoras" class="section bg-light">
+    <section id="calculators" class="calculators-section">
         <div class="container">
             <h2 class="text-center mb-5" data-aos="fade-up">Calculadoras de R&S</h2>
             
             <ul class="nav nav-tabs" id="calculatorTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#custos" type="button">
-                        Custos de Recrutamento
+                        <i class="fas fa-calculator icon"></i> Custos de Recrutamento
                     </button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#receita" type="button">
-                        Perda de Receita
+                        <i class="fas fa-chart-line icon"></i> Perda de Receita
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#roiCalculator" type="button">
+                        <i class="fas fa-percentage icon"></i> ROI Calculator
                     </button>
                 </li>
             </ul>
@@ -312,56 +832,72 @@
                             <div class="col-md-6">
                                 <div style="background-color: #733AC0;" class="stat-card text-white">
                                     <h5>Perda total de receita</h5>
-                                    <h3 id="perdaReceitaTotal">R$ 0,00</h3>
+                                    <h3 style="color: #FAFAFA;" id="perdaReceitaTotal">R$ 0,00</h3>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Testimonials Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="text-center mb-5" data-aos="fade-up">O que nossos clientes dizem</h2>
-            <div class="row">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="testimonial-card">
-                        <div class="mb-3">★★★★★</div>
-                        <p>"Incrível! Após usar as calculadoras, conseguimos reduzir nosso tempo médio de contratação em 40%."</p>
-                        <div class="d-flex align-items-center">
-                            <img src="https://trackingsystem.tech/a2.png" class="rounded-circle me-3" alt="Avatar">
-                            <div>
-                                <h5 class="mb-0">Ana Silva</h5>
-                                <small>Head de RH, Tech Solutions</small>
+                <div class="tab-pane fade" id="roiCalculator">
+                    <div class="calculator-section">
+                        <div class="row">
+                            <!-- Dados da Companhia -->
+                            <div class="col-md-4">
+                                <h3 class="mb-4">1. Dados da Companhia</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Número de Funcionários</label>
+                                    <input type="number" class="form-control" id="numFuncionarios" value="1000">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Vagas por Mês</label>
+                                    <input type="number" class="form-control" id="vagasPorMes" value="10">
+                                </div>
+                            </div>
+
+                            <!-- Estimativa de Horas -->
+                            <div class="col-md-4">
+                                <h3 class="mb-4">2. Estimativa de Horas</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Profissionais em R&S</label>
+                                    <input type="number" class="form-control" id="profissionaisRS" value="5">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Dedicação R&S (%)</label>
+                                    <input type="number" class="form-control" id="dedicacaoRS" value="100">
+                                </div>
+                            </div>
+
+                            <!-- Custos -->
+                            <div class="col-md-4">
+                                <h3 class="mb-4">3. Custos</h3>
+                                <div class="mb-3">
+                                    <label class="form-label">Média Salarial Mensal</label>
+                                    <input type="number" class="form-control" id="mediaSalarial" value="6000">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="testimonial-card">
-                        <div class="mb-3">★★★★★</div>
-                        <p>"As métricas nos ajudaram a justificar investimentos em R&S para a diretoria. Excelente ferramenta!"</p>
-                        <div class="d-flex align-items-center">
-                            <img src="https://trackingsystem.tech/a1.png" class="rounded-circle me-3" alt="Avatar">
-                            <div>
-                                <h5 class="mb-0">Carlos Santos</h5>
-                                <small>Diretor de RH, Inovax</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="testimonial-card">
-                        <div class="mb-3">★★★★★</div>
-                        <p>"Finalmente conseguimos mensurar o real impacto financeiro das nossas vagas abertas. Surpreendente!"</p>
-                        <div class="d-flex align-items-center">
-                            <img src="https://trackingsystem.tech/a4.png" class="rounded-circle me-3" alt="Avatar">
-                            <div>
-                                <h5 class="mb-0">Marina Costa</h5>
-                                <small>CEO, StartupX</small>
+
+                        <!-- Resultados -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <h3 class="mb-4">Resultados</h3>
+                                <div class="result-card">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <h5>Custo Total Atual</h5>
+                                            <h3 id="custoTotalAtual">R$ 672,109</h3>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5>Custo Total com RPO Digital</h5>
+                                            <h3 id="custoTotalRPO">R$ 504,082</h3>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h5>Economia</h5>
+                                            <span class="saving-badge" id="economiaTotal">-25.0%</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -371,7 +907,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section id="cta" class="cta-section" data-aos="fade-up">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8 text-center text-lg-start">
@@ -379,7 +915,7 @@
                     <p class="lead">Junte-se a centenas de empresas que já transformaram sua forma de recrutar.</p>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
-                    <a href="#calculadoras" class="btn btn-light btn-lg">Começar Agora</a>
+                    <button href="#calculators" class="btn btn-light btn-lg">Começar Agora</button>
                 </div>
             </div>
         </div>
@@ -424,6 +960,20 @@
         AOS.init({
             duration: 800,
             once: true
+        });
+
+        // Smooth scroll para as âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
 
         // Calculadora de Custos de Recrutamento
@@ -496,19 +1046,51 @@
             perdaReceitaTotal.textContent = `R$ ${perdaTotal.toFixed(2)}`;
         }
 
-        // Smooth scroll para as âncoras
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Constantes
+        const HORAS_POR_MES = 176;
+        const DIAS_UTEIS = 22;
+
+        // Função principal de cálculo
+        function calculateROI() {
+            // Inputs
+            const numFuncionarios = parseFloat(document.getElementById('numFuncionarios').value);
+            const vagasPorMes = parseFloat(document.getElementById('vagasPorMes').value);
+            const profissionaisRS = parseFloat(document.getElementById('profissionaisRS').value);
+            const dedicacaoRS = parseFloat(document.getElementById('dedicacaoRS').value) / 100;
+            const mediaSalarial = parseFloat(document.getElementById('mediaSalarial').value);
+
+            // Cálculos básicos
+            const vagasPorAno = vagasPorMes * 12;
+            const totalHorasPorMes = profissionaisRS * HORAS_POR_MES;
+            const horasDedicadasRS = totalHorasPorMes * dedicacaoRS;
+            const custoMensalTotal = mediaSalarial * 1.7 * profissionaisRS;
+            const custoHoraRS = custoMensalTotal / (horasDedicadasRS);
+
+            // Custos anuais
+            const custoAnualRH = custoMensalTotal * 12;
+            const custoSistemaATS = 4999 * 12;
+            const custoTotalAtual = custoAnualRH + custoSistemaATS;
+
+            // Custos RPO Digital
+            const custoRPODigital = custoTotalAtual * 0.75;
+            const economia = ((custoTotalAtual - custoRPODigital) / custoTotalAtual) * 100;
+
+            // Atualizar interface
+            document.getElementById('custoTotalAtual').textContent = 
+                `R$ ${custoTotalAtual.toLocaleString('pt-BR', {maximumFractionDigits: 0})}`;
+            document.getElementById('custoTotalRPO').textContent = 
+                `R$ ${custoRPODigital.toLocaleString('pt-BR', {maximumFractionDigits: 0})}`;
+            document.getElementById('economiaTotal').textContent = 
+                `${economia.toFixed(1)}%`;
+        }
+
+        // Adicionar listeners para todos os inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateROI);
         });
+
+        // Calcular valores iniciais
+        calculateROI();
     </script>
 </body>
 </html>
