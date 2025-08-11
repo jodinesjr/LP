@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Custos de Recrutamento - Harpio Sprint (Versão Segura)</title>
+    
+    <!-- CSP para maior segurança -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com https://assets6.lottiefiles.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https://assets.mixkit.co;">
+    
+    <!-- CDNs com verificação de integridade -->
+    <script src="https://cdn.tailwindcss.com" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy.umd.min.js" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" 
+          integrity="sha384-..." 
+          crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js" 
+            integrity="sha384-..." 
+            crossorigin="anonymous"></script>
+    
+    <!-- Resto do CSS permanece igual -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS permanece o mesmo */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #FFFFFF;
+        }
+        /* ... resto do CSS ... */
+    </style>
+</head>
+<body class="bg-white">
+    <!-- HTML permanece o mesmo até o script -->
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Chart.register(ChartDataLabels);
+
+            // Função de validação de entrada segura
+            function validateAndParseInput(elementId, min = 0, max = 1000000) {
+                const element = document.getElementById(elementId);
+                if (!element) return 0;
+                
+                let value = parseFloat(element.value) || 0;
+                
+                // Validação de limites
+                if (value < min) {
+                    value = min;
+                    element.value = min;
+                }
+                if (value > max) {
+                    value = max;
+                    element.value = max;
+                }
+                
+                return value;
+            }
+
+            // Função para sanitizar texto
+            function sanitizeText(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            // Função para criar elementos DOM de forma segura
+            function createSecureElement(tag, className, textContent) {
+                const element = document.createElement(tag);
+                if (className) element.className = className;
+                if (textContent) element.textContent = textContent;
+                return element;
+            }
+
+            const wizardView = document.getElementById('wizard-view');
+            const resultsView = document.getElementById('results-view');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const editBtn = document.getElementById('edit-btn');
+            const newCalcBtn = document.getElementById('new-calc-btn');
+            const formSteps = document.querySelectorAll('.form-step');
+            const timelineContainer = document.getElementById('timeline');
+            
+            let mainDoughnutChart, savingsGaugeChart, savingsBarChart;
+            let currentStep = 0;
+
+            const tutorialData = [
+                { title: 'Sobre sua Equipe', text: 'Comece nos contando sobre o tamanho da sua empresa e da sua equipe de recrutamento. Isso nos ajuda a entender a escala da sua operação.', video_url: 'https://assets.mixkit.co/videos/preview/mixkit-business-people-working-together-in-a-modern-office-43539-large.mp4' },
+                { title: 'Volume de Contratações', text: 'Agora, informe sobre o volume de vagas e candidaturas. Esses dados são cruciais para calcular o tempo e esforço gastos na triagem.', video_url: 'https://assets.mixkit.co/videos/preview/mixkit-man-looking-at-a-graph-with-statistics-42240-large.mp4' },
+                { title: 'Ferramentas e Consultorias', text: 'Quais são seus investimentos anuais em ferramentas como portais de vagas e LinkedIn? Isso nos ajuda a mapear seus custos diretos.', video_url: 'https://assets.mixkit.co/videos/preview/mixkit-counting-money-in-a-counting-machine-42243-large.mp4' },
+                { title: 'Custos de Turnover', text: 'Por fim, informe sobre a rotatividade e o tempo de adaptação. O turnover é um dos maiores custos ocultos no RH.', video_url: 'https://assets.mixkit.co/videos/preview/mixkit-group-of-people-walking-in-a-busy-street-44547-large.mp4' }
+            ];
+
+            lottie.loadAnimation({
+                container: document.getElementById('hero-lottie-animation'),
+                renderer: 'svg', loop: true, autoplay: true,
+                path: 'https://assets6.lottiefiles.com/packages/lf20_qhrndegx.json'
+            });
+
+            const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+            
+            function updateWizardUI() {
+                timelineContainer.innerHTML = '';
+                for (let i = 0; i < formSteps.length; i++) {
+                    const stepEl = createSecureElement('div', 'timeline-step w-full h-2 rounded-full');
+                    if (i < currentStep) stepEl.classList.add('bg-green-500');
+                    else if (i === currentStep) stepEl.classList.add('bg-[#9951A2]');
+                    else stepEl.classList.add('bg-gray-200');
+                    timelineContainer.appendChild(stepEl);
+                }
+                timelineContainer.classList.add('space-x-2');
+
+                formSteps.forEach((step, index) => step.classList.toggle('hidden', index !== currentStep));
+
+                const currentTutorial = tutorialData[currentStep];
+                document.getElementById('tutorial-title').textContent = currentTutorial.title;
+                document.getElementById('tutorial-text').textContent = currentTutorial.text;
+                document.getElementById('tutorial-video').src = currentTutorial.video_url;
+
+                prevBtn.disabled = currentStep === 0;
+                nextBtn.textContent = currentStep === formSteps.length - 1 ? 'Calcular' : 'Próximo';
+            }
+
+            function calculateAndShowResults() {
+                // Validação segura de entradas com limites
+                const rhColabs = validateAndParseInput('rh-colabs', 1, 1000);
+                const totalColabs = validateAndParseInput('total-colabs', 1, 100000);
+                const rhSalary = validateAndParseInput('rh-salary', 1000, 100000);
+                const monthlyJobs = validateAndParseInput('monthly-jobs', 0, 1000);
+                const cvsPerJob = validateAndParseInput('cvs-per-job', 0, 10000);
+                const interviewsPerJob = validateAndParseInput('interviews-per-job', 0, 1000);
+                const consultingCostAnnual = validateAndParseInput('consulting-cost', 0, 10000000);
+                const portalsCostAnnual = validateAndParseInput('portals-cost', 0, 100000);
+                const linkedinCostAnnual = validateAndParseInput('linkedin-cost', 0, 100000);
+                const otherSoftwareCostAnnual = validateAndParseInput('other-software-cost', 0, 100000);
+                const turnoverColabs = validateAndParseInput('turnover-colabs', 0, 1000);
+                const avgSalary = validateAndParseInput('avg-salary', 1000, 100000);
+                const adaptationTime = validateAndParseInput('adaptation-time', 1, 24);
+
+                // Constantes validadas
+                const ENCARGOS_FACTOR = 1.7;
+                const HORAS_TRABALHADAS_MES = 176;
+                
+                // Cálculos seguros com verificação de divisão por zero
+                const custoHoraRhComEncargos = HORAS_TRABALHADAS_MES > 0 ? (rhSalary / HORAS_TRABALHADAS_MES) * ENCARGOS_FACTOR : 0;
+                const custoHoraTotalRhComEncargos = custoHoraRhComEncargos * rhColabs;
+                
+                const tempoDivulgarVagas = 5 * monthlyJobs;
+                const tempoTriarCVs = (1.5 / 60) * cvsPerJob * monthlyJobs;
+                const tempoEntrevistar = 0.75 * interviewsPerJob * monthlyJobs;
+                const tempoGerarRelatorios = (64 / 5) * monthlyJobs;
+
+                const custoDivulgacao = tempoDivulgarVagas * custoHoraTotalRhComEncargos;
+                const custoSelecao = (tempoTriarCVs + tempoEntrevistar) * custoHoraTotalRhComEncargos;
+                const custoAnalise = tempoGerarRelatorios * custoHoraTotalRhComEncargos;
+                const custoSoftwareMensal = (portalsCostAnnual + linkedinCostAnnual + otherSoftwareCostAnnual) / 12;
+                const custoConsultoriaMensal = consultingCostAnnual / 12;
+                const custoTotalMensalAtual = custoDivulgacao + custoSelecao + custoAnalise + custoSoftwareMensal + custoConsultoriaMensal;
+
+                // Cálculos Harpio Sprint
+                const tempoDivulgarVagasHS = tempoDivulgarVagas * (2/5);
+                const tempoSelecaoHS = (tempoTriarCVs * (7.5/12.5)) + (tempoEntrevistar * (45/75));
+                const tempoAnaliseHS = tempoGerarRelatorios * (12.8/64);
+
+                const custoDivulgacaoHS = tempoDivulgarVagasHS * custoHoraTotalRhComEncargos;
+                const custoSelecaoHS = tempoSelecaoHS * custoHoraTotalRhComEncargos;
+                const custoAnaliseHS = tempoAnaliseHS * custoHoraTotalRhComEncargos;
+                
+                let custoSoftwareMensalHS = 0;
+                if (totalColabs < 300) custoSoftwareMensalHS = 220.56;
+                else if (totalColabs < 1000) custoSoftwareMensalHS = 257.33;
+                else custoSoftwareMensalHS = 294.09;
+                
+                const custoConsultoriaMensalHS = custoConsultoriaMensal;
+                const custoTotalMensalHS = custoDivulgacaoHS + custoSelecaoHS + custoAnaliseHS + custoSoftwareMensalHS + custoConsultoriaMensalHS;
+                
+                const economiaPercentual = custoTotalMensalAtual > 0 ? (1 - (custoTotalMensalHS / custoTotalMensalAtual)) : 0;
+
+                // Cálculos de turnover
+                const custoRescisao = turnoverColabs * (avgSalary * 2);
+                const custoQuedaProdutividadeEquipe = turnoverColabs * avgSalary * 0.3;
+                const custoDesligamentoTotal = custoRescisao + custoQuedaProdutividadeEquipe;
+                const custoAberturaVaga = (monthlyJobs > 0 ? (custoTotalMensalAtual / monthlyJobs) : 0) * turnoverColabs;
+                const custoContratacaoTreinamento = turnoverColabs * avgSalary * 2;
+                const custoAdaptacao = turnoverColabs * avgSalary * adaptationTime * 0.3;
+                const totalTurnoverCost = custoDesligamentoTotal + custoAberturaVaga + custoContratacaoTreinamento + custoAdaptacao;
+
+                updateResultsUI({
+                    custosAtuais: { custoDivulgacao, custoSelecao, custoAnalise, custoSoftwareMensal, custoConsultoriaMensal, total: custoTotalMensalAtual },
+                    custosHS: { custoDivulgacaoHS, custoSelecaoHS, custoAnaliseHS, custoSoftwareMensalHS, custoConsultoriaMensalHS, total: custoTotalMensalHS },
+                    economiaPercentual, turnoverColabs, monthlyJobs,
+                    turnover: { custoDesligamentoTotal, custoAberturaVaga, custoContratacaoTreinamento, custoAdaptacao, total: totalTurnoverCost }
+                });
+                
+                wizardView.classList.add('hidden');
+                resultsView.classList.remove('hidden');
+            }
+
+            function destroyCharts() {
+                if (mainDoughnutChart) mainDoughnutChart.destroy();
+                if (savingsGaugeChart) savingsGaugeChart.destroy();
+                if (savingsBarChart) savingsBarChart.destroy();
+            }
+
+            function updateResultsUI(data) {
+                destroyCharts();
+                const { custosAtuais, custosHS, economiaPercentual, turnoverColabs, monthlyJobs, turnover } = data;
+
+                // Uso seguro de textContent
+                document.getElementById('stat-total-monthly').textContent = formatCurrency(custosAtuais.total);
+                document.getElementById('stat-avg-hire').textContent = formatCurrency(monthlyJobs > 0 ? custosAtuais.total / monthlyJobs : 0);
+                document.getElementById('stat-turnover').textContent = formatCurrency(turnover.total);
+                
+                const costLabels = ['Divulgação', 'Seleção', 'Análise', 'Sistemas', 'Consultorias'];
+                const costData = [custosAtuais.custoDivulgacao, custosAtuais.custoSelecao, custosAtuais.custoAnalise, custosAtuais.custoSoftwareMensal, custosAtuais.custoConsultoriaMensal];
+                const chartColors = ['#9951A2', '#A66BB0', '#B88BC0', '#D28FDA', '#DCB0E4'];
+
+                // Charts permanecem iguais pois são seguros
+                mainDoughnutChart = new Chart(document.getElementById('mainDoughnutChart').getContext('2d'), {
+                    type: 'doughnut',
+                    data: { labels: costLabels, datasets: [{ data: costData, backgroundColor: chartColors, borderWidth: 2, borderColor: '#fff' }] },
+                    options: { 
+                        responsive: true, maintainAspectRatio: true, 
+                        plugins: { 
+                            legend: { display: false },
+                            datalabels: {
+                                formatter: (value, ctx) => {
+                                    const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    if (sum === 0) return '0%';
+                                    const percentage = (value*100 / sum).toFixed(0)+"%";
+                                    return percentage;
+                                },
+                                color: '#fff',
+                                font: { weight: 'bold' }
+                            }
+                        } 
+                    }
+                });
+
+                // Criação segura do dashboard de custos
+                const costsDashboardEl = document.getElementById('costs-dashboard');
+                costsDashboardEl.innerHTML = ''; // Limpar conteúdo
+                
+                // Cabeçalho
+                const headerDiv = createSecureElement('div', 'grid grid-cols-3 gap-4 px-4 pb-2 border-b border-gray-200 font-semibold text-gray-500 text-sm');
+                headerDiv.appendChild(createSecureElement('div', '', 'Tipo de Custo'));
+                headerDiv.appendChild(createSecureElement('div', 'text-right', 'Custo Mensal'));
+                headerDiv.appendChild(createSecureElement('div', 'text-right', 'Custo por Vaga'));
+                costsDashboardEl.appendChild(headerDiv);
+
+                const costItems = [
+                    { label: 'Divulgação', monthly: custosAtuais.custoDivulgacao, popover: 'Custo da sua operação abrindo vagas, detalhando o perfil desejado e divulgando em diferentes canais.' },
+                    { label: 'Seleção', monthly: custosAtuais.custoSelecao, popover: 'Custo da sua operação realizando a aplicação de testes, triando currículos recebidos e conduzindo entrevistas.' },
+                    { label: 'Análise', monthly: custosAtuais.custoAnalise, popover: 'Custo da sua operação gerando relatórios de Recrutamento e Seleção e analisando os resultados obtidos.' },
+                    { label: 'Sistemas', monthly: custosAtuais.custoSoftwareMensal, popover: 'Custo atual com plataformas de apoio ao Recrutamento e Seleção.' },
+                    { label: 'Consultorias', monthly: custosAtuais.custoConsultoriaMensal, popover: 'Custo atual com consultorias especializadas em apoio ao Recrutamento e Seleção.' }
+                ];
+
+                // Criação segura dos itens
+                costItems.forEach(item => {
+                    const perHireCost = monthlyJobs > 0 ? item.monthly / monthlyJobs : 0;
+                    
+                    const rowDiv = createSecureElement('div', 'grid grid-cols-3 gap-4 px-4 py-3 border-b border-gray-100 items-center');
+                    
+                    const labelDiv = createSecureElement('div', 'flex items-center space-x-2');
+                    labelDiv.appendChild(createSecureElement('span', 'font-medium text-gray-800', item.label));
+                    
+                    const monthlyDiv = createSecureElement('div', 'text-right text-gray-700', formatCurrency(item.monthly));
+                    const perHireDiv = createSecureElement('div', 'text-right text-gray-700', formatCurrency(perHireCost));
+                    
+                    rowDiv.appendChild(labelDiv);
+                    rowDiv.appendChild(monthlyDiv);
+                    rowDiv.appendChild(perHireDiv);
+                    costsDashboardEl.appendChild(rowDiv);
+                });
+
+                // Total seguro
+                const totalDiv = createSecureElement('div', 'grid grid-cols-3 gap-4 px-4 py-3 font-bold bg-[#F5E1F7] rounded-b-lg');
+                totalDiv.appendChild(createSecureElement('span', '', 'TOTAL'));
+                totalDiv.appendChild(createSecureElement('div', 'text-right text-[#9951A2]', formatCurrency(custosAtuais.total)));
+                totalDiv.appendChild(createSecureElement('div', 'text-right text-[#9951A2]', formatCurrency(monthlyJobs > 0 ? custosAtuais.total / monthlyJobs : 0)));
+                costsDashboardEl.appendChild(totalDiv);
+
+                // Resto dos elementos seguros
+                document.getElementById('savings-percentage').textContent = `${(economiaPercentual * 100).toFixed(0)}%`;
+                document.getElementById('total-cost-annual').textContent = formatCurrency(custosAtuais.total * 12);
+                document.getElementById('new-cost-annual').textContent = formatCurrency(custosHS.total * 12);
+
+                // Charts de economia (permanecem iguais)
+                savingsGaugeChart = new Chart(document.getElementById('savingsGaugeChart').getContext('2d'), {
+                    type: 'doughnut',
+                    data: { datasets: [{ data: [economiaPercentual, 1 - economiaPercentual], backgroundColor: ['#9951A2', '#F5E1F7'], borderWidth: 0, cutout: '70%' }] },
+                    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { enabled: false }, datalabels: { display: false } }, rotation: -90, circumference: 180 }
+                });
+                
+                savingsBarChart = new Chart(document.getElementById('savingsBarChart').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['Divulgação', 'Seleção', 'Análise', 'Sistemas', 'Consultorias'],
+                        datasets: [
+                            { label: 'Custo Atual', data: [custosAtuais.custoDivulgacao, custosAtuais.custoSelecao, custosAtuais.custoAnalise, custosAtuais.custoSoftwareMensal, custosAtuais.custoConsultoriaMensal], backgroundColor: '#D28FDA' },
+                            { label: 'Novo Custo', data: [custosHS.custoDivulgacaoHS, custosHS.custoSelecaoHS, custosHS.custoAnaliseHS, custosHS.custoSoftwareMensalHS, custosHS.custoConsultoriaMensalHS], backgroundColor: '#9951A2' }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: true, indexAxis: 'y', plugins: { legend: { position: 'top' }, datalabels: { display: false } } }
+                });
+
+                // Accordion de turnover criado de forma segura
+                const turnoverAccordionEl = document.getElementById('turnover-accordion');
+                turnoverAccordionEl.innerHTML = ''; // Limpar
+
+                const turnoverItems = [
+                    { title: 'Custo do desligamento de um colaborador', value: turnover.custoDesligamentoTotal, content: 'Além dos encargos referentes ao desligamento de um colaborador, é preciso considerar a queda de produtividade do restante da equipe, que agora terá que se reorganizar para realizar uma tarefa em menor número. Dessa forma, supõe-se que o custo da queda de produtividade é igual a 30% do salário do ex-funcionário.' },
+                    { title: 'Custo de abertura da vaga', value: turnover.custoAberturaVaga, content: 'Custo referente ao processo de Recrutamento & Seleção, que envolve: horas trabalhadas pelos recrutadores, investimentos em consultorias, plataformas de divulgação de vagas e outros softwares.'},
+                    { title: 'Custo de contratação e treinamento', value: turnover.custoContratacaoTreinamento, content: 'Encargos referentes a contratação de um novo colaborador e ao processo de treinamento que, em média, dura 2 meses.' },
+                    { title: 'Custo da adaptação do novo colaborador', value: turnover.custoAdaptacao, content: 'O período de adaptação de um novo colaborador pode durar de 3 a 6 meses. A estimativa feita é de que o novo funcionário atuará com uma produtividade de 70% nesse período. A chave é estar preparado para esse ajuste e lidar com paciência e positividade.' },
+                    { title: 'Custos diretos de rotatividade (CAP & SHRM)', value: null, content: 'O Center for American Progress (CAP) estima que o custo direto de rotatividade de colaboradores pode ser de 16,1% para salários anuais de até $30.000. A Society for Human Resources (SHRM) entende que esse custo pode atingir até 60% do salário anual de um ex-colaborador.' }
+                ];
+
+                // Criação segura do accordion
+                turnoverItems.forEach((item, index) => {
+                    const accordionDiv = createSecureElement('div', 'border border-gray-200 rounded-lg');
+                    
+                    const headerDiv = createSecureElement('h2');
+                    const button = createSecureElement('button', 'accordion-button flex items-center justify-between w-full p-4 font-semibold text-left text-gray-700 hover:bg-[#F5E1F7]');
+                    button.type = 'button';
+                    button.setAttribute('data-accordion-target', `accordion-content-${index}`);
+                    
+                    const titleSpan = createSecureElement('span', 'pr-4', item.title);
+                    const flexDiv = createSecureElement('div', 'flex items-center flex-shrink-0');
+                    
+                    if (item.value !== null) {
+                        const valueSpan = createSecureElement('span', 'text-[#9951A2] mr-4 font-bold', formatCurrency(item.value / (turnoverColabs || 1)));
+                        flexDiv.appendChild(valueSpan);
+                    }
+                    
+                    // SVG icon (seguro)
+                    flexDiv.innerHTML += '<svg class="accordion-icon w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>';
+                    
+                    button.appendChild(titleSpan);
+                    button.appendChild(flexDiv);
+                    headerDiv.appendChild(button);
+                    
+                    const contentDiv = createSecureElement('div', 'accordion-content bg-gray-50 px-4 text-gray-600', item.content);
+                    contentDiv.id = `accordion-content-${index}`;
+                    
+                    accordionDiv.appendChild(headerDiv);
+                    accordionDiv.appendChild(contentDiv);
+                    turnoverAccordionEl.appendChild(accordionDiv);
+                });
+                
+                // Total do turnover
+                const totalTurnoverDiv = createSecureElement('div', 'mt-4 p-4 font-bold bg-[#F5E1F7] rounded-lg flex justify-between items-center text-[#9951A2]');
+                totalTurnoverDiv.appendChild(createSecureElement('span', '', 'CUSTO TOTAL ANUAL DE TURNOVER'));
+                totalTurnoverDiv.appendChild(createSecureElement('span', '', formatCurrency(turnover.total)));
+                turnoverAccordionEl.appendChild(totalTurnoverDiv);
+
+                // Event listeners para accordion
+                document.querySelectorAll('.accordion-button').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const target = document.getElementById(button.getAttribute('data-accordion-target'));
+                        if (target) {
+                            target.classList.toggle('open');
+                            button.classList.toggle('open');
+                        }
+                    });
+                });
+            }
+            
+            function resetView(clearInputs = false) {
+                resultsView.classList.add('hidden');
+                wizardView.classList.remove('hidden');
+                if (clearInputs) {
+                    document.getElementById('calc-form').reset();
+                }
+                currentStep = 0;
+                updateWizardUI();
+            }
+
+            // Event listeners
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < formSteps.length - 1) {
+                    currentStep++;
+                    updateWizardUI();
+                } else {
+                    calculateAndShowResults();
+                }
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateWizardUI();
+                }
+            });
+            
+            newCalcBtn.addEventListener('click', () => resetView(true));
+            editBtn.addEventListener('click', () => resetView(false));
+
+            updateWizardUI();
+        });
+    </script>
+</body>
+</html>

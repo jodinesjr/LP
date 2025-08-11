@@ -1,0 +1,32 @@
+# Variáveis de ambiente (contém informações sensíveis)
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependências
+node_modules/
+
+# Build outputs
+.next/
+out/
+dist/
+
+# Vercel
+.vercel
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

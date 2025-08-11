@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>harpio • Hub de Recrutamento Inteligente | Tecnologia + Hunters Especializados</title>
+    <meta name="description" content="Transforme seu R&S com a harpio: plataforma que une IA e Hunters especializados. Shortlist blindada, análise comportamental, validação técnica e insights de mercado. Economize até 25x em custos de recrutamento com a harpio Sprint.">
+    <meta name="keywords" content="recrutamento e seleção, HR Tech, ATS inteligente, talent acquisition, shortlist blindada, hunters especializados, machine learning RH, análise comportamental, validação técnica, custo de recrutamento, ROI em RH, employer branding, gestão de talentos, recrutamento digital, harpio Sprint, harpio Push, harpio Expert">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://harpio.com.br/">
+    <meta property="og:title" content="harpio • Hub de Recrutamento Inteligente | Tecnologia + Hunters Especializados">
+    <meta property="og:description" content="Revolucione seu R&S: IA + Hunters especializados para encontrar os melhores talentos. Shortlist blindada, análise comportamental e técnica, redução de custos em até 25x. Conheça a harpio Sprint!">
+    <meta property="og:image" content="https://trackingsystem.tech/Extenso_Branco.png">
+    <meta property="og:site_name" content="harpio">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://harpio.com.br/">
+    <meta property="twitter:title" content="harpio • Hub de Recrutamento Inteligente | Tecnologia + Hunters Especializados">
+    <meta property="twitter:description" content="Revolucione seu R&S: IA + Hunters especializados para encontrar os melhores talentos. Shortlist blindada, análise comportamental e técnica, redução de custos em até 25x.">
+    <meta property="twitter:image" content="https://trackingsystem.tech/Extenso_Branco.png">
+
+    <!-- Additional SEO Tags -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="harpio">
+    <meta name="language" content="pt-BR">
+    <link rel="canonical" href="https://harpio.com.br/">
+    
+    <!-- Targeting HR Professionals -->
+    <meta name="target" content="RH, Gestores, Coordenadores, Diretores">
+    <meta name="category" content="HR Tech, Recrutamento e Seleção, Software RH">
+    <meta name="industry" content="Recursos Humanos, Tecnologia">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/40cc819709.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/@floating-ui/core@1.5.0/dist/floating-ui.css" rel="stylesheet">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+    <style>
+        :root {
+            --primary: #5009B0;
+            --secondary: #475569;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            top: 0;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .spline-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: calc(100% + 60px);
+            z-index: 1;
+            clip-path: inset(0 0 60px 0);
+            overflow: hidden;
+        }
+
+        .spline-container iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+            .content-overlay {
+                position: absolute;
+                z-index: 10;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1));
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+            }
+
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.923);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            padding: 1rem 0;
+        }
+
+        .navbar-brand img {
+            height: 40px;
+            width: auto;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+            outline: none !important;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2880, 9, 176, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-nav {
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 1rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                margin-top: 1rem;
+            }
+
+            .navbar-nav {
+                align-items: flex-start;
+            }
+
+            .nav-link {
+                padding: 0.75rem 0 !important;
+            }
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .header-logo img {
+            max-height: 55px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+        }
+
+        .nav-cta {
+            padding: 8px 20px !important;
+            background-color: var(--primary);
+            color: #ffffff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+            font-weight: 500;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(80, 9, 176, 0.2);
+            color: white !important;
+        }
+
+        @media (max-width: 991px) {
+            .nav-cta {
+                margin: 10px 0;
+                text-align: center;
+                display: inline-block;
+            }
+        }
+
+        .header-cta {
+            background-color: #5009B0;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .header-cta:hover {
+            background-color: #3d07a0;
+            color: white !important;
+        }
+
+        .nav-link {
+            color: #5009B0 !important; /* Ensure anchor color is applied */
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1.1rem; /* Increased font size */
+            font-weight: 500;
+        }
+
+        .nav-link.active {
+            color: #9279CC !important; /* Ensure active color is applied */
+        }
+
+        .nav-link:hover {
+            color: #733AC0 !important; /* Ensure hover color is applied */
+            text-decoration: none;
+        }
+
+        .nav-item {
+            margin-right: 2rem; /* Increased spacing between anchors */
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-tabs .nav-link {
+            color: #475569;
+            background-color: #FAFAFA;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            background-color: #f0f0f0;
+            color: #5009B0;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #5009B0;
+            color: white;
+            border: none;
+        }
+
+        .nav-tabs {
+            border: none;
+            gap: 0;
+            display: flex;
+            margin-bottom: 6px;
+            background: #f1f5f9;
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            border-bottom: none;
+        }
+
+        #calculatorTabs .nav-link {
+            color: #475569;
+            background-color: #FAFAFA;
+            border: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        #calculatorTabs .nav-link i {
+            font-size: 1.2rem;
+        }
+
+        #calculatorTabs .nav-link:hover {
+            background-color: #f0f0f0;
+            color: #5009B0;
+        }
+
+        #calculatorTabs .nav-link.active {
+            background-color: #5009B0;
+            color: white;
+            border: none;
+        }
+
+        #calculatorTabs .nav-link.active i {
+            color: white;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .calculators-section {
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f6f2ff 0%, #efe9ff 100%);
+            perspective: 1000px;
+        }
+
+        .calculators-section::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(80, 9, 176, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(80, 9, 176, 0.05) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .calculator-shape {
+            position: absolute;
+            z-index: 0;
+        }
+
+        /* Wavy Circle */
+        .calc-shape-1 {
+            top: 10%;
+            right: 8%;
+            width: 120px;
+            height: 120px;
+            animation: rotateWave 20s linear infinite;
+        }
+
+        .wave-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(80, 9, 176, 0.2);
+            border-radius: 42% 38% 62% 49% / 45%;
+            animation: morphWave 10s linear infinite;
+        }
+
+        .wave-circle:nth-child(2) {
+            animation-delay: -3s;
+            border-color: rgba(80, 9, 176, 0.15);
+            transform: scale(0.8) rotate(60deg);
+        }
+
+        .wave-circle:nth-child(3) {
+            animation-delay: -6s;
+            border-color: rgba(80, 9, 176, 0.1);
+            transform: scale(0.6) rotate(-60deg);
+        }
+
+        /* Mesh Grid */
+        .calc-shape-2 {
+            bottom: 15%;
+            left: 5%;
+            width: 150px;
+            height: 150px;
+            transform: rotate(45deg);
+            animation: floatGrid 8s ease-in-out infinite;
+        }
+
+        .grid-line {
+            position: absolute;
+            background: rgba(80, 9, 176, 0.1);
+        }
+
+        .grid-horizontal {
+            width: 100%;
+            height: 1px;
+        }
+
+        .grid-vertical {
+            width: 1px;
+            height: 100%;
+        }
+
+        /* Gradient Orbs */
+        .calc-shape-3 {
+            top: 40%;
+            left: 12%;
+            width: 80px;
+            height: 80px;
+            animation: floatOrbs 6s ease-in-out infinite;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(80, 9, 176, 0.2), rgba(80, 9, 176, 0.05));
+            backdrop-filter: blur(4px);
+        }
+
+        /* Dotted Pattern */
+        .calc-shape-4 {
+            bottom: 20%;
+            right: 10%;
+            width: 140px;
+            height: 140px;
+            animation: rotateDots 15s linear infinite;
+        }
+
+        .dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(80, 9, 176, 0.2);
+            border-radius: 50%;
+        }
+
+        @keyframes rotateWave {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes morphWave {
+            0%, 100% { border-radius: 42% 38% 62% 49% / 45%; }
+            25% { border-radius: 45% 55% 45% 55% / 45% 55% 45% 55%; }
+            50% { border-radius: 62% 49% 42% 38% / 55%; }
+            75% { border-radius: 55% 45% 55% 45% / 55% 45% 55% 45%; }
+        }
+
+        @keyframes floatGrid {
+            0%, 100% { transform: rotate(45deg) translateY(0); }
+            50% { transform: rotate(45deg) translateY(-20px); }
+        }
+
+        @keyframes floatOrbs {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        @keyframes rotateDots {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .calculators-header,
+        .tab-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-label {
+            margin-bottom: 0.25rem;
+        }
+
+        .form-control {
+            height: 38px; /* Reduzido de 48px */
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.5rem 1rem; /* Reduzido de 0.75rem */
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            background-color: #f8fafc;
+        }
+
+        /* Mantém o tamanho original para inputs de resultado */
+        .form-control[readonly] {
+            height: 48px;
+            padding: 0.75rem 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Mantém o espaçamento original para grupos de resultado */
+        .form-group.result-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .input-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+        }
+
+        .calculator-form {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .tab-content {
+            padding: 2rem;
+            background: white;
+            border-radius: 0 0 1rem 1rem;
+        }
+
+        @media (max-width: 991px) {
+            .hamburger-menu {
+                display: flex;
+            }
+            /* Hero Section Mobile */
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+
+            .spline-container {
+                display: none; /* Only hide iframe on mobile */
+            }
+
+            .content-overlay {
+                position: relative;
+                height: auto;
+                min-height: auto;
+                padding: 2rem 0;
+                text-align: center;
+                background: transparent; /* Make background fully transparent on mobile */
+            }
+            .nav-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 250px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding-top: 80px;
+                transition: right 0.3s ease-in-out;
+                box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+            }
+
+            .nav-container.active {
+                right: 0;
+            }
+
+            .nav-container a {
+                margin: 10px 20px;
+                display: block;
+            }
+
+            .header-cta {
+                margin: 20px;
+            }
+
+            .hamburger-menu.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .hamburger-menu.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-menu.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+        }
+
+        /* Responsive Typography and Spacing */
+        @media (max-width: 991px) {
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.3;
+                margin-bottom: 1rem;
+            }
+            h2 {
+                font-size: 2rem !important;
+                margin-bottom: 2rem;
+            }
+            h3 {
+                font-size: 1.75rem !important;
+            }
+            p {
+                font-size: 1rem !important;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Section Spacing */
+            section {
+                padding: 4rem 0;
+            }
+
+            /* Hero Section Mobile */
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+
+            .spline-container {
+                display: none; /* Hide iframe on mobile */
+            }
+
+            .content-overlay {
+                position: relative;
+                height: auto;
+                min-height: auto;
+                padding: 2rem 0;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+                padding: 0 20px;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem !important;
+                margin: 1.5rem auto;
+                max-width: 600px;
+            }
+
+            .hero-cta {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .hero-cta .btn {
+                margin: 0.5rem;
+            }
+
+            /* Calculator Section */
+            .calculators-section {
+                padding: 4rem 0;
+            }
+
+            .nav-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                margin-bottom: 2rem;
+                padding-bottom: 5px;
+            }
+
+            .nav-tabs .nav-link {
+                white-space: nowrap;
+                padding: 0.75rem 1.5rem;
+            }
+
+            .tab-content {
+                padding: 1.5rem;
+            }
+
+            .form-group {
+                margin-bottom: 0.75rem;
+            }
+
+            /* Features Section */
+            .feature-card {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+            }
+
+            /* CTA Section */
+            .cta-section {
+                padding: 4rem 0;
+                text-align: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 0.5rem auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            section {
+                padding: 3rem 0;
+            }
+
+            .calculator-form .row > div {
+                padding: 0 15px;
+                margin-bottom: 1.5rem;
+            }
+
+            .results-section {
+                padding: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            /* Hide tab text on mobile, show only icons */
+            .nav-tabs .nav-link span {
+                display: none;
+            }
+
+            .nav-tabs .nav-link {
+                padding: 0.75rem;
+                font-size: 1.2rem;
+                min-width: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .nav-tabs .nav-link i {
+                margin: 0;
+            }
+
+            .nav-tabs {
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            /* Show calculator titles on forms */
+            .calculator-title-mobile {
+                display: block;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--primary);
+                margin-bottom: 1.5rem;
+                text-align: center;
+                padding: 0.5rem 0;
+                border-bottom: 2px solid #f0f0f0;
+            }
+
+            .tab-pane {
+                padding-top: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 0.75rem;
+            }
+
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+
+            /* Adjust spacing for calculator sections */
+            .calculators-section {
+                padding: 2rem 0;
+            }
+
+            .tab-content {
+                padding: 1rem;
+            }
+
+            /* Make inputs and labels more touch-friendly */
+            .form-label {
+                font-size: 1rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .form-control {
+                height: 48px;
+                font-size: 1rem;
+            }
+
+            /* Improve spacing between sections */
+            .row.g-4 {
+                margin-top: 0 !important;
+            }
+
+            .row.g-4 > div {
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .calculator-title-mobile {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Center text and icons in Why Calculate section */
+            .why-calculate-premium .section-header,
+            .why-calculate-premium .why-calculate-grid {
+                text-align: center;
+            }
+
+            .why-calculate-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+
+            .why-calculate-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+
+            .why-calculate-icon svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .why-calculate-title {
+                margin: 1rem 0;
+            }
+
+            .why-calculate-description {
+                text-align: center;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        /* Calculator Section Styles */
+        .calculators-section {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .calculators-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .calculators-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .calculators-header p {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Modern Form Styles */
+        .form-floating {
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-control {
+            height: 48px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            background-color: #f8fafc;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(80, 9, 176, 0.1);
+            background-color: #fff;
+        }
+
+        /* Modern Pricing Table */
+        .pricing-table {
+            border-radius: 1rem;
+            overflow: hidden;
+            background: white;
+            margin-top: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            border-color: #e2e8f0;
+        }
+
+        .pricing-table th {
+            background: #f8fafc;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-table th,
+            .pricing-table td {
+                font-size: 0.85rem;
+                padding: 0.75rem 0.5rem;
+            }
+
+            .pricing-table th:first-child,
+            .pricing-table td:first-child {
+                font-size: 0.8rem;
+                padding-right: 0.25rem;
+            }
+
+            .pricing-highlight {
+                font-size: 0.85rem;
+            }
+        }
+
+        .nav-tabs {
+            border: none;
+            gap: 0;
+            display: flex;
+            margin-bottom: 6px;
+            background: #f1f5f9;
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            border-bottom: none;
+        }
+
+        .nav-tabs .nav-item {
+            flex: 1;
+            display: flex;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            padding: 1rem;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            background: transparent;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+            border-radius: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs .nav-link:not(.active):hover {
+            background: #e2e8f0;
+            color: var(--primary);
+        }
+
+        .nav-tabs .nav-link i {
+            font-size: 1.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 0.5rem;
+                gap: 0.5rem;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .nav-tabs .nav-item {
+                flex: 0 0 auto;
+                width: auto;
+            }
+
+            .nav-tabs .nav-link {
+                white-space: nowrap;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-tabs .nav-link i {
+                margin-right: 0.5rem;
+                font-size: 1rem;
+            }
+        }
+
+        .tab-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
+        }
+
+        .btn.active,
+        .nav-link.active,
+        .btn-primary,
+        button[type="submit"],
+        .btn-calculate {
+            color: white !important;
+        }
+
+        .btn-primary:hover,
+        button[type="submit"]:hover,
+        .btn-calculate:hover {
+            color: white !important;
+        }
+
+        .why-calculate-premium {
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+        }
+
+        .why-calculate-premium::before,
+        .why-calculate-premium::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(80, 9, 176, 0.05) 0%, rgba(80, 9, 176, 0.02) 100%);
+            z-index: 0;
+        }
+
+        .why-calculate-premium::before {
+            top: -150px;
+            right: -100px;
+        }
+
+        .why-calculate-premium::after {
+            bottom: -150px;
+            left: -100px;
+        }
+
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--primary);
+            transform: rotate(45deg);
+        }
+
+        .shape-2 {
+            top: 20%;
+            right: 10%;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .shape-3 {
+            bottom: 15%;
+            right: 15%;
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--primary);
+            border-radius: 10px;
+            transform: rotate(30deg);
+        }
+
+        .shape-4 {
+            bottom: 20%;
+            left: 20%;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        .why-calculate-grid {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .section-header {
+                margin-bottom: 3rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .nav-cta {
+                margin: 10px 0;
+                text-align: center;
+                display: inline-block;
+            }
+
+            footer {
+                text-align: center;
+            }
+
+            footer .row > div {
+                margin-bottom: 20px;
+            }
+
+            footer .social-links {
+                justify-content: center;
+            }
+
+            footer ul {
+                padding-left: 0;
+            }
+
+            footer .footer-logo {
+                margin: 0 auto;
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            footer .col-md-4:last-child {
+                text-align: center;
+            }
+            
+            footer .d-flex.gap-3 {
+                justify-content: center;
+            }
+
+            /* Center logo and text in mobile */
+            footer .col-md-6:first-child {
+                text-align: center;
+                align-items: center;
+                margin-bottom: 0 !important;
+            }
+
+            footer .col-md-6:first-child img {
+                margin: 0 auto;
+            }
+
+            footer .col-md-6:first-child p {
+                text-align: center;
+                margin-bottom: 0;
+            }
+
+            footer hr {
+                display: none;
+            }
+        }
+
+        /* Footer styles */
+        footer .col-md-6 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        footer .social-section {
+            text-align: right;
+        }
+
+        footer .social-section .d-flex {
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem !important;
+            }
+            
+            /* Center social media icons in footer */
+            footer .social-section {
+                text-align: center;
+            }
+            
+            footer .social-section .d-flex {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 991px) {
+            h1 {
+                font-size: 2.5rem !important;
+                line-height: 1.3;
+                margin-bottom: 1rem;
+            }
+
+            /* Reset "Começar agora" link style in mobile menu */
+            .header-cta {
+                background: none !important;
+                padding: 8px 0 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                color: var(--primary) !important;
+            }
+
+            .header-cta:hover {
+                background: none !important;
+                color: var(--primary) !important;
+                opacity: 0.8;
+            }
+
+            /* Ensure consistent spacing in mobile menu */
+            .navbar-nav .nav-item {
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 8px 0 !important;
+                margin: 0 !important;
+            }
+        }
+
+        /* Restaurando estilos essenciais */
+        .nav-tabs .nav-item {
+            margin-right: 4px;
+        }
+
+        .nav-tabs .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s ease;
+            background-color: #E1E9FF;
+            color: #3D3A3D;
+        }
+
+        .nav-link.active {
+            color: #9279CC;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #5009B0 0%, #e5d2ff 100%);
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .feature-card {
+            border: none;
+            transition: transform 0.3s ease;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .calculator-section {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 3rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .result-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-card p {
+            color: var(--secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .result-card .value {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .result-card .label {
+            color: var(--secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-card h3 {
+            color: var(--secondary);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .stat-card .value {
+            color: var(--primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .saving-badge {
+            background-color: #f0f0f0;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.2em;
+            color: #5009B0;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .calculator-section input {
+            border-color: #ced4da;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .form-control:focus {
+            border-color: #5009B0;
+        }
+
+        .why-calculate-premium,
+        #calculators {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .why-calculate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            position: relative;
+        }
+
+        .why-calculate-item {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+
+        .why-calculate-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #5009B0 0%, #7e3af2 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .why-calculate-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            border-color: rgba(126, 58, 242, 0.2);
+        }
+
+        .why-calculate-item:hover::before {
+            opacity: 1;
+        }
+
+        .why-calculate-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(80,9,176,0.1) 0%, rgba(126,58,242,0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: transform 0.4s ease;
+        }
+
+        .why-calculate-item:hover .why-calculate-icon {
+            transform: scale(1.1);
+        }
+
+        .why-calculate-icon svg {
+            width: 40px;
+            height: 40px;
+            color: #5009B0;
+        }
+
+        .why-calculate-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            transition: color 0.4s ease;
+        }
+
+        .why-calculate-item:hover .why-calculate-title {
+            color: #5009B0;
+        }
+
+        .why-calculate-description {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #5009B0 0%, #5009B0 100%);
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .form-control, .btn {
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #5009B0;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover,
+        button[type="submit"]:hover,
+        .btn-calculate:hover {
+            background-color: #3B0782;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(80, 9, 176, 0.15);
+            color: white !important;
+        }
+
+        .hero-cta {
+            margin-top: 2rem;
+        }
+
+        .hero-cta .btn-primary {
+            font-size: 1.2rem;
+            padding: 15px 30px;
+        }
+
+        .tab-content {
+            padding: 2rem;
+            background: white;
+            border-radius: 0 0 1rem 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .why-calculate-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-right: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-cta {
+            background-color: #5009B0;
+            color: white !important;
+            padding: 6px 16px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1.5;
+        }
+
+        .nav-tabs {
+            border: none;
+            gap: 0;
+            display: flex;
+            margin-bottom: 6px;
+            background: #f1f5f9;
+            border-radius: 0.75rem;
+            padding: 0.5rem;
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="https://d1eni3461m2dqk.cloudfront.net/wp-content/uploads/2024/01/Extenso-1.png" alt="Harpio Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#why-calculate">Por que Calcular?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#calculators">Calculadoras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link header-cta" href="#cta">Quero economizar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero position-relative overflow-hidden">
+        <!-- Spline Background -->
+        <div class="spline-container">
+            <iframe src='https://my.spline.design/roomgirlworkingcopy-cf2539a9f4540e6cc63353f28e106cdb/' frameborder='0' width='100%' height='100%'></iframe>
+        </div>
+        
+        <!-- Content Overlay -->
+        <div class="content-overlay">
+            <div class="container position-relative">
+                <div class="row align-items-center">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h1 data-aos="fade-up">Calcule os custos de R&S da sua empresa</h1>
+                        <p data-aos="fade-up" data-aos-delay="100">Entenda o real impacto financeiro dos seus processos seletivos.</p>
+                        <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+                            <button onclick="window.location.href='#calculators'" class="btn btn-primary">Calcular Agora</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-left">
+                        <!--img src="https://trackingsystem.tech/Group%2021%201.png" alt="Hero Image" class="img-fluid rounded-4"-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="why-calculate" class="why-calculate-premium" data-aos="fade-up">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+        <div class="geometric-shape shape-4"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2>Por que calcular seus custos de R&S?</h2>
+                <p>Entenda como nossas calculadoras podem ajudar sua empresa a tomar decisões mais inteligentes.</p>
+            </div>
+            <div class="why-calculate-grid">
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M2 12h20"/>
+                        </svg>
+                    </div>
+                    <h3 class="why-calculate-title">Domine seu Orçamento</h3>
+                    <p class="why-calculate-description">Controle seus gastos com recrutamento e maximize resultados.</p>
+                </div>
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="why-calculate-title">Minimize Prejuízos</h3>
+                    <p class="why-calculate-description">Calcule o impacto financeiro das vagas em aberto no seu negócio.</p>
+                </div>
+                <div class="why-calculate-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="why-calculate-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <h3 class="why-calculate-title">Comprove o ROI</h3>
+                    <p class="why-calculate-description">Justifique investimentos e demonstre o valor do seu RH</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculators Section -->
+    <section id="calculators" class="calculators-section">
+        <div class="calculator-shape calc-shape-1">
+            <div class="wave-circle"></div>
+            <div class="wave-circle"></div>
+            <div class="wave-circle"></div>
+        </div>
+        <div class="calculator-shape calc-shape-2">
+            <div class="grid-line grid-horizontal" style="top: 20%;"></div>
+            <div class="grid-line grid-horizontal" style="top: 40%;"></div>
+            <div class="grid-line grid-horizontal" style="top: 60%;"></div>
+            <div class="grid-line grid-horizontal" style="top: 80%;"></div>
+            <div class="grid-line grid-vertical" style="left: 20%;"></div>
+            <div class="grid-line grid-vertical" style="left: 40%;"></div>
+            <div class="grid-line grid-vertical" style="left: 60%;"></div>
+            <div class="grid-line grid-vertical" style="left: 80%;"></div>
+        </div>
+        <div class="calculator-shape calc-shape-3">
+            <div class="orb" style="top: 20%; left: 20%;"></div>
+            <div class="orb" style="top: 40%; left: 40%;"></div>
+            <div class="orb" style="top: 60%; left: 60%;"></div>
+        </div>
+        <div class="calculator-shape calc-shape-4">
+            <div class="dot" style="top: 20%; left: 20%;"></div>
+            <div class="dot" style="top: 40%; left: 40%;"></div>
+            <div class="dot" style="top: 60%; left: 60%;"></div>
+            <div class="dot" style="top: 80%; left: 80%;"></div>
+        </div>
+        <div class="container">
+            <div class="calculators-header" data-aos="fade-up">
+                <h2>
+                    <dotlottie-player
+                        src="https://lottie.host/43eca776-5d47-4133-981f-cac4ec399f6b/EeMO8jmuqf.lottie"
+                        background="transparent"
+                        speed="1"
+                        style="width: 42px; height: 42px"
+                        loop
+                        autoplay
+                        ></dotlottie-player>
+                    Calculadoras
+                </h2>
+                <p>Descubra o verdadeiro impacto financeiro dos seus processos.</p>
+            </div>
+            
+            <ul class="nav nav-tabs" id="calculatorTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#custos" type="button" role="tab">
+                        <i class="fas fa-calculator"></i>
+                        <span>Custos de Recrutamento</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#receita" type="button" role="tab">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Perda de Receita</span>
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#roiCalculator" type="button" role="tab">
+                        <i class="fas fa-percentage"></i>
+                        <span>ROI Calculator</span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="custos">
+                    <h3 class="calculator-title-mobile">Custos de Recrutamento</h3>
+                    <form id="calculadoraForm">
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="diasAbertos" placeholder="Dias com a vaga aberta" required>
+                                    <label for="diasAbertos">Dias com a vaga aberta</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="salarioMensal" placeholder="Salário mensal da posição" required>
+                                    <label for="salarioMensal">Salário mensal da posição</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="custoRecrutamento" placeholder="Custo com recrutamento" required>
+                                    <label for="custoRecrutamento">Custo com recrutamento</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="custoOportunidade" placeholder="Custo de oportunidade diário" required>
+                                    <label for="custoOportunidade">Custo de oportunidade diário</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="candidatosEntrevistados" placeholder="Candidatos entrevistados">
+                                    <label for="candidatosEntrevistados">Candidatos entrevistados</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pricing-table table-responsive mt-4">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>
+                                            <i class="fas fa-user-tie mb-2"></i>
+                                            <div>Sem Consultoria</div>
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-star mb-2"></i>
+                                            <div>Modelo Expert</div>
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-bolt mb-2"></i>
+                                            <div>Modelo Sprint</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tempo médio</td>
+                                        <td><span class="pricing-highlight" id="tempoMedioSemConsultoria">-</span></td>
+                                        <td><span class="pricing-highlight" id="tempoMedioExpert">-</span></td>
+                                        <td><span class="pricing-highlight" id="tempoMedioSprint">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Custo total</td>
+                                        <td><span class="pricing-highlight" id="custoTotalSemConsultoria">-</span></td>
+                                        <td><span class="pricing-highlight" id="custoTotalExpert">-</span></td>
+                                        <td><span class="pricing-highlight" id="custoTotalSprint">-</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Economia</td>
+                                        <td>-</td>
+                                        <td><span class="pricing-highlight" id="economiaExpert">-</span></td>
+                                        <td><span class="pricing-highlight" id="economiaSprint">-</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="receita">
+                    <h3 class="calculator-title-mobile">Perda de Receita</h3>
+                    <form id="calculadoraReceitaForm">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="receitaAnual" placeholder="Receita anual da empresa" required>
+                                    <label for="receitaAnual">Receita anual da empresa</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="numFuncionarios" placeholder="Total de funcionários" required>
+                                    <label for="numFuncionarios">Total de funcionários</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="multiplicadorReceita" placeholder="Multiplicador de receita (1-3)" min="1" max="3" required>
+                                    <label for="multiplicadorReceita">Multiplicador de receita (1-3)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="diasVagaAberta" placeholder="Dias com a vaga aberta" required>
+                                    <label for="diasVagaAberta">Dias com a vaga aberta</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita média por funcionário</h5>
+                                    <h3 id="receitaMediaFuncionario">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita diária média</h5>
+                                    <h3 id="receitaDiariaFuncionario">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Receita diária ajustada</h5>
+                                    <h3 id="receitaDiariaAjustada">R$ 0,00</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="background-color: #733AC0;" class="stat-card text-white">
+                                    <h5>Perda total de receita</h5>
+                                    <h3 style="color: #FAFAFA;" id="perdaReceitaTotal">R$ 0,00</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade" id="roiCalculator">
+                    <h3 class="calculator-title-mobile">ROI Calculator</h3>
+                    <form id="roiCalculatorForm">
+                        <div class="row g-4">
+                            <!-- Dados da Companhia -->
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="numFuncionariosRoi" placeholder="Número de Funcionários">
+                                    <label for="numFuncionariosRoi">Número de Funcionários</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="vagasPorMes" placeholder="Vagas por Mês">
+                                    <label for="vagasPorMes">Vagas por Mês</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Estimativa de Horas -->
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="horasTriagem" placeholder="Horas em Triagem">
+                                    <label for="horasTriagem">Horas em Triagem</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="horasEntrevista" placeholder="Horas em Entrevista">
+                                    <label for="horasEntrevista">Horas em Entrevista</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="horasAdministrativo" placeholder="Horas em Administrativo">
+                                    <label for="horasAdministrativo">Horas em Administrativo</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Custos -->
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="custoHora" placeholder="Custo por Hora">
+                                    <label for="custoHora">Custo por Hora (R$)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="custoPorVaga" placeholder="Custo por Vaga">
+                                    <label for="custoPorVaga">Custo por Vaga (R$)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Custo Total Mensal</h5>
+                                    <h3 id="custoTotalMensal">-</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Custo por Vaga</h5>
+                                    <h3 id="custoMedioPorVaga">-</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="stat-card">
+                                    <h5>Horas por Vaga</h5>
+                                    <h3 id="horasPorVaga">-</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="background-color: #733AC0;" class="stat-card text-white">
+                                    <h5>ROI Anual Estimado</h5>
+                                    <h3 style="color: #FAFAFA;" id="roiAnual">-</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section" data-aos="fade-up">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h2 class="display-6 fw-bold mb-4">Pronto para otimizar seu processo de R&S?</h2>
+                    <p class="lead">Junte-se a centenas de empresas que já transformaram sua forma de recrutar.</p>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <button href="#calculators" class="btn btn-light btn-lg">Começar Agora</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="https://trackingsystem.tech/Extenso_Branco.png" alt="Hero Image" width="30%" class="img-fluid">
+                    <p>Transformando dados em decisões inteligentes para seu R&S</p>
+                </div>
+                <div class="col-md-6 social-section">
+                    <h5>Redes Sociais</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                        <a href="#" class="text-light"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Inicializa as animações AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Formatador de moeda
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        };
+
+        // Calculadora de Custos
+        function calcularCustos() {
+            const diasAbertos = parseFloat(document.getElementById('diasAbertos').value) || 0;
+            const salarioMensal = parseFloat(document.getElementById('salarioMensal').value) || 0;
+            const custoRecrutamento = parseFloat(document.getElementById('custoRecrutamento').value) || 0;
+            const custoOportunidade = parseFloat(document.getElementById('custoOportunidade').value) || 0;
+            const candidatosEntrevistados = parseFloat(document.getElementById('candidatosEntrevistados').value) || 0;
+
+            // Cálculos para cada modelo
+            const custoTotalSemConsultoria = custoRecrutamento + (custoOportunidade * diasAbertos);
+            const custoTotalExpert = custoTotalSemConsultoria * 0.7;
+            const custoTotalSprint = custoTotalSemConsultoria * 0.5;
+
+            // Economia
+            const economiaExpert = custoTotalSemConsultoria - custoTotalExpert;
+            const economiaSprint = custoTotalSemConsultoria - custoTotalSprint;
+
+            // Tempo médio
+            document.getElementById('tempoMedioSemConsultoria').textContent = diasAbertos + ' dias';
+            document.getElementById('tempoMedioExpert').textContent = Math.round(diasAbertos * 0.7) + ' dias';
+            document.getElementById('tempoMedioSprint').textContent = Math.round(diasAbertos * 0.5) + ' dias';
+
+            // Atualizar valores
+            document.getElementById('custoTotalSemConsultoria').textContent = formatCurrency(custoTotalSemConsultoria);
+            document.getElementById('custoTotalExpert').textContent = formatCurrency(custoTotalExpert);
+            document.getElementById('custoTotalSprint').textContent = formatCurrency(custoTotalSprint);
+            document.getElementById('economiaExpert').textContent = formatCurrency(economiaExpert);
+            document.getElementById('economiaSprint').textContent = formatCurrency(economiaSprint);
+        }
+
+        // Calculadora de Perda de Receita
+        function calcularPerdaReceita() {
+            const receita = parseFloat(document.getElementById('receitaAnual').value) || 0;
+            const funcionarios = parseFloat(document.getElementById('numFuncionarios').value) || 0;
+            const multiplicador = parseFloat(document.getElementById('multiplicadorReceita').value) || 0;
+            const diasAbertos = parseFloat(document.getElementById('diasVagaAberta').value) || 0;
+
+            const diasTrabalhadosAno = 261;
+
+            const receitaMedia = receita / funcionarios;
+            const receitaDiaria = receitaMedia / diasTrabalhadosAno;
+            const receitaAjustada = receitaDiaria * multiplicador;
+            const perdaTotal = receitaAjustada * diasAbertos;
+
+            document.getElementById('receitaMediaFuncionario').textContent = formatCurrency(receitaMedia);
+            document.getElementById('receitaDiariaFuncionario').textContent = formatCurrency(receitaDiaria);
+            document.getElementById('receitaDiariaAjustada').textContent = formatCurrency(receitaAjustada);
+            document.getElementById('perdaReceitaTotal').textContent = formatCurrency(perdaTotal);
+        }
+
+        // Constantes
+        const HORAS_POR_MES = 176;
+        const DIAS_UTEIS = 22;
+
+        // Função principal de cálculo
+        function calculateROI() {
+            // Inputs
+            const numFuncionarios = parseFloat(document.getElementById('numFuncionariosRoi').value);
+            const vagasPorMes = parseFloat(document.getElementById('vagasPorMes').value);
+            const horasTriagem = parseFloat(document.getElementById('horasTriagem').value);
+            const horasEntrevista = parseFloat(document.getElementById('horasEntrevista').value);
+            const horasAdministrativo = parseFloat(document.getElementById('horasAdministrativo').value);
+            const custoHora = parseFloat(document.getElementById('custoHora').value);
+            const custoPorVaga = parseFloat(document.getElementById('custoPorVaga').value);
+
+            // Verificar se todos os campos necessários estão preenchidos
+            if (isNaN(numFuncionarios) || isNaN(vagasPorMes) || isNaN(horasTriagem) || 
+                isNaN(horasEntrevista) || isNaN(horasAdministrativo) || isNaN(custoHora) || 
+                isNaN(custoPorVaga)) {
+                
+                document.getElementById('custoTotalMensal').textContent = '-';
+                document.getElementById('custoMedioPorVaga').textContent = '-';
+                document.getElementById('horasPorVaga').textContent = '-';
+                document.getElementById('roiAnual').textContent = '-';
+                return;
+            }
+
+            // Cálculos
+            const horasPorVaga = horasTriagem + horasEntrevista + horasAdministrativo;
+            const custoTotalMensal = (horasPorVaga * vagasPorMes * custoHora) + (vagasPorMes * custoPorVaga);
+            const custoMedioPorVaga = custoTotalMensal / vagasPorMes;
+            const roiAnual = ((custoTotalMensal * 12) / (numFuncionarios * 12 * 1000)) * 100;
+
+            // Atualizar interface
+            document.getElementById('custoTotalMensal').textContent = 
+                `R$ ${custoTotalMensal.toLocaleString('pt-BR', {maximumFractionDigits: 0})}`;
+            document.getElementById('custoMedioPorVaga').textContent = 
+                `R$ ${custoMedioPorVaga.toLocaleString('pt-BR', {maximumFractionDigits: 0})}`;
+            document.getElementById('horasPorVaga').textContent = 
+                `${horasPorVaga}h`;
+            document.getElementById('roiAnual').textContent = 
+                `${roiAnual.toFixed(1)}%`;
+        }
+
+        // Adicionar listeners para todos os inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculateROI);
+        });
+
+        // Calcular valores iniciais
+        calculateROI();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const nav = document.querySelector('.nav-container');
+            
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                nav.classList.toggle('active');
+            });
+
+            // Fechar o menu ao clicar em um link
+            document.querySelectorAll('.nav-container a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('active');
+                });
+            });
+        });
+
+        // Event Listeners
+        document.getElementById('calculadoraForm').addEventListener('input', calcularCustos);
+        document.getElementById('calculadoraReceitaForm').addEventListener('input', calcularPerdaReceita);
+        document.getElementById('roiCalculatorForm').addEventListener('input', calculateROI);
+
+        // Inicializar tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Mobile menu
+        const hamburger = document.querySelector('.hamburger-menu');
+        const nav = document.querySelector('.nav-container');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+        
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "harpio Hub de Recrutamento",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Human Resources",
+      "description": "Hub de produtos digitais para recrutamento que combina IA e expertise de Hunters especialistas. Oferece soluções personalizadas desde contratações rápidas até processos complexos.",
+      "operatingSystem": "Web-based",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "description": "Acesso gratuito à shortlist blindada. Pagamento apenas por candidato desbloqueado."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "150"
+      },
+      "featureList": [
+        "harpio Sprint: Contratações rápidas e eficientes",
+        "harpio Expert: Processos seletivos complexos",
+        "harpio Push: Sugestão proativa de candidatos via IA",
+        "harpio ATS: Gestão centralizada de recrutamento",
+        "Panorama harpio: Insights de mercado",
+        "Score harpio: Avaliação precisa de candidatos"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "harpio",
+      "url": "https://harpio.com.br",
+      "logo": "https://trackingsystem.tech/Extenso_Branco.png",
+      "description": "HR Tech revolucionando o recrutamento com um hub de produtos inteligentes que combina tecnologia avançada e expertise humana.",
+      "sameAs": [
+        "https://www.linkedin.com/company/harpiodigital/",
+        "https://www.instagram.com/harpiodigital",
+        "https://www.facebook.com/HarpioDigital"
+      ],
+      "knowsAbout": [
+        "Recrutamento e Seleção",
+        "Tecnologia RH",
+        "Inteligência Artificial",
+        "Machine Learning",
+        "Talent Acquisition",
+        "Employer Branding"
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Profissionais de RH e Gestores",
+        "geographicArea": {
+          "@type": "Country",
+          "name": "Brasil"
+        }
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "O que é a harpio Sprint?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "harpio Sprint é um modelo de entrega ágil e eficiente que oferece uma lista de candidatos qualificados e validados por Hunters especialistas. Inclui análise comportamental, validação técnica e insights de mercado, com custo até 25x menor que consultoria tradicional."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Quais são os benefícios da plataforma harpio?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Os principais benefícios incluem: redução de custos em até 25x, acesso a candidatos pré-qualificados, análise comportamental por especialistas, validação técnica completa, insights de mercado em tempo real e processo de contratação mais ágil e eficiente."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Como funciona a shortlist blindada?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A shortlist blindada permite análise completa do perfil profissional sem revelar dados pessoais. Inclui parecer técnico, análise comportamental, pretensão salarial e validações por especialistas. O desbloqueio dos dados ocorre apenas após interesse confirmado."
+        }
+      }]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "harpio Sprint",
+      "description": "Solução ágil de recrutamento com shortlist blindada e validação por Hunters especializados",
+      "brand": {
+        "@type": "Brand",
+        "name": "harpio"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BRL",
+        "price": "0",
+        "priceValidUntil": "2024-12-31",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "harpio"
+        }
+      },
+      "review": {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "4.8",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Empresas Parceiras"
+        }
+      }
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://harpio.com.br"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Produtos",
+        "item": "https://harpio.com.br/produtos"
+      },{
+        "@type": "ListItem",
+        "position": 3,
+        "name": "harpio Sprint",
+        "item": "https://harpio.com.br/produtos/sprint"
+      }]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Blog harpio",
+      "url": "https://harpio.com.br/blog",
+      "description": "Insights e novidades sobre recrutamento, tecnologia RH e mercado de trabalho",
+      "publisher": {
+        "@type": "Organization",
+        "name": "harpio",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://trackingsystem.tech/Extenso_Branco.png"
+        }
+      },
+      "blogPost": [{
+        "@type": "BlogPosting",
+        "headline": "Como a IA está revolucionando o recrutamento",
+        "description": "Descubra como a Inteligência Artificial está transformando os processos de recrutamento e seleção",
+        "url": "https://harpio.com.br/blog/ia-revolucionando-recrutamento",
+        "mainEntityOfPage": "https://harpio.com.br/blog/ia-revolucionando-recrutamento",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://trackingsystem.tech/blog/ia-recrutamento.jpg"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "harpio",
+          "url": "https://harpio.com.br"
+        },
+        "datePublished": "2023-11-01",
+        "dateModified": "2023-11-01"
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Shortlist Blindada: O futuro do recrutamento sem viés",
+        "description": "Entenda como a shortlist blindada elimina vieses no processo seletivo e aumenta a diversidade",
+        "url": "https://harpio.com.br/blog/shortlist-blindada-recrutamento-sem-vies",
+        "mainEntityOfPage": "https://harpio.com.br/blog/shortlist-blindada-recrutamento-sem-vies",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://trackingsystem.tech/blog/shortlist-blindada.jpg"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "harpio",
+          "url": "https://harpio.com.br"
+        },
+        "datePublished": "2023-10-15",
+        "dateModified": "2023-10-15"
+      }]
+    }
+    </script>
+
+    <!-- HowTo Schema para Processo de Recrutamento -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "Como Contratar os Melhores Talentos com harpio",
+      "description": "Guia completo do processo de recrutamento harpio para encontrar os melhores profissionais",
+      "totalTime": "PT30D",
+      "estimatedCost": {
+        "@type": "MonetaryAmount",
+        "currency": "BRL",
+        "value": "Sob consulta"
+      },
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "harpio Sprint"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "harpio Expert"
+        },
+        {
+          "@type": "HowToTool",
+          "name": "harpio Push"
+        }
+      ],
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Análise de Necessidades",
+          "text": "Identificação detalhada do perfil necessário e alinhamento com a cultura da empresa",
+          "image": "/assets/step1.png",
+          "url": "#processo"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Mapeamento de Mercado",
+          "text": "Busca ativa dos melhores profissionais disponíveis no mercado",
+          "image": "/assets/step2.png",
+          "url": "#processo"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Avaliação de Candidatos",
+          "text": "Processo completo de avaliação técnica e comportamental",
+          "image": "/assets/step3.png",
+          "url": "#processo"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Apresentação de Shortlist",
+          "text": "Apresentação dos melhores candidatos já validados",
+          "image": "/assets/step4.png",
+          "url": "#processo"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Acompanhamento",
+          "text": "Suporte durante todo o processo seletivo e período de garantia",
+          "image": "/assets/step5.png",
+          "url": "#processo"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Event Schema para Webinars -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Webinar: Tendências de Recrutamento Tech 2024",
+      "description": "Descubra as principais tendências e desafios no recrutamento de profissionais de tecnologia para 2024",
+      "startDate": "2024-01-25T19:00:00-03:00",
+      "endDate": "2024-01-25T20:30:00-03:00",
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "VirtualLocation",
+        "url": "https://harpio.com.br/webinar"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "harpio",
+        "url": "https://harpio.com.br"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://harpio.com.br/webinar",
+        "price": "0",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2024-01-01T00:00:00-03:00"
+      },
+      "performer": {
+        "@type": "Person",
+        "name": "Especialista harpio"
+      }
+    }
+    </script>
+
+    <!-- JobPosting Schema para Vagas Exemplo -->
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        "title": "Tech Lead Senior",
+        "description": "Buscamos um(a) Tech Lead Senior para liderar time de desenvolvimento em empresa unicórnio brasileira. Experiência com arquitetura de sistemas distribuídos e gestão de equipes ágeis.",
+        "datePosted": "2024-01-01",
+        "validThrough": "2024-02-01",
+        "employmentType": "FULL_TIME",
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Empresa Cliente harpio",
+          "sameAs": "https://harpio.com.br"
+        },
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "São Paulo",
+            "addressRegion": "SP",
+            "addressCountry": "BR"
+          }
+        },
+        "baseSalary": {
+          "@type": "MonetaryAmount",
+          "currency": "BRL",
+          "value": {
+            "@type": "QuantitativeValue",
+            "minValue": 25000,
+            "maxValue": 35000,
+            "unitText": "MONTH"
+          }
+        },
+        "qualifications": "- 8+ anos de experiência em desenvolvimento\n- Experiência com arquitetura de microsserviços\n- Gestão de times ágeis\n- Inglês fluente",
+        "skills": "Java, Kotlin, AWS, Kubernetes, Spring Boot, Microservices",
+        "workHours": "Flexível - Remoto",
+        "benefits": "- Plano de saúde\n- Stock Options\n- Horário flexível\n- Home office\n- Gympass"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        "title": "Product Manager Senior",
+        "description": "Procuramos um(a) Product Manager Senior para liderar o desenvolvimento de produtos digitais inovadores em fintech em crescimento.",
+        "datePosted": "2024-01-01",
+        "validThrough": "2024-02-01",
+        "employmentType": "FULL_TIME",
+        "hiringOrganization": {
+          "@type": "Organization",
+          "name": "Empresa Cliente harpio",
+          "sameAs": "https://harpio.com.br"
+        },
+        "jobLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "São Paulo",
+            "addressRegion": "SP",
+            "addressCountry": "BR"
+          }
+        },
+        "baseSalary": {
+          "@type": "MonetaryAmount",
+          "currency": "BRL",
+          "value": {
+            "@type": "QuantitativeValue",
+            "minValue": 20000,
+            "maxValue": 30000,
+            "unitText": "MONTH"
+          }
+        },
+        "qualifications": "- 5+ anos de experiência em produto\n- Experiência em produtos B2B\n- Metodologias ágeis\n- Inglês fluente",
+        "skills": "Product Discovery, OKRs, Scrum, Lean, Data Analytics",
+        "workHours": "Flexível - Híbrido",
+        "benefits": "- Plano de saúde\n- PLR\n- Horário flexível\n- Home office parcial\n- Vale refeição"
+      }
+    ]
+    </script>
+</body>
+</html>
