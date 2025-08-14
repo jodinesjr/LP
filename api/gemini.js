@@ -6,7 +6,8 @@ export default async function handler(req, res) {
     'http://localhost:3000',
     'https://lp-jodinesjr.vercel.app',
     'https://lp-git-main-jodinesjr.vercel.app',
-    'https://lp.vercel.app'
+    'https://lp.vercel.app',
+    'https://calculadora-eta-umber.vercel.app'
   ];
   
   if (allowedOrigins.includes(origin)) {
