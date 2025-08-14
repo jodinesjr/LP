@@ -9,10 +9,29 @@ export default async function handler(req, res) {
     console.log('🔗 [RD STATION API] URL:', req.url);
     console.log('📋 [RD STATION API] Headers recebidos:', JSON.stringify(req.headers, null, 2));
     
-    // Configurar CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Configurar CORS para permitir requisições do frontend
+    const origin = req.headers.origin;
+    const allowedOrigins = [
+        'http://localhost:3000',
+        'http://localhost:8080',
+        'http://127.0.0.1:3000',
+        'http://127.0.0.1:8080',
+        'https://calculadora-eta-umber.vercel.app',
+        'https://lp-jodinesjr.vercel.app',
+        'https://lp-git-main-jodinesjr.vercel.app',
+        'https://lp.vercel.app'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else {
+        // Permitir qualquer origem em desenvolvimento
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+    
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
     // Responder a requisições OPTIONS (preflight)
     if (req.method === 'OPTIONS') {
