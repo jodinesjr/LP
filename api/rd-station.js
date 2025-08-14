@@ -2,10 +2,7 @@
 // Este arquivo deve ser usado em produção (Vercel) para manter a API key segura
 // DEEP DEBUG VERSION - Logs detalhados para troubleshooting
 
-// Import fetch if needed for Node.js environment
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
     console.log('🚀 [RD STATION API] ===== INÍCIO DA REQUISIÇÃO =====');
     console.log('📅 [RD STATION API] Timestamp:', new Date().toISOString());
     console.log('🌐 [RD STATION API] Método:', req.method);
