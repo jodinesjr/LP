@@ -1,6 +1,4 @@
-// Import fetch for Node.js environment
-const fetch = require('node-fetch');
-
+// Using built-in fetch API (available in Node.js 18+)
 module.exports = async function handler(req, res) {
   // Configurar CORS para permitir requisições do frontend
   const origin = req.headers.origin;
