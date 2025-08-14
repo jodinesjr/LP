@@ -1,7 +1,7 @@
 // Import fetch for Node.js environment
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Configurar CORS para permitir requisições do frontend
   const origin = req.headers.origin;
   const allowedOrigins = [

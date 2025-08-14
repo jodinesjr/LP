@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import Head from 'next/head';
+const { useState } = require('react');
+const Head = require('next/head').default;
 
-export default function Home() {
+function Home() {
   const [testResult, setTestResult] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -112,3 +112,5 @@ export default function Home() {
     </div>
   );
 }
+
+module.exports = Home;
