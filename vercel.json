@@ -1,20 +1,23 @@
 {
-  "functions": {
-    "api/gemini.js": {
-      "runtime": "nodejs18.x"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     },
-    "api/rd-station.js": {
-      "runtime": "nodejs18.x"
+    {
+      "src": "**",
+      "use": "@vercel/static"
     }
-  },
-  "rewrites": [
+  ],
+  "routes": [
     {
-      "source": "/api/gemini",
-      "destination": "/api/gemini"
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
     },
     {
-      "source": "/api/rd-station", 
-      "destination": "/api/rd-station"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }

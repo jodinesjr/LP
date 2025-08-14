@@ -1,3 +1,6 @@
+// Import fetch for Node.js environment
+import fetch from 'node-fetch';
+
 export default async function handler(req, res) {
   // Configurar CORS para permitir requisições do frontend
   // Usar origin dinâmico para permitir tanto localhost quanto o domínio de produção
