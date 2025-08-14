@@ -1,8 +1,24 @@
 export default async function handler(req, res) {
   // Configurar CORS para permitir requisições do frontend
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  // Usar origin dinâmico para permitir tanto localhost quanto o domínio de produção
+  const origin = req.headers.origin;
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'https://lp-jodinesjr.vercel.app',
+    'https://lp-git-main-jodinesjr.vercel.app',
+    'https://lp.vercel.app'
+  ];
+  
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    // Permitir qualquer origem em desenvolvimento
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   // Responder a requisições OPTIONS (preflight)
   if (req.method === 'OPTIONS') {

@@ -2888,20 +2888,77 @@
             // Make calculateAndShowResults available in the global scope
             window.calculateAndShowResults = function() {
                 console.log('Função calculateAndShowResults chamada');
-                const rhColabs = parseFloat(document.getElementById('rh-colabs').value) || 0;
-                const totalColabs = parseFloat(document.getElementById('total-colabs').value) || 0;
-                const rhSalary = parseCurrency(document.getElementById('rh-salary').value);
-                const monthlyJobs = parseFloat(document.getElementById('monthly-jobs').value) || 0;
-                const cvsPerJob = parseFloat(document.getElementById('cvs-per-job').value) || 0;
-                const interviewsPerJob = parseFloat(document.getElementById('interviews-per-job').value) || 0;
-                const consultingCostAnnual = parseCurrency(document.getElementById('consulting-cost').value);
-                const portalsCostAnnual = parseCurrency(document.getElementById('portals-cost').value);
-                const linkedinCostAnnual = parseCurrency(document.getElementById('linkedin-cost').value);
-                const otherSoftwareCostAnnual = parseCurrency(document.getElementById('other-software-cost').value);
-                // Turnover efetivo considerando modo Abs/%
-                const turnoverColabs = (typeof getEffectiveTurnoverCount === 'function') ? getEffectiveTurnoverCount() : (parseFloat(document.getElementById('turnover-colabs').value) || 0);
-                const avgSalary = parseCurrency(document.getElementById('avg-salary').value);
-                const adaptationTime = parseFloat(document.getElementById('adaptation-time').value) || 0;
+                // Obter valores dos inputs com fallbacks para os placeholders quando vazios
+                const getRhColabs = () => {
+                    const value = document.getElementById('rh-colabs').value;
+                    return parseFloat(value || '2') || 0;
+                };
+                const getTotalColabs = () => {
+                    const value = document.getElementById('total-colabs').value;
+                    return parseFloat(value || '50') || 0;
+                };
+                const getRhSalary = () => {
+                    const value = document.getElementById('rh-salary').value;
+                    return parseCurrency(value || 'R$ 7.000,00');
+                };
+                const getMonthlyJobs = () => {
+                    const value = document.getElementById('monthly-jobs').value;
+                    return parseFloat(value || '5') || 0;
+                };
+                const getCvsPerJob = () => {
+                    const value = document.getElementById('cvs-per-job').value;
+                    return parseFloat(value || '100') || 0;
+                };
+                const getInterviewsPerJob = () => {
+                    const value = document.getElementById('interviews-per-job').value;
+                    return parseFloat(value || '20') || 0;
+                };
+                const getConsultingCost = () => {
+                    const value = document.getElementById('consulting-cost').value;
+                    return parseCurrency(value || 'R$ 20.000,00');
+                };
+                const getPortalsCost = () => {
+                    const value = document.getElementById('portals-cost').value;
+                    return parseCurrency(value || 'R$ 300,00');
+                };
+                const getLinkedinCost = () => {
+                    const value = document.getElementById('linkedin-cost').value;
+                    return parseCurrency(value || 'R$ 6.000,00');
+                };
+                const getOtherSoftwareCost = () => {
+                    const value = document.getElementById('other-software-cost').value;
+                    return parseCurrency(value || 'R$ 3.000,00');
+                };
+                const getTurnoverColabs = () => {
+                    if (typeof getEffectiveTurnoverCount === 'function') {
+                        return getEffectiveTurnoverCount();
+                    }
+                    const value = document.getElementById('turnover-colabs').value;
+                    return parseFloat(value || '5') || 0;
+                };
+                const getAvgSalary = () => {
+                    const value = document.getElementById('avg-salary').value;
+                    return parseCurrency(value || 'R$ 5.000,00');
+                };
+                const getAdaptationTime = () => {
+                    const value = document.getElementById('adaptation-time').value;
+                    return parseFloat(value || '3') || 0;
+                };
+                
+                // Aplicar as funções para obter os valores
+                const rhColabs = getRhColabs();
+                const totalColabs = getTotalColabs();
+                const rhSalary = getRhSalary();
+                const monthlyJobs = getMonthlyJobs();
+                const cvsPerJob = getCvsPerJob();
+                const interviewsPerJob = getInterviewsPerJob();
+                const consultingCostAnnual = getConsultingCost();
+                const portalsCostAnnual = getPortalsCost();
+                const linkedinCostAnnual = getLinkedinCost();
+                const otherSoftwareCostAnnual = getOtherSoftwareCost();
+                const turnoverColabs = getTurnoverColabs();
+                const avgSalary = getAvgSalary();
+                const adaptationTime = getAdaptationTime();
                 
                 // Esconder a hero section quando calcular os resultados
                 const heroSection = document.getElementById('home');
@@ -3469,17 +3526,62 @@
             try {
                 console.log('=== INICIANDO GERAÇÃO DE RELATÓRIO IA ===');
                 
-                // Obter dados atuais
-                const rhColabs = parseFloat(document.getElementById('rh-colabs').value) || 0;
-                const totalColabs = parseFloat(document.getElementById('total-colabs').value) || 0;
-                const rhSalary = parseCurrency(document.getElementById('rh-salary').value);
-                const monthlyJobs = parseFloat(document.getElementById('monthly-jobs').value) || 0;
-                const consultingCostAnnual = parseCurrency(document.getElementById('consulting-cost').value);
-                const portalsCostAnnual = parseCurrency(document.getElementById('portals-cost').value);
-                const linkedinCostAnnual = parseCurrency(document.getElementById('linkedin-cost').value);
-                const otherSoftwareCostAnnual = parseCurrency(document.getElementById('other-software-cost').value);
-                const turnoverColabs = (typeof getEffectiveTurnoverCount === 'function') ? getEffectiveTurnoverCount() : (parseFloat(document.getElementById('turnover-colabs').value) || 0);
-                const avgSalary = parseCurrency(document.getElementById('avg-salary').value);
+                // Obter dados atuais com fallbacks para os placeholders quando vazios
+                const getRhColabs = () => {
+                    const value = document.getElementById('rh-colabs').value;
+                    return parseFloat(value || '2') || 0;
+                };
+                const getTotalColabs = () => {
+                    const value = document.getElementById('total-colabs').value;
+                    return parseFloat(value || '50') || 0;
+                };
+                const getRhSalary = () => {
+                    const value = document.getElementById('rh-salary').value;
+                    return parseCurrency(value || 'R$ 7.000,00');
+                };
+                const getMonthlyJobs = () => {
+                    const value = document.getElementById('monthly-jobs').value;
+                    return parseFloat(value || '5') || 0;
+                };
+                const getConsultingCost = () => {
+                    const value = document.getElementById('consulting-cost').value;
+                    return parseCurrency(value || 'R$ 20.000,00');
+                };
+                const getPortalsCost = () => {
+                    const value = document.getElementById('portals-cost').value;
+                    return parseCurrency(value || 'R$ 300,00');
+                };
+                const getLinkedinCost = () => {
+                    const value = document.getElementById('linkedin-cost').value;
+                    return parseCurrency(value || 'R$ 6.000,00');
+                };
+                const getOtherSoftwareCost = () => {
+                    const value = document.getElementById('other-software-cost').value;
+                    return parseCurrency(value || 'R$ 3.000,00');
+                };
+                const getTurnoverColabs = () => {
+                    if (typeof getEffectiveTurnoverCount === 'function') {
+                        return getEffectiveTurnoverCount();
+                    }
+                    const value = document.getElementById('turnover-colabs').value;
+                    return parseFloat(value || '5') || 0;
+                };
+                const getAvgSalary = () => {
+                    const value = document.getElementById('avg-salary').value;
+                    return parseCurrency(value || 'R$ 5.000,00');
+                };
+                
+                // Aplicar as funções para obter os valores
+                const rhColabs = getRhColabs();
+                const totalColabs = getTotalColabs();
+                const rhSalary = getRhSalary();
+                const monthlyJobs = getMonthlyJobs();
+                const consultingCostAnnual = getConsultingCost();
+                const portalsCostAnnual = getPortalsCost();
+                const linkedinCostAnnual = getLinkedinCost();
+                const otherSoftwareCostAnnual = getOtherSoftwareCost();
+                const turnoverColabs = getTurnoverColabs();
+                const avgSalary = getAvgSalary();
                 
                 console.log('Dados coletados dos inputs:', {
                     rhColabs, totalColabs, rhSalary, monthlyJobs,
@@ -3891,11 +3993,16 @@ IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimiza
                 console.log('Tamanho do prompt:', prompt.length, 'caracteres');
                 
                 // Usar a API backend segura em vez de chamar diretamente o Gemini
+                // Garantir que a URL base seja correta em qualquer ambiente
                 const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
                     ? 'http://localhost:3000' 
                     : window.location.origin;
                 
+                // Garantir que a URL da API seja absoluta
                 const apiUrl = `${baseUrl}/api/gemini`;
+                
+                console.log('URL base detectada:', baseUrl);
+                console.log('URL da API completa:', apiUrl);
                 
                 const requestBody = {
                     prompt: prompt
@@ -3912,15 +4019,27 @@ IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimiza
                     'Accept': 'application/json'
                 });
                 
+                // Melhorar a configuração do fetch para funcionar em produção
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
                     },
+                    // Usar no-cors para produção e cors para desenvolvimento
                     mode: 'cors',
-                    credentials: 'same-origin',
+                    // Remover credentials para evitar problemas de CORS em produção
+                    // credentials: 'same-origin',
                     body: JSON.stringify(requestBody)
+                });
+                
+                console.log('🔄 [FRONTEND] Configuração do fetch:', {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
                 });
                 
                 console.log('🔄 [FRONTEND] Resposta recebida. Status completo:', response.status, response.statusText);

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard IA - Motion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0f0a1a;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f0a1a 0%, #2a1a3e 50%, #3e1a4e 100%);
+            overflow: hidden;
+        }
+        
+        /* Overlay preto semi-transparente */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        /* Partículas flutuantes */
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #a855f7, #8b5cf6);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Grid de fundo animado */
+        .grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s infinite linear;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Ondas de energia */
+        .energy-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, transparent, rgba(168, 85, 247, 0.1));
+            border-radius: 50% 50% 0 0;
+            transform-origin: center bottom;
+            animation: wave 8s ease-in-out infinite;
+        }
+
+        .energy-wave:nth-child(2) {
+            animation-delay: -2s;
+            opacity: 0.7;
+        }
+
+        .energy-wave:nth-child(3) {
+            animation-delay: -4s;
+            opacity: 0.5;
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: scaleX(1) scaleY(1);
+            }
+            50% {
+                transform: scaleX(1.2) scaleY(1.5);
+            }
+        }
+
+        /* Tags superiores */
+        .tags-container {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 20;
+            display: flex;
+            gap: 15px;
+        }
+
+        .tag {
+            position: relative;
+            background: rgba(199, 162, 255, 0.25); /* Cor de fundo mais clara */
+            border: 2px solid #b58bf7; /* Borda mais clara */
+            border-radius: 25px;
+            padding: 12px 24px;
+            color: #f0e6ff; /* Texto mais claro para melhor contraste */
+            font-weight: 600;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            text-shadow: 0 0 8px rgba(199, 162, 255, 0.5); /* Sombra para melhorar legibilidade */
+        }
+
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .tag:hover {
+            background: rgba(199, 162, 255, 0.4); /* Cor de fundo mais clara no hover */
+            border-color: #d4b9ff; /* Borda mais clara no hover */
+            color: #ffffff; /* Texto branco no hover para melhor contraste */
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tag:hover::before {
+            left: 100%;
+        }
+
+        .tag.primary {
+            background: rgba(199, 162, 255, 0.35); /* Cor de fundo mais clara */
+            border-color: #c6a2ff; /* Borda mais clara */
+            color: #f0e6ff; /* Texto mais claro para melhor contraste */
+            text-shadow: 0 0 10px rgba(199, 162, 255, 0.7); /* Sombra mais intensa para a tag primária */
+        }
+
+        .tag.primary:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Elementos do Dashboard */
+        .dashboard-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(180deg, transparent, #a855f7, transparent);
+            animation: dataFlow 3s infinite ease-in-out;
+        }
+
+        @keyframes dataFlow {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-50px);
+            }
+        }
+
+        /* Círculos de análise */
+        .analysis-circle {
+            position: absolute;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        .analysis-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Logo central */
+        .logo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 300px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
+            animation: logoGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% {
+                filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.3));
+            }
+            100% {
+                filter: drop-shadow(0 0 30px rgba(168, 85, 247, 0.5));
+            }
+        }
+
+        /* Gauges e gráficos */
+        .dashboard-widgets {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .gauge-container {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #a855f7 0deg, #8b5cf6 120deg, rgba(168, 85, 247, 0.1) 120deg);
+            animation: gaugeRotate 6s ease-in-out infinite;
+        }
+
+        .gauge::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background: rgba(15, 10, 26, 0.9);
+            border-radius: 50%;
+        }
+
+        .gauge-percentage {
+            position: relative;
+            color: #a855f7;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes gaugeRotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+
+        .donut-chart {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: conic-gradient(#a855f7 0deg 120deg, #8b5cf6 120deg 240deg, rgba(168, 85, 247, 0.2) 240deg);
+            animation: donutSpin 8s linear infinite;
+        }
+
+        .donut-chart::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            background: rgba(15, 10, 26, 0.9);
+            border-radius: 50%;
+        }
+
+        @keyframes donutSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .calculation-box {
+            position: absolute;
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            backdrop-filter: blur(10px);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            color: #a855f7;
+            animation: calcPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes calcPulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+
+        .strategy-indicator {
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #a855f7, #8b5cf6);
+            border-radius: 2px;
+            animation: strategyPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes strategyPulse {
+            0%, 100% { width: 80px; opacity: 0.6; }
+            50% { width: 120px; opacity: 1; }
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            z-index: 20;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .footer-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff; /* Corrigido para branco */
+            margin-bottom: 10px;
+        }
+
+        .footer-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .metric {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #00d4ff;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        /* Efeitos visuais extras */
+        .neural-network {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 300px;
+            height: 200px;
+            opacity: 0.3;
+        }
+
+        .neuron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #a855f7;
+            border-radius: 50%;
+            animation: neuronPulse 2s infinite ease-in-out;
+        }
+
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #a855f7, transparent);
+            animation: dataTransfer 3s infinite ease-in-out;
+        }
+
+        @keyframes neuronPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        @keyframes dataTransfer {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Grid de fundo -->
+        <div class="grid"></div>
+        
+        <!-- Overlay preto semi-transparente -->
+        <div class="overlay"></div>
+
+        <!-- Partículas -->
+        <div class="particles" id="particles"></div>
+
+        <!-- Ondas de energia -->
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+        <div class="energy-wave"></div>
+
+
+
+        <!-- Logo central -->
+        <div class="logo-container">
+            <img src="https://harpio.com.br/wp-content/uploads/2024/05/Vector.png" alt="Harpio Logo" class="logo">
+        </div>
+
+        <!-- Widgets do Dashboard -->
+        <div class="dashboard-widgets" id="dashboard-widgets"></div>
+
+        <!-- Rede Neural -->
+        <div class="neural-network" id="neural-network"></div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-center">
+                <div class="footer-title">Inteligência Artificial Harpio</div>
+                <div class="footer-subtitle">Análise Estratégica • Machine Learning • Insights Preditivos</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Criar partículas dinâmicas
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Criar elementos do dashboard
+        function createDashboardElements() {
+            const container = document.getElementById('dashboard-widgets');
+            
+            // Data streams
+            for (let i = 0; i < 15; i++) {
+                const stream = document.createElement('div');
+                stream.className = 'data-stream';
+                stream.style.left = Math.random() * 100 + '%';
+                stream.style.top = Math.random() * 80 + '%';
+                stream.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(stream);
+            }
+
+            // Círculos de análise
+            for (let i = 0; i < 6; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'analysis-circle';
+                const size = Math.random() * 80 + 40;
+                circle.style.width = size + 'px';
+                circle.style.height = size + 'px';
+                circle.style.left = Math.random() * 90 + '%';
+                circle.style.top = Math.random() * 70 + '%';
+                circle.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(circle);
+            }
+
+            // Gauges
+            const gaugePositions = [
+                { left: '10%', top: '15%', value: '87%' },
+                { left: '85%', top: '20%', value: '94%' },
+                { left: '15%', top: '70%', value: '76%' },
+                { left: '80%', top: '65%', value: '92%' }
+            ];
+
+            gaugePositions.forEach((pos, i) => {
+                // Criar container para o gauge
+                const gaugeContainer = document.createElement('div');
+                gaugeContainer.className = 'gauge-container';
+                gaugeContainer.style.left = pos.left;
+                gaugeContainer.style.top = pos.top;
+                
+                // Criar o gauge animado
+                const gauge = document.createElement('div');
+                gauge.className = 'gauge';
+                gauge.style.animationDelay = i * 0.5 + 's';
+                
+                // Criar o texto do percentual
+                const gaugeText = document.createElement('div');
+                gaugeText.className = 'gauge-percentage';
+                gaugeText.textContent = pos.value;
+                
+                // Adicionar elementos ao container
+                gaugeContainer.appendChild(gauge);
+                gaugeContainer.appendChild(gaugeText);
+                
+                // Adicionar ao container principal
+                container.appendChild(gaugeContainer);
+            });
+
+            // Donut charts
+            const donutPositions = [
+                { left: '20%', top: '35%' },
+                { left: '75%', top: '40%' },
+                { left: '12%', top: '55%' },
+                { left: '82%', top: '80%' }
+            ];
+
+            donutPositions.forEach((pos, i) => {
+                const donut = document.createElement('div');
+                donut.className = 'donut-chart';
+                donut.style.left = pos.left;
+                donut.style.top = pos.top;
+                donut.style.animationDelay = i * 0.8 + 's';
+                container.appendChild(donut);
+            });
+
+            // Calculation boxes
+            const calculations = [
+                { text: 'ROI: +23.4%\nΔ: ↗ 2.1%', left: '5%', top: '25%' },
+                { text: 'ML Score: 0.94\nAcc: 94.2%', left: '88%', top: '35%' },
+                { text: 'Strategy A\nPerf: +18%', left: '8%', top: '80%' },
+                { text: 'Risk: 0.12\nβ: 0.87', left: '85%', top: '75%' }
+            ];
+
+            calculations.forEach((calc, i) => {
+                const box = document.createElement('div');
+                box.className = 'calculation-box';
+                box.innerHTML = calc.text.replace(/\n/g, '<br>');
+                box.style.left = calc.left;
+                box.style.top = calc.top;
+                box.style.animationDelay = i * 0.6 + 's';
+                container.appendChild(box);
+            });
+
+            // Strategy indicators
+            for (let i = 0; i < 8; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'strategy-indicator';
+                indicator.style.left = Math.random() * 85 + '%';
+                indicator.style.top = Math.random() * 85 + '%';
+                indicator.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(indicator);
+            }
+        }
+
+        // Criar rede neural
+        function createNeuralNetwork() {
+            const container = document.getElementById('neural-network');
+            
+            // Neurônios
+            const neurons = [];
+            for (let i = 0; i < 12; i++) {
+                const neuron = document.createElement('div');
+                neuron.className = 'neuron';
+                neuron.style.left = (i % 4) * 70 + Math.random() * 20 + 'px';
+                neuron.style.top = Math.floor(i / 4) * 60 + Math.random() * 20 + 'px';
+                neuron.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(neuron);
+                neurons.push(neuron);
+            }
+
+            // Conexões
+            for (let i = 0; i < 8; i++) {
+                const connection = document.createElement('div');
+                connection.className = 'connection';
+                connection.style.width = Math.random() * 80 + 40 + 'px';
+                connection.style.left = Math.random() * 200 + 'px';
+                connection.style.top = Math.random() * 150 + 'px';
+                connection.style.transform = 'rotate(' + Math.random() * 360 + 'deg)';
+                connection.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(connection);
+            }
+        }
+
+        // Animação de cálculos estratégicos
+        function animateCalculations() {
+            const calculations = document.querySelectorAll('.calculation-box');
+            
+            setInterval(() => {
+                calculations.forEach((calc) => {
+                    const currentText = calc.innerHTML;
+                    if (currentText.includes('ROI')) {
+                        const newROI = (Math.random() * 5 + 20).toFixed(1);
+                        const newDelta = (Math.random() * 2 + 1).toFixed(1);
+                        calc.innerHTML = `ROI: +${newROI}%<br>Δ: ↗ ${newDelta}%`;
+                    } else if (currentText.includes('ML Score')) {
+                        const newScore = (Math.random() * 0.06 + 0.90).toFixed(2);
+                        const newAcc = (Math.random() * 5 + 90).toFixed(1);
+                        calc.innerHTML = `ML Score: ${newScore}<br>Acc: ${newAcc}%`;
+                    } else if (currentText.includes('Strategy')) {
+                        const newPerf = (Math.random() * 10 + 15).toFixed(0);
+                        calc.innerHTML = `Strategy A<br>Perf: +${newPerf}%`;
+                    } else if (currentText.includes('Risk')) {
+                        const newRisk = (Math.random() * 0.08 + 0.08).toFixed(2);
+                        const newBeta = (Math.random() * 0.3 + 0.7).toFixed(2);
+                        calc.innerHTML = `Risk: ${newRisk}<br>β: ${newBeta}`;
+                    }
+                });
+            }, 4000);
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createDashboardElements();
+            createNeuralNetwork();
+            animateMetrics();
+        });
+
+        // Função para animar métricas
+        function animateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value, .percentage-text');
+            metrics.forEach((metric, index) => {
+                setTimeout(() => {
+                    metric.style.opacity = '0';
+                    metric.style.transform = 'translateY(10px)';
+                    
+                    setTimeout(() => {
+                        metric.style.transition = 'all 0.6s ease-out';
+                        metric.style.opacity = '1';
+                        metric.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 150);
+            });
+        }
+
+        // Interatividade das tags
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function() {
+                this.style.transform = 'translateY(-2px) scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-2px) scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>

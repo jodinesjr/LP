@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/gemini.js", "use": "@vercel/node" },
+    { "src": "api/rd-station.js", "use": "@vercel/node" },
+    { "src": "*.{html,css,js}", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" },
+    { "src": "videos/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/gemini", "dest": "/api/gemini" },
+    { "src": "/api/rd-station", "dest": "/api/rd-station" },
+    { "src": "/form.html", "dest": "/form.html" },
+    { "src": "/images/(.*)", "dest": "/images/$1" },
+    { "src": "/videos/(.*)", "dest": "/videos/$1" },
+    { "src": "/(.*).js", "dest": "/$1.js" },
+    { "src": "/(.*).css", "dest": "/$1.css" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
