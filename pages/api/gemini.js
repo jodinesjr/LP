@@ -1,38 +1,41 @@
 export default async function handler(req, res) {
-  // Configurar CORS para permitir requisições do frontend
-  // Usar origin dinâmico para permitir tanto localhost quanto o domínio de produção
-  const origin = req.headers.origin;
-  const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:8080',
-    'http://127.0.0.1:3000',
-    'http://127.0.0.1:8080',
-    'https://calculadora-eta-umber.vercel.app',
-    'https://lp-jodinesjr.vercel.app',
-    'https://lp-git-main-jodinesjr.vercel.app',
-    'https://lp.vercel.app'
-  ];
+  console.log('🤖 [GEMINI API] ===== INÍCIO DA REQUISIÇÃO =====');
+  console.log('📅 [GEMINI API] Timestamp:', new Date().toISOString());
+  console.log('🌐 [GEMINI API] Método:', req.method);
+  console.log('🔗 [GEMINI API] URL:', req.url);
+  console.log('📋 [GEMINI API] Headers recebidos:', JSON.stringify(req.headers, null, 2));
   
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  } else {
-    // Permitir qualquer origem em desenvolvimento
-    res.setHeader('Access-Control-Allow-Origin', '*');
-  }
-  
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // Configurar CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   // Responder a requisições OPTIONS (preflight)
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+    console.log('✅ [GEMINI API] Respondendo a preflight OPTIONS');
+    return res.status(200).end();
+  }
+
+  // Para debug: aceitar GET temporariamente
+  if (req.method === 'GET') {
+    console.log('🔍 [GEMINI API] Requisição GET recebida - retornando status da API');
+    return res.status(200).json({ 
+      status: 'API Gemini funcionando',
+      method: req.method,
+      timestamp: new Date().toISOString(),
+      message: 'Use POST para gerar relatórios'
+    });
   }
 
   // Apenas aceitar métodos POST
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Método não permitido' });
+    console.error('❌ [GEMINI API] Método não permitido:', req.method);
+    return res.status(405).json({ 
+      error: 'Método não permitido',
+      received_method: req.method,
+      allowed_methods: ['POST']
+    });
   }
 
   try {
