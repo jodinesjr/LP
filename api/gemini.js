@@ -4,6 +4,10 @@ export default async function handler(req, res) {
   const origin = req.headers.origin;
   const allowedOrigins = [
     'http://localhost:3000',
+    'http://localhost:8080',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:8080',
+    'https://calculadora-eta-umber.vercel.app',
     'https://lp-jodinesjr.vercel.app',
     'https://lp-git-main-jodinesjr.vercel.app',
     'https://lp.vercel.app'
