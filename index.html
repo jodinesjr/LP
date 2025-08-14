@@ -1748,14 +1748,13 @@
                 // Set initial state on page load
                 if(videoPlayer && tutorialPoster) {
                     if (!videoPlayer.src) {
-                        // Use relative path for videos with cache-busting parameter
-                        videoPlayer.src = 'etapa1.mp4?v=1.0';
+                        // Use relative path for videos - Vercel will serve them from the root
+                        videoPlayer.src = 'etapa1.mp4';
                         videoPlayer.load();
                     }
-                    // Set initial poster source with cache-busting
-                    if (tutorialPoster && !tutorialPoster.src) {
-                        tutorialPoster.src = 'thumb/etapa1.png?v=1.0';
-                    }
+                    // Set initial poster source
+                    tutorialPoster.src = 'thumb/etapa1.png';
+                    // Initially show the poster and overlay
                     tutorialPoster.style.display = 'block';
                     if (videoOverlay) {
                         videoOverlay.classList.remove('hidden');
@@ -2784,10 +2783,10 @@
             }
 
             const tutorialData = [
-                { video_url: 'etapa1.mp4?v=1.0', poster_url: 'thumb/etapa1.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>group</span><div>O número de recrutadores impacta diretamente o volume de trabalho e a capacidade de triagem da sua equipe.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">group</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores em Recrutamento e Seleção</span></div><div data-tippy-content="<span class=\'material-icons\'>business</span><div>O tamanho da empresa ajuda a contextualizar a complexidade e a escala das suas operações de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">business</span><span class="text-xs mt-1 font-medium leading-tight">Total de Colaboradores</span></div><div data-tippy-content="<span class=\'material-icons\'>attach_money</span><div>O salário da equipe de R&S é um custo direto fundamental para calcular o ROI de qualquer nova ferramenta ou processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">attach_money</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio da Equipe de Recrutamento</span></div></div>' },
-                { video_url: 'etapa2.mp4?v=1.0', poster_url: 'thumb/etapa2.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>work</span><div>O volume de vagas indica a demanda de trabalho e o esforço contínuo da sua equipe de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">work</span><span class="text-xs mt-1 font-medium leading-tight">Vagas Abertas por Mês</span></div><div data-tippy-content="<span class=\'material-icons\'>description</span><div>A quantidade de currículos por vaga é um indicador chave do tempo gasto na triagem manual e da eficiência do processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">description</span><span class="text-xs mt-1 font-medium leading-tight">Currículos por Vaga</span></div><div data-tippy-content="<span class=\'material-icons\'>record_voice_over</span><div>O número de entrevistas revela o esforço necessário para qualificar candidatos e o quão seletivo é o seu funil.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">record_voice_over</span><span class="text-xs mt-1 font-medium leading-tight">Entrevistas por Vaga</span></div></div>' },
-                { video_url: 'etapa3.mp4?v=1.0', poster_url: 'thumb/etapa3.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>support_agent</span><div>O custo com consultorias externas é um investimento significativo que pode ser otimizado com as ferramentas certas.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">support_agent</span><span class="text-xs mt-1 font-medium leading-tight">Consultorias</span></div><div data-tippy-content="<span class=\'material-icons\'>web</span><div>Portais de vagas são essenciais, mas seus custos podem ser altos. Entender esse valor ajuda a avaliar a eficiência do canal.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">web</span><span class="text-xs mt-1 font-medium leading-tight">Portais de Vagas</span></div><div data-tippy-content="<span class=\'material-icons\'>link</span><div>O LinkedIn é uma ferramenta poderosa, e seu custo de assinatura para equipes de recrutamento é um fator importante no orçamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">link</span><span class="text-xs mt-1 font-medium leading-tight">LinkedIn</span></div><div data-tippy-content="<span class=\'material-icons\'>computer</span><div>Outros softwares de R&S, como ATS, contribuem para os custos operacionais e devem ser considerados no cálculo total.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">computer</span><span class="text-xs mt-1 font-medium leading-tight">Outros Softwares</span></div></div>' },
-                { video_url: 'etapa4.mp4?v=1.0', poster_url: 'thumb/etapa4.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>transfer_within_a_station</span><div>A rotatividade de colaboradores gera custos com rescisão, novas contratações e perda de produtividade.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">transfer_within_a_station</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores Desligados</span></div><div data-tippy-content="<span class=\'material-icons\'>payments</span><div>O salário médio geral é a base para calcular o custo de uma má contratação e o impacto financeiro do turnover.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">payments</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio Geral</span></div><div data-tippy-content="<span class=\'material-icons\'>hourglass_empty</span><div>O tempo de adaptação representa o período em que um novo colaborador ainda não está totalmente produtivo, gerando um custo indireto para a empresa.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">hourglass_empty</span><span class="text-xs mt-1 font-medium leading-tight">Tempo de Adaptação</span></div></div>' }
+                { video_url: 'etapa1.mp4', poster_url: 'thumb/etapa1.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>group</span><div>O número de recrutadores impacta diretamente o volume de trabalho e a capacidade de triagem da sua equipe.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">group</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores em Recrutamento e Seleção</span></div><div data-tippy-content="<span class=\'material-icons\'>business</span><div>O tamanho da empresa ajuda a contextualizar a complexidade e a escala das suas operações de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">business</span><span class="text-xs mt-1 font-medium leading-tight">Total de Colaboradores</span></div><div data-tippy-content="<span class=\'material-icons\'>attach_money</span><div>O salário da equipe de R&S é um custo direto fundamental para calcular o ROI de qualquer nova ferramenta ou processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">attach_money</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio da Equipe de Recrutamento</span></div></div>' },
+                { video_url: 'etapa2.mp4', poster_url: 'thumb/etapa2.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>work</span><div>O volume de vagas indica a demanda de trabalho e o esforço contínuo da sua equipe de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">work</span><span class="text-xs mt-1 font-medium leading-tight">Vagas Abertas por Mês</span></div><div data-tippy-content="<span class=\'material-icons\'>description</span><div>A quantidade de currículos por vaga é um indicador chave do tempo gasto na triagem manual e da eficiência do processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">description</span><span class="text-xs mt-1 font-medium leading-tight">Currículos por Vaga</span></div><div data-tippy-content="<span class=\'material-icons\'>record_voice_over</span><div>O número de entrevistas revela o esforço necessário para qualificar candidatos e o quão seletivo é o seu funil.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">record_voice_over</span><span class="text-xs mt-1 font-medium leading-tight">Entrevistas por Vaga</span></div></div>' },
+                { video_url: 'etapa3.mp4', poster_url: 'thumb/etapa3.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>support_agent</span><div>O custo com consultorias externas é um investimento significativo que pode ser otimizado com as ferramentas certas.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">support_agent</span><span class="text-xs mt-1 font-medium leading-tight">Consultorias</span></div><div data-tippy-content="<span class=\'material-icons\'>web</span><div>Portais de vagas são essenciais, mas seus custos podem ser altos. Entender esse valor ajuda a avaliar a eficiência do canal.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">web</span><span class="text-xs mt-1 font-medium leading-tight">Portais de Vagas</span></div><div data-tippy-content="<span class=\'material-icons\'>link</span><div>O LinkedIn é uma ferramenta poderosa, e seu custo de assinatura para equipes de recrutamento é um fator importante no orçamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">link</span><span class="text-xs mt-1 font-medium leading-tight">LinkedIn</span></div><div data-tippy-content="<span class=\'material-icons\'>computer</span><div>Outros softwares de R&S, como ATS, contribuem para os custos operacionais e devem ser considerados no cálculo total.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">computer</span><span class="text-xs mt-1 font-medium leading-tight">Outros Softwares</span></div></div>' },
+                { video_url: 'etapa4.mp4', poster_url: 'thumb/etapa4.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>transfer_within_a_station</span><div>A rotatividade de colaboradores gera custos com rescisão, novas contratações e perda de produtividade.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">transfer_within_a_station</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores Desligados</span></div><div data-tippy-content="<span class=\'material-icons\'>payments</span><div>O salário médio geral é a base para calcular o custo de uma má contratação e o impacto financeiro do turnover.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">payments</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio Geral</span></div><div data-tippy-content="<span class=\'material-icons\'>hourglass_empty</span><div>O tempo de adaptação representa o período em que um novo colaborador ainda não está totalmente produtivo, gerando um custo indireto para a empresa.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">hourglass_empty</span><span class="text-xs mt-1 font-medium leading-tight">Tempo de Adaptação</span></div></div>' }
             ];
 
             lottie.loadAnimation({
@@ -4035,29 +4034,76 @@ IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimiza
                     body: JSON.stringify(requestBody)
                 });
                 
-                console.log('🔄 [FRONTEND] Configuração do fetch:', {
+                // Log detalhado da requisição
+                console.group('🔍 [FRONTEND] Detalhes da Requisição');
+                console.log('📤 URL:', apiUrl);
+                console.log('🔧 Configuração do fetch:', {
                     method: 'POST',
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
                         'Accept': 'application/json'
-                    }
+                    },
+                    body: JSON.stringify({
+                        ...requestBody,
+                        prompt: requestBody.prompt ? `${requestBody.prompt.substring(0, 100)}...` : 'vazio'
+                    })
                 });
-                
-                console.log('🔄 [FRONTEND] Resposta recebida. Status completo:', response.status, response.statusText);
-                
-                console.log('Resposta recebida. Status:', response.status, response.statusText);
-                console.log('Headers da resposta:', Object.fromEntries(response.headers.entries()));
-                
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    console.error('=== ERRO HTTP DA API ===');
-                    console.error('Status:', response.status);
-                    console.error('Status Text:', response.statusText);
-                    console.error('Dados do erro:', errorData);
-                    console.error('=== FIM ERRO HTTP ===');
-                    throw new Error(`Erro da API (${response.status}): ${response.statusText} - ${errorData}`);
+                console.groupEnd();
+
+                // Log detalhado da resposta
+                console.group('📥 [FRONTEND] Detalhes da Resposta');
+                console.log('📊 Status:', `${response.status} ${response.statusText}`);
+                console.log('🔗 URL da Resposta:', response.url);
+                console.log('📋 Headers:');
+                const headers = {};
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+                console.table(headers);
+
+                // Tentar ler o corpo da resposta de forma segura
+                try {
+                    const responseClone = response.clone(); // Clona a resposta para podermos lê-la novamente
+                    const responseText = await responseClone.text();
+                    
+                    // Tenta analisar como JSON, se falhar, mantém como texto
+                    try {
+                        const jsonData = JSON.parse(responseText);
+                        console.log('📄 Corpo da Resposta (JSON):', jsonData);
+                    } catch (e) {
+                        console.log('📄 Corpo da Resposta (Texto):', responseText);
+                    }
+                } catch (readError) {
+                    console.error('❌ Erro ao ler o corpo da resposta:', readError);
                 }
+
+                if (!response.ok) {
+                    console.error('❌ Erro na resposta da API');
+                    console.error('🔍 Código de Status:', response.status);
+                    console.error('📝 Status Text:', response.statusText);
+                    
+                    // Tenta obter mais detalhes do erro
+                    let errorDetails = 'Sem detalhes adicionais';
+                    try {
+                        const errorData = await response.text();
+                        errorDetails = errorData;
+                        try {
+                            const jsonError = JSON.parse(errorData);
+                            console.error('📋 Detalhes do Erro (JSON):', jsonError);
+                        } catch (e) {
+                            console.error('📋 Detalhes do Erro (Texto):', errorData);
+                        }
+                    } catch (error) {
+                        console.error('⚠️ Não foi possível obter detalhes do erro:', error);
+                    }
+                    
+                    console.groupEnd(); // Fecha o grupo de logs
+                    
+                    throw new Error(`Erro na API (${response.status} ${response.statusText}): ${errorDetails}`);
+                }
+                
+                console.groupEnd(); // Fecha o grupo de logs
                 
                 console.log('Convertendo resposta para JSON...');
                 const result = await response.json();

@@ -64,6 +64,60 @@ app.post('/api/gemini', async (req, res) => {
   }
 });
 
+// Rota da API do RD Station
+app.post('/api/rd-station', async (req, res) => {
+  try {
+    console.log('🎯 [API RD STATION] Processando requisição...');
+    console.log('📦 [API RD STATION] Body:', JSON.stringify(req.body, null, 2));
+    
+    const { nome, email, celular, cargo, tamanhoEmpresa } = req.body;
+    
+    // Validar campos obrigatórios
+    const missingFields = [];
+    if (!nome) missingFields.push('nome');
+    if (!email) missingFields.push('email');
+    if (!celular) missingFields.push('celular');
+    if (!cargo) missingFields.push('cargo');
+    if (!tamanhoEmpresa) missingFields.push('tamanhoEmpresa');
+    
+    if (missingFields.length > 0) {
+      console.log('❌ [API RD STATION] Campos obrigatórios ausentes:', missingFields);
+      return res.status(400).json({
+        error: 'Dados incompletos',
+        message: 'Todos os campos são obrigatórios',
+        missing_fields: missingFields,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    // Simular resposta de sucesso (em desenvolvimento)
+    const successResponse = {
+      success: true,
+      message: 'Lead enviado com sucesso (simulado)',
+      method_used: 'Simulação Local',
+      data: {
+        nome,
+        email,
+        celular,
+        cargo,
+        tamanhoEmpresa,
+        timestamp: new Date().toISOString()
+      }
+    };
+
+    console.log('✅ [API RD STATION] Lead processado com sucesso');
+    res.status(200).json(successResponse);
+    
+  } catch (error) {
+    console.error('❌ [API RD STATION] Erro no servidor:', error);
+    res.status(500).json({ 
+      error: 'Erro interno do servidor',
+      details: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
 // Rota para servir o arquivo index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));

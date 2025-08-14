@@ -338,11 +338,10 @@ async function processLeadForm(event) {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     try {
-        // TEMPORÁRIO: Pular RD Station para testar Gemini
-        debugLog('info', '⚠️ MODO DEBUG: Pulando envio para RD Station temporariamente...');
-        
-        // Simular sucesso do RD Station
-        debugLog('success', '✅ [SIMULADO] Lead enviado com sucesso para RD Station!');
+        // Enviar para RD Station
+        debugLog('info', '🚀 Iniciando envio para RD Station...');
+        await sendToRDStation(validation.data);
+        debugLog('success', '✅ Lead enviado com sucesso para RD Station!');
         
         // Mostrar notificação de sucesso
         debugLog('info', '💬 Mostrando notificação de sucesso...');
