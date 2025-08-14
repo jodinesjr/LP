@@ -2,7 +2,8 @@
 // Este arquivo deve ser usado em produção (Vercel) para manter a API key segura
 // DEEP DEBUG VERSION - Logs detalhados para troubleshooting
 
-const fetch = require('node-fetch');
+// Import fetch for Node.js environment
+import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
     console.log('🚀 [RD STATION API] ===== INÍCIO DA REQUISIÇÃO =====');
