@@ -767,7 +767,7 @@
                                     <div>
                                         <label for="total-colabs" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">business</span>
-                                            Total de colaboradores
+                                            Total de colaboradores da Empresa (Geral)
                                         </label>
                                         <input type="number" id="total-colabs" class="w-full p-2 border border-gray-300 rounded-md number-input" placeholder="Ex: 50">
                                     </div>
@@ -786,21 +786,21 @@
                                     <div>
                                         <label for="monthly-jobs" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">work</span>
-                                            Vagas abertas por mês
+                                            Vagas abertas por / <b> mês</b>
                                         </label>
                                         <input type="number" id="monthly-jobs" class="w-full p-2 border border-gray-300 rounded-md number-input" placeholder="Ex: 5">
                                     </div>
                                     <div>
                                         <label for="cvs-per-job" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">description</span>
-                                            Currículos recebidos por vaga
+                                            Currículos recebidos / <b> por vaga</b>
                                         </label>
                                         <input type="number" id="cvs-per-job" class="w-full p-2 border border-gray-300 rounded-md number-input" placeholder="Ex: 100">
                                     </div>
                                     <div>
                                         <label for="interviews-per-job" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">record_voice_over</span>
-                                            Entrevistas por vaga
+                                            Entrevistas / <b> por vaga</b>
                                         </label>
                                         <input type="number" id="interviews-per-job" class="w-full p-2 border border-gray-300 rounded-md number-input" placeholder="Ex: 20">
                                     </div>
@@ -812,28 +812,28 @@
                                     <div>
                                         <label for="consulting-cost" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">support_agent</span>
-                                            Consultorias de R&S
+                                            Consultorias de R&S / <b> por ano</b>
                                         </label>
                                         <input type="text" id="consulting-cost" class="w-full p-2 border border-gray-300 rounded-md currency-input" placeholder="Ex: R$ 20.000,00">
                                     </div>
                                     <div>
                                         <label for="portals-cost" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">web</span>
-                                            Portais de vagas
+                                            Portais de vagas / <b> por ano</b>
                                         </label>
                                         <input type="text" id="portals-cost" class="w-full p-2 border border-gray-300 rounded-md currency-input" placeholder="Ex: R$ 300,00">
                                     </div>
                                     <div>
                                         <label for="linkedin-cost" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">link</span>
-                                            LinkedIn
+                                            LinkedIn / <b> por ano</b>
                                         </label>
                                         <input type="text" id="linkedin-cost" class="w-full p-2 border border-gray-300 rounded-md currency-input" placeholder="Ex: R$ 6.000,00">
                                     </div>
                                     <div>
                                         <label for="other-software-cost" class="flex items-center text-sm font-medium text-gray-600 mb-1">
                                             <span class="material-icons text-[#9951A2] mr-2">computer</span>
-                                            Outros softwares
+                                            Outros softwares / <b> por ano</b>
                                         </label>
                                         <input type="text" id="other-software-cost" class="w-full p-2 border border-gray-300 rounded-md currency-input" placeholder="Ex: R$ 3.000,00">
                                     </div>
@@ -846,7 +846,7 @@
                                         <label for="turnover-colabs" class="flex items-center justify-between text-sm font-medium text-gray-600 mb-1">
                                             <div class="flex items-center">
                                                 <span class="material-icons text-[#9951A2] mr-2">exit_to_app</span>
-                                                Colaboradores que deixam a empresa por ano
+                                                Colaboradores que deixam a empresa / <b> por ano</b>
                                             </div>
                                             <!-- Checkbox-style Toggle: Abs <> % -->
                                             <div class="flex items-center space-x-3">
@@ -859,7 +859,7 @@
                                             </div>
                                         </label>
                                         <div class="relative">
-                                            <input type="text" id="turnover-colabs" class="w-full p-2 pr-12 border border-gray-300 rounded-md" placeholder="Ex: 5">
+                                            <input type="text" id="turnover-colabs" class="w-full p-2 pr-12 border border-gray-300 rounded-md number-input" placeholder="Ex: 5">
                                             <!-- Invisible measuring span to calculate text width -->
                                             <span id="turnover-measure" class="invisible absolute whitespace-pre"></span>
                                             <!-- Percent suffix, positioned programmatically to sit right after the number -->
@@ -1266,57 +1266,55 @@
                             >
                         </div>
                         
-                        <!-- Cargo - Campo personalizado do RD Station -->
+                        <!-- Cargo e Tamanho da Empresa - Campos lado a lado -->
                         <div class="max-w-md mx-auto">
-                            <label for="cf_cargo" class="block text-xs font-medium text-gray-700 mb-1">
-                                Cargo *
-                            </label>
-                            <select 
-                                id="cf_cargo" 
-                                name="cf_cargo" 
-                                required
-                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b5cf6] focus:border-transparent transition duration-200"
-                            >
-                                <option value="">Selecione seu cargo</option>
-                                <option value="Estudante">Estudante</option>
-                                <option value="Estagiário(a)">Estagiário(a)</option>
-                                <option value="Auxiliar">Auxiliar</option>
-                                <option value="Assistente">Assistente</option>
-                                <option value="Analista">Analista</option>
-                                <option value="Especialista">Especialista</option>
-                                <option value="Supervisor (a)">Supervisor (a)</option>
-                                <option value="Coordenador (a)">Coordenador (a)</option>
-                                <option value="Gerente / Head">Gerente / Head</option>
-                                <option value="Diretor (a) / VP">Diretor (a) / VP</option>
-                                <option value="Sócio / CEO / Proprietário">Sócio / CEO / Proprietário</option>
-                                <option value="Business Partner">Business Partner</option>
-                                <option value="Outros">Outros</option>
-                            </select>
-                        </div>
-                        
-                        <!-- Tamanho da Empresa - Campo personalizado do RD Station -->
-                        <div class="max-w-md mx-auto">
-                            <label for="cf_tamanho_de_empresa" class="block text-xs font-medium text-gray-700 mb-1">
-                                Tamanho da Empresa *
-                            </label>
-                            <select 
-                                id="cf_tamanho_de_empresa" 
-                                name="cf_tamanho_de_empresa" 
-                                required
-                                class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8b5cf6] focus:border-transparent transition duration-200"
-                            >
-                                <option value="">Selecione o tamanho da empresa</option>
-                                <option value="1-5 funcionários">1-5 funcionários</option>
-                                <option value="5-25 funcionários">5-25 funcionários</option>
-                                <option value="25-50 funcionários">25-50 funcionários</option>
-                                <option value="50-100 funcionários">50-100 funcionários</option>
-                                <option value="100-200 funcionários">100-200 funcionários</option>
-                                <option value="200-500 funcionários">200-500 funcionários</option>
-                                <option value="500-1.000 funcionários">500-1.000 funcionários</option>
-                                <option value="1.000-5.000 funcionários">1.000-5.000 funcionários</option>
-                                <option value="5.000-10.000 funcionários">5.000-10.000 funcionários</option>
-                                <option value="10.000+ funcionários">10.000+ funcionários</option>
-                            </select>
+                            <div class="flex gap-4">
+                                <!-- Cargo - Campo personalizado do RD Station -->
+                                <div class="w-1/2">
+                                    <label for="cf_cargo" class="block text-xs font-medium text-gray-700 mb-1">
+                                        Cargo *
+                                    </label>
+                                    <select 
+                                        id="cf_cargo" 
+                                        name="cf_cargo" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#9951A2] focus:border-transparent"
+                                        required
+                                    >
+                                        <option value="">Selecione seu cargo</option>
+                                        <option value="CEO/Presidente">CEO/Presidente</option>
+                                        <option value="Diretor(a)">Diretor(a)</option>
+                                        <option value="Gerente">Gerente</option>
+                                        <option value="Coordenador(a)">Coordenador(a)</option>
+                                        <option value="Analista">Analista</option>
+                                        <option value="Assistente">Assistente</option>
+                                        <option value="Consultor(a)">Consultor(a)</option>
+                                        <option value="Especialista">Especialista</option>
+                                        <option value="Supervisor(a)">Supervisor(a)</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Tamanho da Empresa - Campo personalizado do RD Station -->
+                                <div class="w-1/2">
+                                    <label for="cf_tamanho_de_empresa" class="block text-xs font-medium text-gray-700 mb-1">
+                                        Tamanho da Empresa *
+                                    </label>
+                                    <select 
+                                        id="cf_tamanho_de_empresa" 
+                                        name="cf_tamanho_de_empresa" 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-[#9951A2] focus:border-transparent"
+                                        required
+                                    >
+                                        <option value="">Selecione o tamanho</option>
+                                        <option value="1-10 funcionários">1-10 funcionários</option>
+                                        <option value="11-50 funcionários">11-50 funcionários</option>
+                                        <option value="51-200 funcionários">51-200 funcionários</option>
+                                        <option value="201-500 funcionários">201-500 funcionários</option>
+                                        <option value="501-1000 funcionários">501-1000 funcionários</option>
+                                        <option value="1001+ funcionários">1001+ funcionários</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <!-- Botão de envio -->
                         <div class="pt-4 max-w-md mx-auto">
@@ -1334,7 +1332,7 @@
                         
                         <!-- Informações de privacidade -->
                         <div class="text-xs text-gray-500 text-center pt-2">
-                            <p>Seus dados estão seguros conosco. Utilizamos essas informações apenas para personalizar sua experiência.</p>
+                            <p>Seus dados estão seguros conosco. Utilizamos essas informações apenas para personalizar sua experiência. <a href="https://www.harpio.com/politica-de-privacidade" target="_blank" class="text-[#9951A2] hover:underline">Política de Privacidade</a></p>
                         </div>
                     </form>
                     </div>
@@ -1357,8 +1355,7 @@
             <span class="material-icons text-green-500">check_circle</span>
         </div>
         <div class="flex-1">
-            <h4 class="font-medium text-gray-800 mb-1">Formulário enviado com sucesso!</h4>
-            <p class="text-sm text-gray-600">Seus dados foram recebidos e seus resultados estão sendo carregados.</p>
+            <h5 class="font-medium text-gray-800 mb-1">🎉 Formulário enviado com sucesso!</h5>
         </div>
         <button class="text-gray-400 hover:text-gray-600 ml-4" onclick="document.getElementById('success-notification').classList.add('translate-y-full', 'opacity-0')">
             <span class="material-icons">close</span>
@@ -1815,7 +1812,7 @@
             function applyTurnoverMask() {
                 if (!turnoverInputEl) return;
                 // Preserve current numeric value
-                const currentVal = parseFloat(turnoverInputEl.value) || 0;
+                const currentVal = parseFloat(turnoverInputEl.value) || '';
                 destroyTurnoverMask();
                 if (isPercentMode()) {
                     turnoverCleave = new Cleave(turnoverInputEl, {
@@ -1833,12 +1830,14 @@
                     });
                     turnoverInputEl.placeholder = 'Ex: 5';
                 }
-                // Re-apply preserved value
-                if (!isNaN(currentVal)) {
+                // Re-apply preserved value only if it's not empty
+                if (currentVal !== '' && !isNaN(currentVal) && currentVal !== 0) {
                     turnoverInputEl.value = String(currentVal);
                     // Force Cleave formatting
                     const ev = new Event('input', { bubbles: true });
                     turnoverInputEl.dispatchEvent(ev);
+                } else {
+                    turnoverInputEl.value = '';
                 }
                 // Position suffix after reformat
                 positionPercentSuffix();
@@ -3328,27 +3327,213 @@
 
             nextBtn.addEventListener('click', () => {
                 if (currentStep < formSteps.length - 1) {
-                    // Reset prevent autoplay flag when navigating through wizard steps
-                    // (but keep user interaction flag intact)
-                    preventAutoplay = false;
-                    currentStep++;
-                    updateWizardUI();
-                } else {
-                    // Set flag to prevent autoplay when showing results
-                    preventAutoplay = true;
-                    console.log('[Navigation] Calcular clicado - mostrando modal de leads');
+                    // Validar campos obrigatórios antes de avançar
+                    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                    // SELETOR CORRIGIDO: incluir TODOS os inputs de TODAS as etapas
+                    const inputs = currentStepEl.querySelectorAll('input[type="number"], input[type="text"]:not([type="hidden"]), input[class*="currency-input"], input[class*="number-input"]');
+                    let isValid = true;
                     
-                    // Pausar todos os vídeos antes de mostrar o modal
-                    const allVideos = document.querySelectorAll('video');
-                    allVideos.forEach(video => {
-                        if (!video.paused) {
-                            video.pause();
-                            console.log('[Wizard] Vídeo pausado ao abrir modal de leads');
+                    console.log(`[VALIDAÇÃO] Etapa ${currentStep}: ${inputs.length} inputs encontrados`);
+                    
+                    // Remover mensagens de erro anteriores
+                    const errorMessages = currentStepEl.querySelectorAll('.error-message');
+                    errorMessages.forEach(msg => msg.remove());
+                    
+                    // Validar cada campo
+                    inputs.forEach(input => {
+                        let isEmpty = false;
+                        
+                        // Verificar se é um input de moeda
+                        if (input.classList.contains('currency-input')) {
+                            // Para inputs de moeda, verificar se contém apenas o prefixo 'R$ ' ou está vazio
+                            const cleanValue = input.value.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(/,/g, '');
+                            isEmpty = !cleanValue || cleanValue === '';
+                            console.log(`[VALIDAÇÃO] Campo moeda ${input.id}: "${input.value}" -> limpo: "${cleanValue}" - ${isEmpty ? 'VAZIO' : 'PREENCHIDO'}`);
+                        } else {
+                            // Para outros inputs, verificar se está vazio
+                            isEmpty = !input.value || input.value.trim() === '';
+                            console.log(`[VALIDAÇÃO] Campo ${input.id}: "${input.value}" - ${isEmpty ? 'VAZIO' : 'PREENCHIDO'}`);
+                            
+                            // Verificação especial para campos que podem ter valor "0" como padrão
+                            if (input.id === 'turnover-colabs' && input.value === '0') {
+                                isEmpty = true;
+                                console.log(`[VALIDAÇÃO] ${input.id} tem valor "0" - considerando VAZIO para validação`);
+                            }
+                        }
+                        
+                        if (isEmpty) {
+                            isValid = false;
+                            // Extrair apenas o texto da label, removendo o ícone
+                            let labelElement = input.previousElementSibling;
+                            let labelText = '';
+                            
+                            // Tratamento especial para o campo turnover-colabs que tem estrutura diferente
+                            if (input.id === 'turnover-colabs') {
+                                // Para o campo turnover-colabs, a label tem uma estrutura mais complexa
+                                const labelDiv = labelElement.querySelector('div.flex.items-center');
+                                if (labelDiv) {
+                                    // Pegar apenas o texto, removendo o ícone
+                                    labelText = labelDiv.textContent.replace(/^\s*\w+\s*/, '').trim();
+                                }
+                            } else {
+                                // Para outros campos, usar uma abordagem mais simples
+                                if (labelElement) {
+                                    // Remover o texto do ícone (material-icons) e pegar apenas o texto restante
+                                    const iconSpan = labelElement.querySelector('.material-icons');
+                                    if (iconSpan) {
+                                        labelText = labelElement.textContent.replace(iconSpan.textContent, '').trim();
+                                    } else {
+                                        labelText = labelElement.textContent.trim();
+                                    }
+                                }
+                            }
+                            
+                            const errorMsg = document.createElement('div');
+                            errorMsg.className = 'error-message text-xs text-[#9951A2] mt-1';
+                            errorMsg.textContent = `Esse valor não pode ser vazio, coloque "0" se não possui ${labelText}`;
+                            
+                            // Para o campo turnover-colabs, adicionar a mensagem após o helper
+                            if (input.id === 'turnover-colabs') {
+                                const helperElement = document.getElementById('turnover-helper');
+                                if (helperElement) {
+                                    helperElement.parentNode.appendChild(errorMsg);
+                                } else {
+                                    input.parentNode.parentNode.appendChild(errorMsg);
+                                }
+                            } else {
+                                input.parentNode.appendChild(errorMsg);
+                            }
+                            
+                            // Adicionar evento para remover mensagem de erro quando o usuário começar a digitar
+                            input.addEventListener('input', function() {
+                                // Para o campo turnover-colabs, procurar a mensagem de erro em um local diferente
+                                let errorMsg;
+                                if (this.id === 'turnover-colabs') {
+                                    // Procurar a mensagem de erro após o helper ou no pai do pai
+                                    const helperElement = document.getElementById('turnover-helper');
+                                    if (helperElement) {
+                                        errorMsg = helperElement.parentNode.querySelector('.error-message');
+                                    } else {
+                                        errorMsg = this.parentNode.parentNode.querySelector('.error-message');
+                                    }
+                                } else {
+                                    // Para outros campos, procurar no pai direto
+                                    errorMsg = this.parentNode.querySelector('.error-message');
+                                }
+                                
+                                if (errorMsg) {
+                                    if (this.classList.contains('currency-input')) {
+                                        // Para inputs de moeda, verificar se contém mais que apenas o prefixo
+                                        if (this.value.trim() !== '' && this.value.trim() !== 'R$ ') {
+                                            errorMsg.remove();
+                                        }
+                                    } else if (this.value.trim() !== '') {
+                                        // Para outros inputs, verificar se não está vazio
+                                        errorMsg.remove();
+                                    }
+                                }
+                            }, { once: false });
                         }
                     });
                     
-                    // Mostrar modal de formulário de leads
-                    showLeadModal();
+                    if (isValid) {
+                        // Reset prevent autoplay flag when navigating through wizard steps
+                        // (but keep user interaction flag intact)
+                        preventAutoplay = false;
+                        currentStep++;
+                        updateWizardUI();
+                    }
+                } else {
+                    // VALIDAR A ÚLTIMA ETAPA ANTES DE MOSTRAR RESULTADOS
+                    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                    const inputs = currentStepEl.querySelectorAll('input[type="number"], input[type="text"]:not([type="hidden"]), input[class*="currency-input"], input[class*="number-input"]');
+                    let isValid = true;
+                    
+                    console.log(`[VALIDAÇÃO FINAL] Etapa ${currentStep}: ${inputs.length} inputs encontrados`);
+                    
+                    // Remover mensagens de erro anteriores
+                    const errorMessages = currentStepEl.querySelectorAll('.error-message');
+                    errorMessages.forEach(msg => msg.remove());
+                    
+                    // Validar cada campo da última etapa
+                    inputs.forEach(input => {
+                        let isEmpty = false;
+                        
+                        // Verificar se é um input de moeda
+                        if (input.classList.contains('currency-input')) {
+                            // Para inputs de moeda, verificar se contém apenas o prefixo 'R$ ' ou está vazio
+                            const cleanValue = input.value.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(/,/g, '');
+                            isEmpty = !cleanValue || cleanValue === '';
+                            console.log(`[VALIDAÇÃO FINAL] Campo moeda ${input.id}: "${input.value}" -> limpo: "${cleanValue}" - ${isEmpty ? 'VAZIO' : 'PREENCHIDO'}`);
+                        } else {
+                            // Para outros inputs, verificar se está vazio
+                            isEmpty = !input.value || input.value.trim() === '';
+                            console.log(`[VALIDAÇÃO FINAL] Campo ${input.id}: "${input.value}" - ${isEmpty ? 'VAZIO' : 'PREENCHIDO'}`);
+                        }
+                        
+                        if (isEmpty) {
+                            isValid = false;
+                            // Extrair apenas o texto da label, removendo o ícone
+                            let labelElement = input.previousElementSibling;
+                            let labelText = '';
+                            
+                            // Tratamento especial para o campo turnover-colabs que tem estrutura diferente
+                            if (input.id === 'turnover-colabs') {
+                                // Para o campo turnover-colabs, a label tem uma estrutura mais complexa
+                                const labelDiv = labelElement.querySelector('div.flex.items-center');
+                                if (labelDiv) {
+                                    // Pegar apenas o texto, removendo o ícone
+                                    labelText = labelDiv.textContent.replace(/^\s*\w+\s*/, '').trim();
+                                }
+                            } else {
+                                // Para outros campos, usar uma abordagem mais simples
+                                if (labelElement) {
+                                    // Remover o texto do ícone (material-icons) e pegar apenas o texto restante
+                                    const iconSpan = labelElement.querySelector('.material-icons');
+                                    if (iconSpan) {
+                                        labelText = labelElement.textContent.replace(iconSpan.textContent, '').trim();
+                                    } else {
+                                        labelText = labelElement.textContent.trim();
+                                    }
+                                }
+                            }
+                            
+                            const errorMsg = document.createElement('div');
+                            errorMsg.className = 'error-message text-xs text-[#9951A2] mt-1';
+                            errorMsg.textContent = `Esse valor não pode ser vazio, coloque "0" se não possui ${labelText}`;
+                            
+                            // Para o campo turnover-colabs, adicionar a mensagem após o helper
+                            if (input.id === 'turnover-colabs') {
+                                const helperElement = document.getElementById('turnover-helper');
+                                if (helperElement) {
+                                    helperElement.parentNode.appendChild(errorMsg);
+                                } else {
+                                    input.parentNode.parentNode.appendChild(errorMsg);
+                                }
+                            } else {
+                                input.parentNode.appendChild(errorMsg);
+                            }
+                        }
+                    });
+                    
+                    if (isValid) {
+                        // Set flag to prevent autoplay when showing results
+                        preventAutoplay = true;
+                        console.log('[Navigation] Calcular clicado - validação OK - mostrando modal de leads');
+                        
+                        // Pausar todos os vídeos antes de mostrar o modal
+                        const allVideos = document.querySelectorAll('video');
+                        allVideos.forEach(video => {
+                            if (!video.paused) {
+                                video.pause();
+                                console.log('[Wizard] Vídeo pausado ao abrir modal de leads');
+                            }
+                        });
+                        
+                        showLeadModal();
+                    } else {
+                        console.log('[VALIDAÇÃO FINAL] Validação falhou - não abrindo modal');
+                    }
                 }
             });
             prevBtn.addEventListener('click', () => {
@@ -3374,8 +3559,80 @@
 
             updateWizardUI();
             
-            // Inicializar máscaras de moeda
+            // Função para validar inputs numéricos
+            function setupNumericInputs() {
+                const numericInputs = document.querySelectorAll('input[type="number"], input[class*="number-input"]');
+                
+                numericInputs.forEach(input => {
+                    // Prevenir entrada de caracteres não numéricos
+                    input.addEventListener('keypress', function(e) {
+                        // Permitir apenas números e teclas de controle
+                        if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Tab') {
+                            e.preventDefault();
+                        }
+                    });
+                    
+                    // Limpar caracteres não numéricos no evento paste
+                    input.addEventListener('paste', function(e) {
+                        e.preventDefault();
+                        const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+                        const numericValue = pastedText.replace(/[^0-9]/g, '');
+                        this.value = numericValue;
+                    });
+                    
+                    // Limpar caracteres não numéricos no evento input
+                    input.addEventListener('input', function() {
+                        this.value = this.value.replace(/[^0-9]/g, '');
+                    });
+                });
+                
+                // Adicionar evento para remover mensagens de erro em todos os inputs
+                const allInputs = document.querySelectorAll('input[type="number"], input[type="text"], input[class*="currency-input"], input[class*="number-input"]');
+                allInputs.forEach(input => {
+                    input.addEventListener('input', function() {
+                        // Para o campo turnover-colabs, procurar a mensagem de erro em um local diferente
+                        let errorMsg;
+                        if (this.id === 'turnover-colabs') {
+                            // Procurar a mensagem de erro após o helper ou no pai do pai
+                            const helperElement = document.getElementById('turnover-helper');
+                            if (helperElement) {
+                                errorMsg = helperElement.parentNode.querySelector('.error-message');
+                            } else {
+                                errorMsg = this.parentNode.parentNode.querySelector('.error-message');
+                            }
+                        } else {
+                            // Para outros campos, procurar no pai direto
+                            errorMsg = this.parentNode.querySelector('.error-message');
+                        }
+                        
+                        if (errorMsg) {
+                            if (this.classList.contains('currency-input')) {
+                                // Para inputs de moeda, verificar se contém mais que apenas o prefixo
+                                const cleanValue = this.value.replace('R$', '').replace(/\s/g, '').replace(/\./g, '').replace(/,/g, '');
+                                if (cleanValue && cleanValue !== '') {
+                                    errorMsg.remove();
+                                }
+                            } else if (this.value.trim() !== '' && !(this.id === 'turnover-colabs' && this.value === '0')) {
+                                // Para outros inputs, verificar se não está vazio (exceto turnover-colabs com valor "0")
+                                errorMsg.remove();
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // Inicializar validação de inputs numéricos
+            setupNumericInputs();
+
+            // Inicializar os inputs de moeda
             initializeCurrencyMasks();
+            
+            // Debug das validações (remover em produção)
+            if (window.location.hostname === 'localhost') {
+                const debugScript = document.createElement('script');
+                debugScript.src = 'debug-validation.js';
+                document.head.appendChild(debugScript);
+            }
             
             // Mobile table toggle functionality
             window.toggleMobileTable = function(header) {

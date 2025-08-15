@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Validação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-8">
+    <h1 class="text-2xl mb-4">Teste de Validação do Wizard</h1>
+    
+    <div class="mb-4">
+        <button id="test-step-0" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Testar Etapa 1</button>
+        <button id="test-step-1" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Testar Etapa 2</button>
+        <button id="test-step-2" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Testar Etapa 3</button>
+    </div>
+    
+    <div id="results" class="bg-gray-100 p-4 rounded"></div>
+    
+    <script>
+        // Simular o ambiente do wizard
+        let currentStep = 0;
+        
+        function testValidation(step) {
+            const results = document.getElementById('results');
+            results.innerHTML = `<h3>Testando Etapa ${step + 1}:</h3>`;
+            
+            // Simular a busca pelos elementos da etapa
+            const iframe = document.createElement('iframe');
+            iframe.src = 'http://localhost:3001';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    const currentStepEl = iframeDoc.querySelector(`.form-step[data-step="${step}"]`);
+                    
+                    if (!currentStepEl) {
+                        results.innerHTML += `<p class="text-red-500">❌ Etapa ${step} não encontrada</p>`;
+                        return;
+                    }
+                    
+                    const inputs = currentStepEl.querySelectorAll('input[type="number"], input[type="text"], input[class*="currency-input"], input[class*="number-input"]');
+                    results.innerHTML += `<p>✅ Encontrados ${inputs.length} inputs na etapa ${step + 1}</p>`;
+                    
+                    inputs.forEach((input, index) => {
+                        const label = input.previousElementSibling;
+                        const labelText = label ? label.textContent.trim() : 'Sem label';
+                        results.innerHTML += `<p>- Input ${index + 1}: ${input.id || 'sem id'} (${labelText.substring(0, 30)}...)</p>`;
+                    });
+                    
+                } catch (error) {
+                    results.innerHTML += `<p class="text-red-500">❌ Erro: ${error.message}</p>`;
+                } finally {
+                    document.body.removeChild(iframe);
+                }
+            };
+        }
+        
+        document.getElementById('test-step-0').onclick = () => testValidation(0);
+        document.getElementById('test-step-1').onclick = () => testValidation(1);
+        document.getElementById('test-step-2').onclick = () => testValidation(2);
+    </script>
+</body>
+</html>
