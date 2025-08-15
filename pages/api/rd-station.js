@@ -2,6 +2,9 @@
 // Este arquivo deve ser usado em produção (Vercel) para manter a API key segura
 // DEEP DEBUG VERSION - Logs detalhados para troubleshooting
 
+// Importar fetch para Node.js (necessário para versões do Node < 18)
+import fetch from 'node-fetch';
+
 export default async function handler(req, res) {
     console.log('🚀 [RD STATION API] ===== INÍCIO DA REQUISIÇÃO =====');
     console.log('📅 [RD STATION API] Timestamp:', new Date().toISOString());
@@ -89,9 +92,22 @@ export default async function handler(req, res) {
         }
 
         // Montar payload correto para RD Station API de eventos/conversões via API Key
-        // Baseado na resposta da API: event_type, event_family e payload são obrigatórios
-        // CAMPOS CORRIGIDOS conforme painel RD Station (cargo_ e tamanho_de_empresa)
-        const payload = {
+        // Baseado na documentação mais recente da RD Station
+        // Formato para API de Conversões
+        const conversionPayload = {
+            "conversion_identifier": "Lead-Calculadora-ROI",
+            "name": nome,
+            "email": email,
+            "personal_phone": celular,
+            "cf_cargo": cargo, // Campo com prefixo cf_ para campo personalizado
+            "cf_tamanho_de_empresa": tamanhoEmpresa, // Campo com prefixo cf_ para campo personalizado
+            "cf_origem": "Calculadora de Custos",
+            "traffic_source": "Calculadora Harpio",
+            "available_for_mailing": true
+        };
+        
+        // Formato para API de Eventos
+        const eventsPayload = {
             "event_type": "CONVERSION",
             "event_family": "CDP",
             "payload": {
@@ -99,12 +115,16 @@ export default async function handler(req, res) {
                 "name": nome,
                 "email": email,
                 "personal_phone": celular,
-                "cargo": cargo, // Campo alterado de cargo_ para cargo conforme solicitado
-                "tamanho_de_empresa": tamanhoEmpresa, // Campo correto conforme painel RD Station
+                "cf_cargo": cargo,
+                "cf_tamanho_de_empresa": tamanhoEmpresa,
                 "cf_origem": "Calculadora de Custos",
-                "traffic_source": "Calculadora Harpio"
+                "traffic_source": "Calculadora Harpio",
+                "available_for_mailing": true
             }
         };
+        
+        // Usar o payload de eventos para a primeira tentativa
+        const payload = eventsPayload;
         
         console.log(' [RD STATION API] Payload montado:', JSON.stringify(payload, null, 2));
 
@@ -166,8 +186,8 @@ export default async function handler(req, res) {
                 console.log(' [RD STATION API] === TENTATIVA 2: API Key ===');
                 const apiUrl = `https://api.rd.services/platform/conversions?api_key=${token}`;
                 
-                // Payload simplificado para API Key (sem event_type/event_family)
-                const simplePayload = payload.payload || payload;
+                // Usar o payload específico para API de conversões
+                const simplePayload = conversionPayload;
                 
                 console.log(' [RD STATION API] URL:', apiUrl.replace(token, '***'));
                 console.log(' [RD STATION API] API Key:', `${token.substring(0, 8)}...`);
@@ -264,12 +284,43 @@ export default async function handler(req, res) {
         res.status(200).json(successResponse);
 
     } catch (error) {
-        console.error(' [RD Station API] Erro interno:', error);
+        console.error(' [RD STATION API] ===== ERRO INTERNO =====');
+        console.error(' [RD STATION API] Mensagem:', error.message);
+        console.error(' [RD STATION API] Stack:', error.stack);
+        console.error(' [RD STATION API] Tipo de erro:', error.constructor.name);
+        
+        // Verificar se é um erro de rede ou de fetch
+        const errorMessage = error.message || 'Erro desconhecido';
+        const isFetchError = errorMessage.includes('fetch') || 
+                           errorMessage.includes('network') || 
+                           errorMessage.includes('Failed to fetch');
+        
+        console.error(' [RD STATION API] É erro de fetch/rede:', isFetchError);
+        
+        // Verificar se é um erro de CORS
+        const isCorsError = errorMessage.includes('CORS') || 
+                          errorMessage.includes('cross-origin') || 
+                          errorMessage.includes('Access-Control');
+                          
+        console.error(' [RD STATION API] É erro de CORS:', isCorsError);
+        
+        // Verificar se é um erro de autenticação
+        const isAuthError = errorMessage.includes('auth') || 
+                          errorMessage.includes('token') || 
+                          errorMessage.includes('401') || 
+                          errorMessage.includes('403');
+                          
+        console.error(' [RD STATION API] É erro de autenticação:', isAuthError);
         
         res.status(500).json({ 
             error: 'Erro interno do servidor',
             message: 'Ocorreu um erro ao processar sua solicitação',
-            details: process.env.NODE_ENV === 'development' ? error.message : undefined
+            error_type: error.constructor.name,
+            is_fetch_error: isFetchError,
+            is_cors_error: isCorsError,
+            is_auth_error: isAuthError,
+            details: error.message,
+            timestamp: new Date().toISOString()
         });
     }
 }
