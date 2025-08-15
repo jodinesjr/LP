@@ -202,6 +202,41 @@ export default async function handler(req, res) {
                 const apiUrl = `https://api.rd.services/platform/conversions?api_key=${token}`;
                 
                 // Usar o payload específico para API de conversões
+                // Mapeamento de tamanho de empresa para valores válidos do RD Station
+                const mapTamanhoEmpresa = (tamanho) => {
+                    // Opções válidas: "1-5 funcionários", "5-25 funcionários", "25-50 funcionários", "50-100 funcionários", 
+                    // "100-200 funcionários", "200-500 funcionários", "500-1.000 funcionários", "1.000-5.000 funcionários", 
+                    // "5.000-10.000 funcionários", "10.000+ funcionários"
+                    
+                    const mapa = {
+                        "1-10": "1-5 funcionários",
+                        "11-50": "25-50 funcionários",
+                        "51-100": "50-100 funcionários",
+                        "101-500": "100-200 funcionários",
+                        "501+": "500-1.000 funcionários"
+                    };
+                    
+                    return mapa[tamanho] || "5-25 funcionários"; // Valor padrão se não encontrar
+                };
+                
+                // Mapeamento de cargo para valores válidos do RD Station
+                const mapCargo = (cargo) => {
+                    // Opções válidas: "Estudante", "Estagiário(a)", "Auxiliar", "Assistente", "Analista", "Especialista", 
+                    // "Supervisor (a)", "Coordenador (a)", "Gerente / Head", "Diretor (a) / VP", "Sócio / CEO / Proprietário", 
+                    // "Business Partner", "Outros"
+                    
+                    const mapa = {
+                        "Desenvolvedor": "Especialista",
+                        "Gerente": "Gerente / Head",
+                        "Diretor": "Diretor (a) / VP",
+                        "CEO": "Sócio / CEO / Proprietário",
+                        "Analista": "Analista",
+                        "Coordenador": "Coordenador (a)"
+                    };
+                    
+                    return mapa[cargo] || "Outros"; // Valor padrão se não encontrar
+                };
+                
                 // Formato correto para o endpoint de conversões com API Key
                 const simplePayload = {
                     "event_type": "CONVERSION",
@@ -211,8 +246,8 @@ export default async function handler(req, res) {
                         "email": email,
                         "name": nome || "Não informado",
                         "personal_phone": celular || "",
-                        "cf_cargo": cargo || "",
-                        "cf_tamanho_de_empresa": tamanhoEmpresa || "",
+                        "cf_cargo": mapCargo(cargo),
+                        "cf_tamanho_de_empresa": mapTamanhoEmpresa(tamanhoEmpresa),
                         "cf_origem": "Calculadora de Custos",
                         "traffic_source": "Calculadora Harpio",
                         "available_for_mailing": true
