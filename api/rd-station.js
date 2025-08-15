@@ -124,7 +124,22 @@ export default async function handler(req, res) {
         };
         
         // Usar o payload de eventos para a primeira tentativa
-        const payload = eventsPayload;
+        // Certifique-se de que todos os campos obrigatórios estão presentes
+        const payload = {
+            "event_type": "CONVERSION",
+            "event_family": "CDP",
+            "payload": {
+                "conversion_identifier": "Lead-Calculadora-ROI",
+                "email": email,
+                "name": nome || "Não informado",
+                "personal_phone": celular || "",
+                "cf_cargo": cargo || "",
+                "cf_tamanho_de_empresa": tamanhoEmpresa || "",
+                "cf_origem": "Calculadora de Custos",
+                "traffic_source": "Calculadora Harpio",
+                "available_for_mailing": true
+            }
+        };
         
         console.log(' [RD STATION API] Payload montado:', JSON.stringify(payload, null, 2));
 
