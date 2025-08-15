@@ -1,11 +1,9 @@
 {
   "version": 2,
+  "public": false,
   "builds": [
-    { "src": "api/gemini.js", "use": "@vercel/node" },
-    { "src": "api/rd-station.js", "use": "@vercel/node" },
-    { "src": "api/config.js", "use": "@vercel/node" },
-    { "src": "pages/api/check-env.js", "use": "@vercel/node" },
-    { "src": "pages/api/rd-station.js", "use": "@vercel/node" },
+    { "src": "api/*.js", "use": "@vercel/node" },
+    { "src": "pages/api/*.js", "use": "@vercel/node" },
     { "src": "js/*.js", "use": "@vercel/static" },
     { "src": "*.{html,css,js,mp4,png,svg,ico,woff,woff2,ttf,eot}", "use": "@vercel/static" },
     { "src": "images/**", "use": "@vercel/static" },
@@ -13,12 +11,22 @@
     { "src": "fonts/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/api/gemini", "dest": "/api/gemini.js" },
-    { "src": "/api/rd-station", "dest": "/api/rd-station.js" },
-    { "src": "/api/config", "dest": "/api/config.js" },
-    { "src": "/api/check-env", "dest": "/pages/api/check-env.js" },
-    { "src": "/api/rd-station-v2", "dest": "/pages/api/rd-station.js" },
-    { "src": "/api/auth-test", "dest": "/pages/api/auth-test.js" },
+    { 
+      "src": "/api/(.*)", 
+      "dest": "/api/$1.js",
+      "continue": true,
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type"
+      }
+    },
+    { "src": "/api/gemini", "dest": "/api/gemini.js", "override": true },
+    { "src": "/api/rd-station", "dest": "/api/rd-station.js", "override": true },
+    { "src": "/api/config", "dest": "/api/config.js", "override": true },
+    { "src": "/api/check-env", "dest": "/pages/api/check-env.js", "override": true },
+    { "src": "/api/rd-station-v2", "dest": "/pages/api/rd-station.js", "override": true },
+    { "src": "/api/auth-test", "dest": "/pages/api/auth-test.js", "override": true },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/thumb/(.*)", "dest": "/thumb/$1" },
@@ -28,5 +36,16 @@
     { "src": "/(.*)\\.js", "dest": "/$1.js" },
     { "src": "/(.*)\\.css", "dest": "/$1.css" },
     { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" },
+        { "key": "X-Vercel-Protection-Bypass", "value": "true" }
+      ]
+    }
   ]
 }
