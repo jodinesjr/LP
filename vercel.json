@@ -11,6 +11,7 @@
     { "src": "fonts/**", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/email", "dest": "/email_marketing_roi_calculator.html" },
     { 
       "src": "/api/(.*)", 
       "dest": "/api/$1.js",
