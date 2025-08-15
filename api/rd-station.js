@@ -202,7 +202,22 @@ export default async function handler(req, res) {
                 const apiUrl = `https://api.rd.services/platform/conversions?api_key=${token}`;
                 
                 // Usar o payload específico para API de conversões
-                const simplePayload = conversionPayload;
+                // Formato correto para o endpoint de conversões com API Key
+                const simplePayload = {
+                    "event_type": "CONVERSION",
+                    "event_family": "CDP",
+                    "payload": {
+                        "conversion_identifier": "Lead-Calculadora-ROI",
+                        "email": email,
+                        "name": nome || "Não informado",
+                        "personal_phone": celular || "",
+                        "cf_cargo": cargo || "",
+                        "cf_tamanho_de_empresa": tamanhoEmpresa || "",
+                        "cf_origem": "Calculadora de Custos",
+                        "traffic_source": "Calculadora Harpio",
+                        "available_for_mailing": true
+                    }
+                };
                 
                 console.log(' [RD STATION API] URL:', apiUrl.replace(token, '***'));
                 console.log(' [RD STATION API] API Key:', `${token.substring(0, 8)}...`);
