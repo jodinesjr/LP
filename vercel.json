@@ -18,6 +18,7 @@
     { "src": "/api/config", "dest": "/api/config.js" },
     { "src": "/api/check-env", "dest": "/pages/api/check-env.js" },
     { "src": "/api/rd-station-v2", "dest": "/pages/api/rd-station.js" },
+    { "src": "/api/auth-test", "dest": "/pages/api/auth-test.js" },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/thumb/(.*)", "dest": "/thumb/$1" },
