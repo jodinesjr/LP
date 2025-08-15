@@ -4,13 +4,13 @@
 const fetch = require('node-fetch');
 
 // URL da aplicação no Vercel (produção)
-const PROD_URL = 'https://123-7k26syauv-jodinesjrs-projects.vercel.app';
+const PROD_URL = 'https://123-7e6q9gzir-jodinesjrs-projects.vercel.app';
 
 // URL local para testes
-const LOCAL_URL = 'http://localhost:3000';
+const LOCAL_URL = 'http://localhost:3001';
 
 // Escolha qual URL usar
-const BASE_URL = PROD_URL; // Altere para LOCAL_URL se quiser testar localmente
+const BASE_URL = LOCAL_URL; // Usando URL local para testes
 
 async function checkEnvironmentVariables() {
   console.log(`\n🔍 Verificando variáveis de ambiente em ${BASE_URL}/api/check-env`);

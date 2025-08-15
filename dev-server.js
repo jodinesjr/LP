@@ -234,6 +234,47 @@ app.get('/api/config', (req, res) => {
     }
 });
 
+// Endpoint para verificar variáveis de ambiente
+app.get('/api/check-env', (req, res) => {
+    console.log('🔍 [DEV SERVER] ===== VERIFICANDO VARIÁVEIS DE AMBIENTE =====');
+    console.log('📅 [DEV SERVER] Timestamp:', new Date().toISOString());
+    
+    // Verificar se as variáveis de ambiente estão definidas
+    const envVars = {
+        RD_STATION_PUBLIC_TOKEN: process.env.RD_STATION_PUBLIC_TOKEN ? 'Definido' : 'Não definido',
+        RD_STATION_INSTANCE_TOKEN: process.env.RD_STATION_INSTANCE_TOKEN ? 'Definido' : 'Não definido',
+        RD_STATION_PRIVATE_TOKEN: process.env.RD_STATION_PRIVATE_TOKEN ? 'Definido' : 'Não definido',
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY ? 'Definido' : 'Não definido'
+    };
+
+    // Mostrar os primeiros 8 caracteres dos tokens para verificação
+    const tokenPrefixes = {
+        RD_STATION_PUBLIC_TOKEN: process.env.RD_STATION_PUBLIC_TOKEN 
+            ? `${process.env.RD_STATION_PUBLIC_TOKEN.substring(0, 8)}...` 
+            : 'Não disponível',
+        RD_STATION_INSTANCE_TOKEN: process.env.RD_STATION_INSTANCE_TOKEN 
+            ? `${process.env.RD_STATION_INSTANCE_TOKEN.substring(0, 8)}...` 
+            : 'Não disponível',
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY 
+            ? `${process.env.GEMINI_API_KEY.substring(0, 8)}...` 
+            : 'Não disponível'
+    };
+
+    console.log('✅ [DEV SERVER] Variáveis de ambiente verificadas:', envVars);
+    console.log('🔑 [DEV SERVER] Prefixos dos tokens:', tokenPrefixes);
+
+    // Retornar informações sobre as variáveis de ambiente
+    res.status(200).json({
+        message: 'Verificação de variáveis de ambiente',
+        environment: process.env.NODE_ENV || 'development',
+        variables: envVars,
+        tokenPrefixes: tokenPrefixes,
+        timestamp: new Date().toISOString()
+    });
+    
+    console.log('🏁 [DEV SERVER] ===== FIM DA VERIFICAÇÃO DE VARIÁVEIS =====\n');
+});
+
 // Endpoint de status para verificar se servidor está funcionando
 app.get('/api/status', (req, res) => {
     console.log('🔍 [DEV SERVER] Verificando status do servidor');
@@ -245,7 +286,8 @@ app.get('/api/status', (req, res) => {
             'POST /api/rd-station': 'Envio de leads para RD Station',
             'POST /api/gemini': 'Endpoint para integração com Gemini AI',
             'GET /api/config': 'Fornece configurações seguras ao frontend',
-            'GET /api/status': 'Verificação de status do servidor'
+            'GET /api/status': 'Verificação de status do servidor',
+            'GET /api/check-env': 'Verificação de variáveis de ambiente'
         },
         tokens_configured: {
             instance: !!RD_TOKENS.INSTANCE_TOKEN,
@@ -343,7 +385,8 @@ app.use('*', (req, res) => {
             'POST /api/rd-station',
             'POST /api/gemini',
             'GET /api/config',
-            'GET /api/status'
+            'GET /api/status',
+            'GET /api/check-env'
         ],
         timestamp: new Date().toISOString()
     });
