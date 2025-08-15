@@ -115,6 +115,42 @@ node dev-server.js
 - ✅ Confirme se o evento "Lead-Calculadora-ROI" existe no RD Station
 - ✅ Verifique os logs detalhados para identificar o problema específico
 
+## 🔒 **Desativar Proteção por Senha no Vercel:**
+
+### **Problema Identificado:**
+O projeto no Vercel está protegido por senha, o que está causando erros 401 (Unauthorized) nos endpoints da API, impedindo o funcionamento correto da integração com RD Station.
+
+### **Como Desativar a Proteção por Senha:**
+
+1. Acesse o [Dashboard do Vercel](https://vercel.com/dashboard)
+2. Selecione o projeto `123` ou o nome atual do projeto
+3. Vá em **Settings** → **Authentication**
+4. Na seção **Password Protection**, desative a opção ou remova a senha
+5. Clique em **Save** para aplicar as alterações
+
+### **Alternativa: Configurar Endpoints Públicos:**
+
+Se você deseja manter a proteção por senha para o site, mas permitir acesso público aos endpoints da API:
+
+1. Acesse o [Dashboard do Vercel](https://vercel.com/dashboard)
+2. Selecione o projeto `123` ou o nome atual do projeto
+3. Vá em **Settings** → **Authentication** → **Bypass for Specific Paths**
+4. Adicione os seguintes caminhos para bypass:
+   ```
+   /api/*
+   ```
+5. Clique em **Save** para aplicar as alterações
+
+### **Verificando a Configuração:**
+
+Após desativar a proteção por senha ou configurar o bypass, teste os endpoints da API novamente:
+
+```bash
+node test-auth.js
+```
+
+Você deve receber uma resposta 200 OK com os detalhes da requisição, sem a mensagem "Authentication Required".
+
 ## 📞 **Suporte:**
 
 Se encontrar problemas:
@@ -122,9 +158,11 @@ Se encontrar problemas:
 2. **Confirme a configuração** da variável de ambiente
 3. **Teste localmente** primeiro com o servidor de desenvolvimento
 4. **Valide no painel** do RD Station se os leads estão chegando
+5. **Verifique as configurações de autenticação** no Vercel conforme instruções acima
 
 ---
 
 **✅ Configuração completa e segura implementada!**
 **🔒 Token protegido via variável de ambiente**
 **🎯 Evento atualizado para "Lead-Calculadora-ROI"**
+**⚠️ Proteção por senha deve ser desativada ou configurada com bypass para APIs**
