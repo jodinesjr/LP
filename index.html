@@ -11,6 +11,10 @@
     <script src="https://unpkg.com/tippy.js@6"></script>
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
+    <!-- Gemini API Client Implementation -->
+    <script src="js/config.js"></script>
+    <script src="js/gemini-client.js"></script>
+    <script src="js/gemini-integration.js"></script>
     <!-- Material Design Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Cleave.js para máscaras -->
@@ -1748,14 +1752,13 @@
                 // Set initial state on page load
                 if(videoPlayer && tutorialPoster) {
                     if (!videoPlayer.src) {
-                        // Use relative path for videos with cache-busting parameter
-                        videoPlayer.src = 'etapa1.mp4?v=1.0';
+                        // Use relative path for videos - Vercel will serve them from the root
+                        videoPlayer.src = 'etapa1.mp4';
                         videoPlayer.load();
                     }
-                    // Set initial poster source with cache-busting
-                    if (tutorialPoster && !tutorialPoster.src) {
-                        tutorialPoster.src = 'thumb/etapa1.png?v=1.0';
-                    }
+                    // Set initial poster source
+                    tutorialPoster.src = 'thumb/etapa1.png';
+                    // Initially show the poster and overlay
                     tutorialPoster.style.display = 'block';
                     if (videoOverlay) {
                         videoOverlay.classList.remove('hidden');
@@ -2784,10 +2787,10 @@
             }
 
             const tutorialData = [
-                { video_url: 'etapa1.mp4?v=1.0', poster_url: 'thumb/etapa1.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>group</span><div>O número de recrutadores impacta diretamente o volume de trabalho e a capacidade de triagem da sua equipe.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">group</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores em Recrutamento e Seleção</span></div><div data-tippy-content="<span class=\'material-icons\'>business</span><div>O tamanho da empresa ajuda a contextualizar a complexidade e a escala das suas operações de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">business</span><span class="text-xs mt-1 font-medium leading-tight">Total de Colaboradores</span></div><div data-tippy-content="<span class=\'material-icons\'>attach_money</span><div>O salário da equipe de R&S é um custo direto fundamental para calcular o ROI de qualquer nova ferramenta ou processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">attach_money</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio da Equipe de Recrutamento</span></div></div>' },
-                { video_url: 'etapa2.mp4?v=1.0', poster_url: 'thumb/etapa2.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>work</span><div>O volume de vagas indica a demanda de trabalho e o esforço contínuo da sua equipe de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">work</span><span class="text-xs mt-1 font-medium leading-tight">Vagas Abertas por Mês</span></div><div data-tippy-content="<span class=\'material-icons\'>description</span><div>A quantidade de currículos por vaga é um indicador chave do tempo gasto na triagem manual e da eficiência do processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">description</span><span class="text-xs mt-1 font-medium leading-tight">Currículos por Vaga</span></div><div data-tippy-content="<span class=\'material-icons\'>record_voice_over</span><div>O número de entrevistas revela o esforço necessário para qualificar candidatos e o quão seletivo é o seu funil.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">record_voice_over</span><span class="text-xs mt-1 font-medium leading-tight">Entrevistas por Vaga</span></div></div>' },
-                { video_url: 'etapa3.mp4?v=1.0', poster_url: 'thumb/etapa3.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>support_agent</span><div>O custo com consultorias externas é um investimento significativo que pode ser otimizado com as ferramentas certas.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">support_agent</span><span class="text-xs mt-1 font-medium leading-tight">Consultorias</span></div><div data-tippy-content="<span class=\'material-icons\'>web</span><div>Portais de vagas são essenciais, mas seus custos podem ser altos. Entender esse valor ajuda a avaliar a eficiência do canal.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">web</span><span class="text-xs mt-1 font-medium leading-tight">Portais de Vagas</span></div><div data-tippy-content="<span class=\'material-icons\'>link</span><div>O LinkedIn é uma ferramenta poderosa, e seu custo de assinatura para equipes de recrutamento é um fator importante no orçamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">link</span><span class="text-xs mt-1 font-medium leading-tight">LinkedIn</span></div><div data-tippy-content="<span class=\'material-icons\'>computer</span><div>Outros softwares de R&S, como ATS, contribuem para os custos operacionais e devem ser considerados no cálculo total.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">computer</span><span class="text-xs mt-1 font-medium leading-tight">Outros Softwares</span></div></div>' },
-                { video_url: 'etapa4.mp4?v=1.0', poster_url: 'thumb/etapa4.png?v=1.0', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>transfer_within_a_station</span><div>A rotatividade de colaboradores gera custos com rescisão, novas contratações e perda de produtividade.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">transfer_within_a_station</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores Desligados</span></div><div data-tippy-content="<span class=\'material-icons\'>payments</span><div>O salário médio geral é a base para calcular o custo de uma má contratação e o impacto financeiro do turnover.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">payments</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio Geral</span></div><div data-tippy-content="<span class=\'material-icons\'>hourglass_empty</span><div>O tempo de adaptação representa o período em que um novo colaborador ainda não está totalmente produtivo, gerando um custo indireto para a empresa.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">hourglass_empty</span><span class="text-xs mt-1 font-medium leading-tight">Tempo de Adaptação</span></div></div>' }
+                { video_url: 'etapa1.mp4', poster_url: 'thumb/etapa1.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>group</span><div>O número de recrutadores impacta diretamente o volume de trabalho e a capacidade de triagem da sua equipe.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">group</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores em Recrutamento e Seleção</span></div><div data-tippy-content="<span class=\'material-icons\'>business</span><div>O tamanho da empresa ajuda a contextualizar a complexidade e a escala das suas operações de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">business</span><span class="text-xs mt-1 font-medium leading-tight">Total de Colaboradores</span></div><div data-tippy-content="<span class=\'material-icons\'>attach_money</span><div>O salário da equipe de R&S é um custo direto fundamental para calcular o ROI de qualquer nova ferramenta ou processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">attach_money</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio da Equipe de Recrutamento</span></div></div>' },
+                { video_url: 'etapa2.mp4', poster_url: 'thumb/etapa2.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>work</span><div>O volume de vagas indica a demanda de trabalho e o esforço contínuo da sua equipe de recrutamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">work</span><span class="text-xs mt-1 font-medium leading-tight">Vagas Abertas por Mês</span></div><div data-tippy-content="<span class=\'material-icons\'>description</span><div>A quantidade de currículos por vaga é um indicador chave do tempo gasto na triagem manual e da eficiência do processo.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">description</span><span class="text-xs mt-1 font-medium leading-tight">Currículos por Vaga</span></div><div data-tippy-content="<span class=\'material-icons\'>record_voice_over</span><div>O número de entrevistas revela o esforço necessário para qualificar candidatos e o quão seletivo é o seu funil.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">record_voice_over</span><span class="text-xs mt-1 font-medium leading-tight">Entrevistas por Vaga</span></div></div>' },
+                { video_url: 'etapa3.mp4', poster_url: 'thumb/etapa3.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>support_agent</span><div>O custo com consultorias externas é um investimento significativo que pode ser otimizado com as ferramentas certas.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">support_agent</span><span class="text-xs mt-1 font-medium leading-tight">Consultorias</span></div><div data-tippy-content="<span class=\'material-icons\'>web</span><div>Portais de vagas são essenciais, mas seus custos podem ser altos. Entender esse valor ajuda a avaliar a eficiência do canal.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">web</span><span class="text-xs mt-1 font-medium leading-tight">Portais de Vagas</span></div><div data-tippy-content="<span class=\'material-icons\'>link</span><div>O LinkedIn é uma ferramenta poderosa, e seu custo de assinatura para equipes de recrutamento é um fator importante no orçamento.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">link</span><span class="text-xs mt-1 font-medium leading-tight">LinkedIn</span></div><div data-tippy-content="<span class=\'material-icons\'>computer</span><div>Outros softwares de R&S, como ATS, contribuem para os custos operacionais e devem ser considerados no cálculo total.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">computer</span><span class="text-xs mt-1 font-medium leading-tight">Outros Softwares</span></div></div>' },
+                { video_url: 'etapa4.mp4', poster_url: 'thumb/etapa4.png', text: '<div class="flex flex-nowrap justify-center items-start gap-3 text-center"><div data-tippy-content="<span class=\'material-icons\'>transfer_within_a_station</span><div>A rotatividade de colaboradores gera custos com rescisão, novas contratações e perda de produtividade.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">transfer_within_a_station</span><span class="text-xs mt-1 font-medium leading-tight">Colaboradores Desligados</span></div><div data-tippy-content="<span class=\'material-icons\'>payments</span><div>O salário médio geral é a base para calcular o custo de uma má contratação e o impacto financeiro do turnover.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">payments</span><span class="text-xs mt-1 font-medium leading-tight">Salário Médio Geral</span></div><div data-tippy-content="<span class=\'material-icons\'>hourglass_empty</span><div>O tempo de adaptação representa o período em que um novo colaborador ainda não está totalmente produtivo, gerando um custo indireto para a empresa.</div>" class="flex flex-col items-center justify-start bg-gray-50 p-2 rounded-lg shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 w-32 h-28"><span class="material-icons text-4xl text-[#9951A2]">hourglass_empty</span><span class="text-xs mt-1 font-medium leading-tight">Tempo de Adaptação</span></div></div>' }
             ];
 
             lottie.loadAnimation({
@@ -3174,7 +3177,17 @@
                 try {
                     if (window.tippy) {
                         // Remove todas as instâncias existentes do Tippy
-                        tippy('[data-tippy-content]', { content: '' }).destroy();
+                        // Primeiro, verificar se há instâncias anteriores e destruí-las corretamente
+                        if (window._tippyInstances) {
+                            window._tippyInstances.forEach(instance => {
+                                if (instance && typeof instance.destroy === 'function') {
+                                    instance.destroy();
+                                }
+                            });
+                        }
+                        
+                        // Limpar o array de instâncias
+                        window._tippyInstances = [];
                         
                         // Configuração padrão para todas as tooltips
                         const defaultOptions = {
@@ -3187,7 +3200,8 @@
                         };
 
                         // Inicializa todas as tooltips de uma vez
-                        tippy('[data-tippy-content]', {
+                        // Inicializar novas instâncias e armazená-las para referência futura
+                        window._tippyInstances = tippy('[data-tippy-content]', {
                             ...defaultOptions,
                             content(reference) {
                                 return reference.getAttribute('data-tippy-content');
@@ -3893,181 +3907,138 @@
                     investimentoHSMensal, investimentoHSAnual, paybackMeses
                 });
                 
-                const prompt = `PROMPT OTIMIZADO - FOCO EM ANÁLISE DE IA
-Persona e Missão Principal:
-Pense como um analista de negócios (business analyst), que foi contratado para resolver o problema de eficiencia deR&S, turnover e produtividade da empresa do seu cliente. Sua comunicação é direta, clara e visual. O tom é profissional, mas acessível, confiante e jovial, sem jargões ou formalidades excessivas.
+                // Função para criar um prompt mais conciso
+                function criarPromptOtimizado() {
+                    // Prompt reduzido e otimizado para evitar truncamento
+                    return `## Análise de ROI para Recrutamento & Seleção
 
-Sua missão é criar um caso de negócio (business case) irrefutável em português do Brasil, usando os dados abaixo. O relatório deve ser um documento executivo que apresenta um problema claro e uma solução lógica e lucrativa. O objetivo é fazer o seu cliente representante de uma área de RH pensar "isto é óbvio, precisamos fazer". Não se apresente, não remeta a alguém, não crie rodeios, não direcione, não coloque datas nem localidades, nem crie introduções, seja objetivo e vá direto ao ponto.
-
-Dados de Entrada (Input):
-
-Colaboradores dedicados a R&S: ${rhColabs}
-
-Total de colaboradores na empresa: ${totalColabs}
-
-Salário médio da equipe de RH: R$ ${rhSalary.toLocaleString('pt-BR')}
-
-Média de vagas abertas por mês: ${monthlyJobs}
-
-Total de contratações anuais: ${positionsFilled}
-
-Investimento anual ATUAL em R&S: R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')}
-
-Custo por contratação ATUAL: R$ ${custoMedioContratacao.toLocaleString('pt-BR')}
-
-Custo anual estimado com TURNOVER: R$ ${custoTurnover.toLocaleString('pt-BR')}
-
-Economia ANUAL POTENCIAL (com otimização de até 60%): R$ ${economiaAnual.toLocaleString('pt-BR')}
-
-Investimento anual na solução Harpio Sprint: R$ ${investimentoHSAnual.toLocaleString('pt-BR')}
-
-ROI Estimado: ${roiFormatado}%
-
-**Componentes do ROI Calculado:**
-- Economia com redução de turnover (20%): R$ ${economiaComTurnover.toLocaleString('pt-BR')}
-- Aumento de produtividade (15%): R$ ${valorProdutividadeExtra.toLocaleString('pt-BR')}
-- Economia no tempo de ramp-up: R$ ${economiaRampUp.toLocaleString('pt-BR')}
-- **Total de Ganhos**: R$ ${ganhosComInvestimento.toLocaleString('pt-BR')}
-- **Custo do Investimento**: R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')}
-
-Payback Estimado (meses): ${paybackMeses.toFixed(1)}
-
-Estrutura e Tom do Relatório (ARQUITETURA FIXA E OBRIGATÓRIA):
-Siga rigorosamente esta arquitetura. A clareza e o impacto visual são a prioridade.
-
-1. Título:
-## Análise Preditiva de ROI para Recrutamento & Seleção
-
-2. Diagnóstico Rápido: Custos Atuais de R&S
-
-É obrigatório usar a tabela Markdown abaixo. Seja sucinto.
-
-Analise cada número focando na sua consequência.
-
-Métrica | Valor Anual | O que isso significa na prática?
---------|-------------|--------------------------------
-Custo Total de R&S | R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')} | Capital significativo que poderia ter maior eficiência.
-Custo por Contratação | R$ ${custoMedioContratacao.toLocaleString('pt-BR')} | Processos lentos ou ferramentas ineficazes estão inflando custos.
-Custo do Turnover | R$ ${custoTurnover.toLocaleString('pt-BR')} | Um "ralo" financeiro que impacta a produtividade.
-
-3. Análise e Recomendações da IA
-
-Use como subtítulo:
-
-### Análise Inteligente do Cenário Atual
-
-Instrução para a IA: Com base em TODAS as variáveis de entrada, gere uma análise de texto minuciosa sobre a saúde financeira do processo de R&S. Avalie se o ROI atual das operações é sustentável. Identifique os principais gargalos (ex: custo por contratação desproporcional ao salário médio, impacto percentual do turnover no custo total). Forneça recomendações claras e acionáveis sobre como a empresa pode otimizar esses indicadores, focando em melhorias de processo.
-
-4. Análise de ROI e Transformação do RH
-
-Use o subtítulo: ### ROI Atual vs. ROI Otimizado: O Potencial de Transformação
-
-Instrução para a IA: Apresente uma análise comparativa focada nos números atuais versus o potencial otimizado. Mostre o ROI atual calculado (${roiFormatado}%) e explique como a otimização pode transformar o RH de um centro de custo em um motor de eficiência. Foque nos benefícios estratégicos:
-
-**CENÁRIO ATUAL:**
-- Investimento anual em R&S: R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')}
+Dados principais:
+- Colaboradores RH: ${rhColabs}
+- Total colaboradores: ${totalColabs}
+- Salário médio RH: R$ ${rhSalary.toLocaleString('pt-BR')}
+- Vagas/mês: ${monthlyJobs}
+- Contratações anuais: ${positionsFilled}
+- Investimento anual R&S: R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')}
+- Custo/contratação: R$ ${custoMedioContratacao.toLocaleString('pt-BR')}
+- Custo turnover: R$ ${custoTurnover.toLocaleString('pt-BR')}
 - ROI atual: ${roiFormatado}%
-- Custo por contratação: R$ ${custoMedioContratacao.toLocaleString('pt-BR')}
 
-**CENÁRIO OTIMIZADO (com tecnologia e processos modernos):**
-- Potencial de economia anual: R$ ${economiaAnual.toLocaleString('pt-BR')}
-- ROI otimizado: ${(parseFloat(roiFormatado) * 1.6).toFixed(1)}% (melhoria de 60% sobre o ROI atual)
-- Redução no custo por contratação: R$ ${(custoMedioContratacao * 0.4).toLocaleString('pt-BR')} (economia de 60%)
+Crie um relatório executivo em português do Brasil com:
 
-**BENEFÍCIOS ESTRATÉGICOS DE UM RH MODERNO:**
-- 🚀 **Agilidade:** Processos automatizados reduzem tempo de contratação
-- 🎯 **Precisão:** Melhor match candidato-vaga reduz turnover
-- 📊 **Data-Driven:** Decisões baseadas em dados e analytics
-- 💡 **Foco Estratégico:** Equipe RH dedicada a atividades de alto valor
-- 🔄 **Escalabilidade:** Capacidade de crescer sem aumentar custos proporcionalmente
+1. Título: "Análise Preditiva de ROI para Recrutamento & Seleção"
 
-Instruções Gerais de Formatação:
+2. Tabela de custos atuais:
+   - Custo Total R&S: R$ ${custoTotalAnualAtual.toLocaleString('pt-BR')}
+   - Custo/Contratação: R$ ${custoMedioContratacao.toLocaleString('pt-BR')}
+   - Custo Turnover: R$ ${custoTurnover.toLocaleString('pt-BR')}
 
-Linguagem: Português do Brasil, tom profissional, confiante e direto.
+3. Análise do cenário atual:
+   - Avalie a saúde financeira do processo de R&S
+   - Identifique gargalos e ineficiências
+   - Recomende melhorias de processo
 
-Visual: Use negrito, tabelas, bullet points e emojis (💰, 📈, 🎯) para quebrar o texto e facilitar a leitura dinâmica.
+4. Comparação de cenários:
+   - Cenário atual: ROI de ${roiFormatado}%
+   - Cenário otimizado: ROI potencial de ${(parseFloat(roiFormatado) * 1.6).toFixed(1)}%
+   - Benefícios estratégicos: agilidade, precisão, decisões baseadas em dados
 
-Consistência: Siga a arquitetura e os títulos propostos sem alterações.
-
-IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimização. Não mencione valores específicos de investimento em produtos ou soluções. O objetivo é mostrar o ROI atual (${roiFormatado}%) e como a modernização dos processos de RH pode criar um departamento mais ágil, eficiente e estratégico.`;
+Use linguagem direta, visual e profissional. Inclua tabelas, bullet points e emojis para facilitar a leitura.`;
+                }
+                
+                // Gerar o prompt otimizado
+                const prompt = criarPromptOtimizado();
                 
                 console.log('Prompt gerado (primeiros 200 chars):', prompt.substring(0, 200) + '...');
                 console.log('Tamanho do prompt:', prompt.length, 'caracteres');
                 
-                // Usar a API backend segura em vez de chamar diretamente o Gemini
-                // Garantir que a URL base seja correta em qualquer ambiente
-                const baseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                    ? 'http://localhost:3000' 
-                    : window.location.origin;
+                // Usar nossa nova implementação de cliente Gemini
+                console.log('🔄 [FRONTEND] Iniciando chamada para API Gemini usando o cliente...');
+                console.log('📝 [FRONTEND] Tamanho do prompt:', prompt.length, 'caracteres');
+                console.log('📝 [FRONTEND] Início do prompt:', prompt.substring(0, 100) + '...');
                 
-                // Garantir que a URL da API seja absoluta
-                const apiUrl = `${baseUrl}/api/gemini`;
+                // Usar o geminiIntegration para enviar o prompt
+                console.log('🔄 [FRONTEND] Chamando geminiIntegration.sendPrompt()...');
                 
-                console.log('URL base detectada:', baseUrl);
-                console.log('URL da API completa:', apiUrl);
-                
-                const requestBody = {
-                    prompt: prompt
+                // Callbacks para monitorar o progresso
+                const onLoading = () => {
+                    console.log('🔄 [FRONTEND] Carregando resposta da API Gemini...');
                 };
                 
-                console.log('URL da API:', apiUrl);
-                console.log('Corpo da requisição:', JSON.stringify(requestBody, null, 2));
-                console.log('Iniciando requisição fetch...');
+                const onError = (error) => {
+                    console.error('❌ [FRONTEND] Erro na API Gemini:', error);
+                    throw error; // Propagar o erro para ser capturado pelo try/catch externo
+                };
                 
-                console.log('🔄 [FRONTEND] Iniciando chamada para API Gemini...');
-                console.log('🔄 [FRONTEND] URL completa:', apiUrl);
-                console.log('🔄 [FRONTEND] Headers:', {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                const onComplete = () => {
+                    console.log('✅ [FRONTEND] Requisição para API Gemini concluída com sucesso');
+                };
+                
+                // Chamar a API Gemini usando nosso cliente
+                const result = await window.geminiIntegration.sendPrompt(prompt, {
+                    onLoading,
+                    onError,
+                    onComplete
                 });
                 
-                // Melhorar a configuração do fetch para funcionar em produção
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    // Usar no-cors para produção e cors para desenvolvimento
-                    mode: 'cors',
-                    // Remover credentials para evitar problemas de CORS em produção
-                    // credentials: 'same-origin',
-                    body: JSON.stringify(requestBody)
-                });
-                
-                console.log('🔄 [FRONTEND] Configuração do fetch:', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                console.log('🔄 [FRONTEND] Resposta recebida. Status completo:', response.status, response.statusText);
-                
-                console.log('Resposta recebida. Status:', response.status, response.statusText);
-                console.log('Headers da resposta:', Object.fromEntries(response.headers.entries()));
-                
-                if (!response.ok) {
-                    const errorData = await response.text();
-                    console.error('=== ERRO HTTP DA API ===');
-                    console.error('Status:', response.status);
-                    console.error('Status Text:', response.statusText);
-                    console.error('Dados do erro:', errorData);
-                    console.error('=== FIM ERRO HTTP ===');
-                    throw new Error(`Erro da API (${response.status}): ${response.statusText} - ${errorData}`);
-                }
-                
-                console.log('Convertendo resposta para JSON...');
-                const result = await response.json();
                 console.log('=== RESPOSTA COMPLETA DA API ===');
                 console.log('Estrutura da resposta:', JSON.stringify(result, null, 2));
                 console.log('=== FIM RESPOSTA API ===');
                 
-                if (result.candidates && result.candidates[0] && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0]) {
-                    const aiResponse = result.candidates[0].content.parts[0].text;
-                    const htmlContent = convertMarkdownToHTML(aiResponse);
+                // Log detalhado da resposta
+                console.group('📥 [FRONTEND] Detalhes da Resposta');
+                console.log('📊 Status:', result.status || 'OK');
+                console.log('📄 Tipo de resposta:', typeof result);
+                console.groupEnd();
+                
+                // Se a resposta não for bem-sucedida, lançar um erro
+                if (result.error) {
+                    console.error('❌ Erro na resposta da API Gemini');
+                    console.error('📝 Mensagem de erro:', result.error);
+                    throw new Error(`Erro na API Gemini: ${result.error}`);
+                }
+                console.log('=== RESPOSTA COMPLETA DA API ===');
+                console.log('Estrutura da resposta:', JSON.stringify(result, null, 2));
+                console.log('=== FIM RESPOSTA API ===');
+                
+                console.log('Analisando estrutura da resposta da API Gemini...');
+                let aiResponse = '';
+                let htmlContent = '';
+                
+                // Nossa nova implementação do cliente Gemini já extrai o texto da resposta
+                // e o retorna diretamente, então não precisamos processar a estrutura complexa
+                if (typeof result === 'string') {
+                    console.log('Resposta já processada pelo cliente Gemini como string');
+                    aiResponse = result;
+                } 
+                // Fallback para manter compatibilidade com o formato anterior
+                else if (result.text) {
+                    console.log('Usando result.text');
+                    aiResponse = result.text;
+                }
+                // Estrutura de resposta da API Gemini direta
+                else if (result.candidates && result.candidates[0]) {
+                    console.log('Estrutura candidates encontrada');
+                    
+                    if (result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts[0] && result.candidates[0].content.parts[0].text) {
+                        // Estrutura padrão do Gemini API
+                        console.log('Estrutura padrão: candidates[0].content.parts[0].text');
+                        aiResponse = result.candidates[0].content.parts[0].text;
+                    } 
+                    else if (result.candidates[0].content && result.candidates[0].content.text) {
+                        // Estrutura alternativa
+                        console.log('Estrutura alternativa: candidates[0].content.text');
+                        aiResponse = result.candidates[0].content.text;
+                    }
+                    else if (result.candidates[0].text) {
+                        // Outra estrutura alternativa
+                        console.log('Estrutura alternativa: candidates[0].text');
+                        aiResponse = result.candidates[0].text;
+                    }
+                }
+                
+                if (aiResponse) {
+                    console.log('Resposta da IA extraída com sucesso:', aiResponse.substring(0, 100) + '...');
+                    htmlContent = convertMarkdownToHTML(aiResponse);
                     
                     loader.classList.add('hidden');
                     content.innerHTML = htmlContent;
@@ -4127,25 +4098,6 @@ IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimiza
                     // Status geral da validação
                     const validacaoCompleta = contemROI && contemCustoTotal && contemGanhos && tabelaRenderizada;
                     console.log('└── STATUS VALIDAÇÃO COMPLETA:', validacaoCompleta ? '✅ TODOS OS DADOS CONSISTENTES' : '❌ INCONSISTÊNCIAS DETECTADAS');
-                    
-                    console.log('\n🔍 AUDITORIA FINAL DE CONSISTÊNCIA:');
-                    console.log('├── ✅ Dados do formulário capturados corretamente');
-                    console.log('├── ✅ Sessão de resultados calculada corretamente');
-                    console.log('├── ✅ Encargos trabalhistas incluídos (ENCARGOS_FACTOR=1.7)');
-                    console.log('├── ✅ ROI calculado com fórmula correta');
-                    console.log('├── ✅ Dados enviados para IA consistentes');
-                    console.log('├── ✅ Resposta da IA contém valores corretos');
-                    console.log('├── ✅ Tabela renderizada corretamente');
-                    console.log('├── ✅ Botão "Ver Cálculos" habilitado');
-                    console.log('└── ✅ Modal de detalhamento funcional');
-                    
-                    console.log('\n📊 RESUMO FINAL DOS VALORES (RASTREABILIDADE COMPLETA):');
-                    console.log('ROI calculado → enviado → retornado:', dadosEnviados.roiFormatado + '%');
-                    console.log('Custo Total calculado → enviado → retornado: R$', dadosEnviados.custoTotalAnualAtual?.toLocaleString('pt-BR') || '0,00');
-                    console.log('Ganhos calculados → enviados → retornados: R$', dadosEnviados.ganhosComInvestimento?.toLocaleString('pt-BR') || '0,00');
-                    
-                    console.log('\n🎆 SISTEMA 100% AUDITADO E VALIDADO!');
-                    console.log('✨'.repeat(40) + '\n');
                 } else if (result.error) {
                     throw new Error(`Erro da API Gemini: ${result.error.message || 'Erro desconhecido'}`);
                 } else {
@@ -4785,6 +4737,19 @@ IMPORTANTE: Foque apenas nos valores atuais calculados e no potencial de otimiza
     
     <!-- Script de integração com RD Station -->
     <script src="envia-rd.js"></script>
+    
+    <!-- Inicialização do cliente Gemini -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                console.log('🔄 Inicializando cliente Gemini...');
+                await window.geminiIntegration.initialize();
+                console.log('✅ Cliente Gemini inicializado com sucesso!');
+            } catch (error) {
+                console.error('❌ Erro ao inicializar cliente Gemini:', error);
+            }
+        });
+    </script>
     
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">

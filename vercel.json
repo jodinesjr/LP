@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/gemini.js", "use": "@vercel/node" },
+    { "src": "api/rd-station.js", "use": "@vercel/node" },
+    { "src": "api/config.js", "use": "@vercel/node" },
+    { "src": "pages/api/config.js", "use": "@vercel/node" },
+    { "src": "js/*.js", "use": "@vercel/static" },
+    { "src": "*.{html,css,js,mp4,png,svg,ico,woff,woff2,ttf,eot}", "use": "@vercel/static" },
+    { "src": "images/**", "use": "@vercel/static" },
+    { "src": "thumb/**", "use": "@vercel/static" },
+    { "src": "fonts/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/gemini", "dest": "/api/gemini" },
+    { "src": "/api/rd-station", "dest": "/api/rd-station" },
+    { "src": "/api/config", "dest": "/api/config" },
+    { "src": "/js/(.*)", "dest": "/js/$1" },
+    { "src": "/images/(.*)", "dest": "/images/$1" },
+    { "src": "/thumb/(.*)", "dest": "/thumb/$1" },
+    { "src": "/fonts/(.*)", "dest": "/fonts/$1" },
+    { "src": "/form.html", "dest": "/form.html" },
+    { "src": "/(.*)\\.(mp4|png|svg|ico|jpg|jpeg|gif|webp|woff|woff2|ttf|eot)", "dest": "/$1.$2" },
+    { "src": "/(.*)\\.js", "dest": "/$1.js" },
+    { "src": "/(.*)\\.css", "dest": "/$1.css" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}

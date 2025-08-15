@@ -11,31 +11,20 @@ export default async function handler(req, res) {
     
     // Configurar CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Accept');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
     // Responder a requisições OPTIONS (preflight)
     if (req.method === 'OPTIONS') {
-        console.log('✅ [RD STATION API] Respondendo a preflight OPTIONS');
-        return res.status(200).end();
-    }
-
-    // Para debug: aceitar GET temporariamente
-    if (req.method === 'GET') {
-        console.log('🔍 [RD STATION API] Requisição GET recebida - retornando status da API');
-        return res.status(200).json({ 
-            status: 'API RD Station funcionando',
-            method: req.method,
-            timestamp: new Date().toISOString(),
-            message: 'Use POST para enviar dados'
-        });
+        console.log(' [RD STATION API] Respondendo a preflight OPTIONS');
+        res.status(200).end();
+        return;
     }
 
     // Verificar método HTTP
     if (req.method !== 'POST') {
-        console.error('❌ [RD STATION API] Método não permitido:', req.method);
-        console.log('📋 [RD STATION API] Métodos aceitos: POST');
+        console.error(' [RD STATION API] Método não permitido:', req.method);
+        console.log(' [RD STATION API] Métodos aceitos: POST');
         return res.status(405).json({ 
             error: 'Método não permitido',
             message: 'Apenas POST é aceito',

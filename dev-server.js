@@ -2,6 +2,9 @@
 // DEEP DEBUG VERSION - Logs detalhados para troubleshooting
 // Execute com: node dev-server.js
 
+// Carregar variáveis de ambiente do arquivo .env
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -189,15 +192,59 @@ app.use((req, res, next) => {
     next();
 });
 
+// Endpoint para fornecer configurações ao frontend
+app.get('/api/config', (req, res) => {
+    console.log('🔑 [DEV SERVER] ===== PROCESSANDO /api/config =====');
+    console.log('📅 [DEV SERVER] Timestamp:', new Date().toISOString());
+    
+    // Configurar CORS para permitir acesso do frontend
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    
+    try {
+        // Verificar se a API key está configurada
+        const apiKey = process.env.GEMINI_API_KEY;
+        console.log('🔑 [DEV SERVER] GEMINI_API_KEY:', apiKey ? `${apiKey.substring(0, 10)}...` : 'NÃO CONFIGURADA');
+        
+        if (!apiKey) {
+            console.error('❌ [DEV SERVER] GEMINI_API_KEY não configurada');
+            return res.status(500).json({ 
+                error: 'Configuração do servidor incompleta',
+                message: 'GEMINI_API_KEY não configurada no ambiente'
+            });
+        }
+        
+        // Retornar a chave da API ao frontend
+        console.log('✅ [DEV SERVER] Fornecendo configurações ao frontend');
+        res.status(200).json({
+            geminiApiKey: apiKey,
+            environment: 'development',
+            timestamp: new Date().toISOString()
+        });
+        
+        console.log('🏁 [DEV SERVER] ===== FIM DO PROCESSAMENTO CONFIG =====\n');
+        
+    } catch (error) {
+        console.error('❌ [DEV SERVER] Erro ao processar requisição de configuração:', error);
+        res.status(500).json({ 
+            error: 'Erro interno do servidor',
+            message: error.message
+        });
+    }
+});
+
 // Endpoint de status para verificar se servidor está funcionando
 app.get('/api/status', (req, res) => {
-    console.log('🔍 [DEV SERVER] Verificação de status solicitada');
+    console.log('🔍 [DEV SERVER] Verificando status do servidor');
     res.json({
         status: 'online',
         timestamp: new Date().toISOString(),
+        environment: 'development',
         endpoints: {
-            'POST /api/rd-station': 'Endpoint para envio de leads',
+            'POST /api/rd-station': 'Envio de leads para RD Station',
             'POST /api/gemini': 'Endpoint para integração com Gemini AI',
+            'GET /api/config': 'Fornece configurações seguras ao frontend',
             'GET /api/status': 'Verificação de status do servidor'
         },
         tokens_configured: {
@@ -295,6 +342,7 @@ app.use('*', (req, res) => {
         available_endpoints: [
             'POST /api/rd-station',
             'POST /api/gemini',
+            'GET /api/config',
             'GET /api/status'
         ],
         timestamp: new Date().toISOString()

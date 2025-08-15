@@ -1,10 +1,15 @@
 // Script para integração com RD Station Marketing
 // Configuração da API RD Station - DEEP DEBUG VERSION
 const RD_API_CONFIG = {
-    BASE_URL: '/api/rd-station', // Sempre usar endpoint backend seguro
+    // Usar URL completa em desenvolvimento, relativa em produção
+    BASE_URL: window.location.hostname === 'localhost' ? 'http://localhost:3001/api/rd-station' : '/api/rd-station',
     DEBUG: true, // Ativar logs detalhados
     CONVERSION_IDENTIFIER: 'Lead-Calculadora-ROI'
 };
+
+// Log da configuração de ambiente
+console.log('🔄 [FRONTEND] Modo de desenvolvimento:', window.location.hostname === 'localhost');
+console.log('🌐 [FRONTEND] URL da API:', RD_API_CONFIG.BASE_URL);
 
 // Função para logs detalhados
 function debugLog(level, message, data = null) {
@@ -338,11 +343,10 @@ async function processLeadForm(event) {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     try {
-        // TEMPORÁRIO: Pular RD Station para testar Gemini
-        debugLog('info', '⚠️ MODO DEBUG: Pulando envio para RD Station temporariamente...');
-        
-        // Simular sucesso do RD Station
-        debugLog('success', '✅ [SIMULADO] Lead enviado com sucesso para RD Station!');
+        // Enviar para RD Station
+        debugLog('info', '🚀 Iniciando envio para RD Station...');
+        await sendToRDStation(validation.data);
+        debugLog('success', '✅ Lead enviado com sucesso para RD Station!');
         
         // Mostrar notificação de sucesso
         debugLog('info', '💬 Mostrando notificação de sucesso...');
