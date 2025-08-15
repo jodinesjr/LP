@@ -4,7 +4,7 @@
 const fetch = require('node-fetch');
 
 // URL da aplicação no Vercel (produção)
-const PROD_URL = 'https://123-two-sage.vercel.app';
+const PROD_URL = 'https://123-9f6p1duyr-jodinesjrs-projects.vercel.app';
 
 // URL local para testes
 const LOCAL_URL = 'http://localhost:3000';
@@ -41,11 +41,24 @@ async function testRdStationEndpoint() {
       body: JSON.stringify(testData)
     });
     
-    const responseData = await response.json();
-    
     console.log(`\n📊 Status: ${response.status} ${response.statusText}`);
-    console.log('📄 Headers:', JSON.stringify(Object.fromEntries([...response.headers]), null, 2));
-    console.log('📝 Resposta:', JSON.stringify(responseData, null, 2));
+    console.log('📔 Headers:', JSON.stringify(Object.fromEntries([...response.headers]), null, 2));
+    
+    // Obter o texto da resposta primeiro
+    const responseText = await response.text();
+    console.log('\n📝 Resposta bruta:', responseText.substring(0, 500) + '...');
+    
+    // Tentar converter para JSON se possível
+    try {
+      if (responseText.trim().startsWith('{')) {
+        const responseData = JSON.parse(responseText);
+        console.log('\n📝 Resposta JSON:', JSON.stringify(responseData, null, 2));
+      } else {
+        console.log('\n⚠️ A resposta não é um JSON válido');
+      }
+    } catch (jsonError) {
+      console.log('\n⚠️ Erro ao fazer parse do JSON:', jsonError.message);
+    }
     
     if (response.ok) {
       console.log('\n✅ Teste concluído com SUCESSO!');
