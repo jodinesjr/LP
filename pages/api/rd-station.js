@@ -193,6 +193,7 @@ export default async function handler(req, res) {
                 console.log(' [RD STATION API] API Key:', `${token.substring(0, 8)}...`);
                 console.log(' [RD STATION API] Payload (API Key):', JSON.stringify(simplePayload, null, 2));
                 
+                console.log(' [RD STATION API] Iniciando fetch para API Key...');
                 response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -201,21 +202,10 @@ export default async function handler(req, res) {
                     },
                     body: JSON.stringify(simplePayload)
                 });
-
-                console.log(' [RD STATION API] Status resposta API Key:', response.status, response.statusText);
-
-                if (response.ok) {
-                    console.log(' [RD STATION API] SUCESSO com API Key!');
-                } else {
-                    const errorText = await response.text();
-                    console.log(' [RD STATION API] Erro API Key:', errorText);
-                    throw new Error(`Erro ${response.status}: ${response.statusText}`);
-                }
             } catch (apiKeyError) {
-                console.log(' [RD STATION API] API Key também falhou:', apiKeyError.message);
+                console.error(' [RD STATION API] Erro na tentativa com API Key:', apiKeyError.message);
                 lastError = apiKeyError;
                 method_used = 'AMBOS FALHARAM';
-                // Se ambos falharam, usar a última resposta para tratamento de erro
             }
         }
 
@@ -245,9 +235,12 @@ export default async function handler(req, res) {
         console.log(' [RD STATION API] Status final:', response.status);
         console.log(' [RD STATION API] Método que funcionou:', method_used);
         
+        // Clone a resposta antes de usar o corpo para evitar o erro "body used already"
+        const responseClone = response.clone();
+        
         let result;
         try {
-            const responseText = await response.text();
+            const responseText = await responseClone.text();
             console.log(' [RD STATION API] Resposta bruta:', responseText);
             result = responseText ? JSON.parse(responseText) : { success: true };
             console.log(' [RD STATION API] Resposta parseada:', JSON.stringify(result, null, 2));
