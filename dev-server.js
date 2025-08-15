@@ -10,7 +10,7 @@ const cors = require('cors');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 // Tokens obtidos de variáveis de ambiente (NUNCA hardcoded por segurança)
 const RD_TOKENS = {
