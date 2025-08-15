@@ -16,8 +16,13 @@ async function loadGeminiApiKey() {
     
     // Determinar se estamos em ambiente de desenvolvimento ou produção
     const isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const baseUrl = isDev ? `http://${window.location.hostname}:3000` : '';
+    const baseUrl = isDev ? `http://${window.location.hostname}:3001` : '';
     const configUrl = `${baseUrl}/api/config`;
+    
+    console.log(`🌐 Ambiente: ${isDev ? 'Desenvolvimento' : 'Produção'}`);
+    console.log(`🔗 URL base: ${baseUrl || 'Raiz do domínio atual'}`);
+    console.log(`🔗 URL de configuração: ${configUrl}`);
+    
     
     console.log(`📡 Buscando configuração em: ${configUrl}`);
     
