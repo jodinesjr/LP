@@ -4,7 +4,7 @@
 const fetch = require('node-fetch');
 
 // URL da aplicação no Vercel (produção)
-const PROD_URL = 'https://123-i1h4ibz46-jodinesjrs-projects.vercel.app';
+const PROD_URL = 'https://123-6qaxitl1a-jodinesjrs-projects.vercel.app';
 
 // URL local para testes
 const LOCAL_URL = 'http://localhost:3001';
