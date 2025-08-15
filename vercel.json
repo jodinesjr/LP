@@ -18,34 +18,78 @@
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
       }
     },
-    { "src": "/api/gemini", "dest": "/api/gemini.js", "override": true },
-    { "src": "/api/rd-station", "dest": "/api/rd-station.js", "override": true },
-    { "src": "/api/config", "dest": "/api/config.js", "override": true },
-    { "src": "/api/check-env", "dest": "/pages/api/check-env.js", "override": true },
-    { "src": "/api/rd-station-v2", "dest": "/pages/api/rd-station.js", "override": true },
-    { "src": "/api/auth-test", "dest": "/pages/api/auth-test.js", "override": true },
+    { 
+      "src": "/api/gemini", 
+      "dest": "/api/gemini.js", 
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
+    { 
+      "src": "/api/rd-station", 
+      "dest": "/api/rd-station.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
+    { 
+      "src": "/api/config", 
+      "dest": "/api/config.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
+    { 
+      "src": "/api/check-env", 
+      "dest": "/pages/api/check-env.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
+    { 
+      "src": "/api/rd-station-v2", 
+      "dest": "/pages/api/rd-station.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
+    { 
+      "src": "/api/auth-test", 
+      "dest": "/pages/api/auth-test.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "X-Vercel-Protection-Bypass": "true"
+      }
+    },
     { "src": "/js/(.*)", "dest": "/js/$1" },
     { "src": "/images/(.*)", "dest": "/images/$1" },
     { "src": "/thumb/(.*)", "dest": "/thumb/$1" },
     { "src": "/fonts/(.*)", "dest": "/fonts/$1" },
     { "src": "/form.html", "dest": "/form.html" },
     { "src": "/(.*)\\.(mp4|png|svg|ico|jpg|jpeg|gif|webp|woff|woff2|ttf|eot)", "dest": "/$1.$2" },
-    { "src": "/(.*)\\.js", "dest": "/$1.js" },
-    { "src": "/(.*)\\.css", "dest": "/$1.css" },
+    { "src": "/(.*)\\.(js)", "dest": "/$1.js" },
+    { "src": "/(.*)\\.(css)", "dest": "/$1.css" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type" },
-        { "key": "X-Vercel-Protection-Bypass", "value": "true" }
-      ]
-    }
   ]
 }
