@@ -5013,6 +5013,11 @@ Use linguagem direta, visual e profissional. Inclua tabelas, bullet points e emo
     <script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/2fee3a60-0b72-4d4a-8419-4e62572c28f9-loader.js" ></script>
     
     <!-- Vercel Analytics -->
-    <script type="module" src="/js/analytics.js"></script>
+    <script type="module">
+      import { inject } from 'https://www.unpkg.com/@vercel/analytics';
+      if (window.location.hostname !== 'localhost') {
+        inject({ mode: 'production' });
+      }
+    </script>
 </body>
 </html>

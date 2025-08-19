@@ -7,6 +7,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
   return {
+    define: {
+      'import.meta.env.PROD': JSON.stringify(mode === 'production')
+    },
     server: {
       proxy: {
         // Proxy API requests to the backend server during development
