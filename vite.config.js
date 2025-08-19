@@ -1,6 +1,11 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  // Load env file based on `mode` in the current working directory.
+  // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
+  const env = loadEnv(mode, process.cwd(), '');
+  
+  return {
   server: {
     proxy: {
       // Proxy API requests to the backend server during development
@@ -22,14 +27,19 @@ export default defineConfig({
           });
         },
       },
+      port: 5173, // Default Vite dev server port
+      host: true, // Listen on all addresses
     },
-    port: 5173, // Default Vite dev server port
-    host: true, // Listen on all addresses
-  },
-  // Configure build settings for production
-  build: {
-    outDir: 'dist',
-    assetsDir: 'assets',
-    sourcemap: true,
-  },
+    plugins: [
+      vue(),
+    ],
+    build: {
+      outDir: 'dist',
+      assetsDir: 'assets',
+      sourcemap: true,
+    },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || mode)
+    }
+  };
 });
