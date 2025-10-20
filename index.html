@@ -967,7 +967,7 @@
                                 <div class="w-2 h-2 rounded-full bg-[#9951A2] mr-2"></div>
                                 <span class="text-[#D28FDA] text-sm font-medium uppercase tracking-wider">Análise Inteligente</span>
                             </div>
-                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Seu ROI Atual</h2>
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Otimize o seu ROI com a Harpio</h2>
                             <p class="text-gray-300 text-sm md:text-base mb-3">Analise completa dos seus dados e cálculo do retorno sobre investimento atual dos seus processos de recrutamento e seleção.</p>
                             
                             <!-- Botões de Ação -->
@@ -998,28 +998,6 @@
                             </div>
                         </div>
                         
-                        <!-- Lado Direito: Visualização do ROI -->
-                        <div class="flex-shrink-0">
-                            <div class="relative">
-                                <!-- Anel externo com gradiente animado -->
-                                <div class="w-72 h-72 rounded-full bg-gradient-to-r from-[#9951A2] via-[#D28FDA] to-[#9951A2] p-1 flex items-center justify-center" style="background-size: 200% 200%; animation: gradientShift 8s ease infinite;">
-                                    <!-- Círculo interno -->
-                                    <div class="w-full h-full rounded-full bg-[#0F172A] flex items-center justify-center p-1">
-                                        <!-- Conteúdo -->
-                                        <div class="w-full h-full rounded-full bg-gradient-to-br from-[#1E293B] to-[#0F172A] flex flex-col items-center justify-center border border-white/10">
-                                            <span id="roi-highlight" class="text-6xl font-extrabold text-white mb-1">0%</span>
-                                            <div class="flex items-center">
-                                                <span class="mt-3 material-icons text-[#D28FDA] text-lg mr-1">analytics</span>
-                                                <span class="mt-3 text-lg text-gray-400">ROI Calculado</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Badge de IA -->
-                                
-                            </div>
-                        </div>
                     </div>
                     
                     <!-- Estilo para a animação do gradiente -->
@@ -1106,29 +1084,39 @@
 
                 <div class="soft-gradient-bg p-6 md:p-8 rounded-2xl card-shadow">
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Potencial de Economia com Harpio Sprint</h2>
-                    <p class="text-gray-600 mb-6">A otimização de processos com a Harpio Sprint reduz custos em diversas etapas do recrutamento. Veja a comparação:</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <p class="text-gray-600 mb-6">A otimização de processos com a Harpio Sprint reduz custos em diversas etapas do recrutamento</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <!-- Coluna 1: ROI com Harpio -->
                         <div class="flex flex-col items-center justify-center text-center">
-                             <div class="relative w-56 h-56">
-                                <canvas id="savingsGaugeChart"></canvas>
-                                <div class="absolute inset-0 flex items-center justify-center pt-10">
-                                    <span id="savings-percentage" class="text-4xl font-extrabold text-[#9951A2]"></span>
-                                </div>
-                            </div>
-                            <p class="text-lg font-semibold text-gray-700 -mt-14">de Economia</p>
-                            <div class="mt-6 text-center">
-                                <div class="bg-gradient-to-br from-[#D28FDA]/20 to-[#9951A2]/20 p-4 rounded-lg">
-                                    <p class="text-sm font-medium text-[#9951A2] mb-2">Novo ROI com Harpio</p>
-                                    <div class="flex items-center justify-center">
-                                        <span class="material-icons text-[#D28FDA] mr-2">trending_up</span>
-                                        <span id="new-roi-percentage" class="text-3xl font-extrabold text-[#9951A2]"></span>
+                            <div class="relative">
+                                <div class="w-64 h-64 rounded-full bg-gradient-to-r from-[#4ade80] via-[#34d399] to-[#4ade80] p-1 flex items-center justify-center" style="background-size: 200% 200%; animation: gradientShift 8s ease infinite;">
+                                    <div class="w-full h-full rounded-full bg-[#0F172A] flex items-center justify-center p-1">
+                                        <div class="w-full h-full rounded-full bg-gradient-to-br from-[#1E293B] to-[#0F172A] flex flex-col items-center justify-center border border-white/10">
+                                            <span id="new-roi-percentage" class="text-5xl font-extrabold text-white mb-1">0%</span>
+                                            <div class="flex items-center">
+                                                <span class="mt-3 material-icons text-[#4ade80] text-lg mr-1">trending_up</span>
+                                                <span class="mt-3 text-base text-gray-400">ROI com Harpio</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p class="text-xs text-gray-600 mt-2">Aumento significativo no retorno</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="md:col-span-2">
-                             <canvas id="savingsBarChart"></canvas>
+
+                        <!-- Coluna 2: Percentual de Economia -->
+                        <div class="flex flex-col items-center justify-center text-center">
+                            <div class="relative w-64 h-64">
+                                <svg class="w-full h-full" viewBox="0 0 100 100">
+                                    <!-- Background circle -->
+                                    <circle class="text-gray-700/50" stroke-width="8" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" />
+                                    <!-- Progress circle -->
+                                    <circle id="savings-progress-bar" class="text-[#D28FDA]" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" r="42" cx="50" cy="50" style="stroke-dasharray: 263.89; stroke-dashoffset: 263.89; transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1s ease-in-out;" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="savings-percentage" class="text-5xl font-extrabold text-[#D28FDA]">0%</span>
+                                    <span class="mt-2 text-base text-gray-600">de Economia</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 pt-8 border-t border-[#D28FDA]/50">
@@ -3112,9 +3100,6 @@
                 
                 console.log('Dados de cálculo atualizados:', calculationData);
                 
-                // Update the ROI highlight element
-                document.getElementById('roi-highlight').textContent = roiFormatado + '%';
-                
                 const costLabels = ['Divulgação', 'Seleção', 'Análise', 'Sistemas', 'Consultorias'];
                 const costData = [custosAtuais.custoDivulgacao, custosAtuais.custoSelecao, custosAtuais.custoAnalise, custosAtuais.custoSoftwareMensal, custosAtuais.custoConsultoriaMensal];
                 const chartColors = ['#9951A2', '#A66BB0', '#B88BC0', '#D28FDA', '#DCB0E4'];
@@ -3226,8 +3211,19 @@
                 }
 
                 
-                // Atualiza o gauge de economia
-                document.getElementById('savings-percentage').textContent = Math.round(economiaPercentual * 100) + '%';
+                // Atualiza o gauge de economia e a barra de progresso circular
+                const savingsPercentage = Math.round(economiaPercentual * 100);
+                document.getElementById('savings-percentage').textContent = savingsPercentage + '%';
+                
+                // Animar a barra de progresso circular
+                const progressBar = document.getElementById('savings-progress-bar');
+                if (progressBar) {
+                    const radius = progressBar.r.baseVal.value;
+                    const circumference = 2 * Math.PI * radius;
+                    const offset = circumference - (savingsPercentage / 100) * circumference;
+                    progressBar.style.strokeDashoffset = offset;
+                }
+                
                 document.getElementById('total-cost-annual').textContent = formatCurrency(custosAtuais.total * 12);
                 document.getElementById('new-cost-annual').textContent = formatCurrency(custosHS.total * 12);
                 
@@ -3246,24 +3242,6 @@
                 // Adiciona logs para debug
                 console.log('ROI atual (do cálculo principal):', roiAtual + '%');
                 console.log('Novo ROI com Harpio (ROI atual + 60%):', roiHarpioFormatado + '%');
-
-                savingsGaugeChart = new Chart(document.getElementById('savingsGaugeChart').getContext('2d'), {
-                    type: 'doughnut',
-                    data: { datasets: [{ data: [economiaPercentual, 1 - economiaPercentual], backgroundColor: ['#9951A2', '#F5E1F7'], borderWidth: 0, cutout: '70%' }] },
-                    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { display: false }, tooltip: { enabled: false }, datalabels: { display: false } }, rotation: -90, circumference: 180 }
-                });
-                
-                savingsBarChart = new Chart(document.getElementById('savingsBarChart').getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Divulgação', 'Seleção', 'Análise', 'Sistemas', 'Consultorias'],
-                        datasets: [
-                            { label: 'Custo Atual', data: [custosAtuais.custoDivulgacao, custosAtuais.custoSelecao, custosAtuais.custoAnalise, custosAtuais.custoSoftwareMensal, custosAtuais.custoConsultoriaMensal], backgroundColor: '#D28FDA' },
-                            { label: 'Novo Custo', data: [custosHS.custoDivulgacaoHS, custosHS.custoSelecaoHS, custosHS.custoAnaliseHS, custosHS.custoSoftwareMensalHS, custosHS.custoConsultoriaMensalHS], backgroundColor: '#9951A2' }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: true, indexAxis: 'y', plugins: { legend: { position: 'top' }, datalabels: { display: false } } }
-                });
 
                 const turnoverAccordionEl = document.getElementById('turnover-accordion');
                 const turnoverItems = [
